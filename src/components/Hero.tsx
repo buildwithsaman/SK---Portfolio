@@ -99,28 +99,6 @@ export default function Hero() {
               </span>
             </button>
             <a
-              href={profile.resume}
-              download={profile.resumeName}
-              className="group pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-accent/40 bg-accent/10 px-6 py-3 font-medium text-accent backdrop-blur transition-colors hover:bg-accent/20"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 3v12" />
-                <path d="m7 12 5 5 5-5" />
-                <path d="M5 21h14" />
-              </svg>
-              Download CV
-            </a>
-            <a
               href={`mailto:${profile.email}`}
               className="pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white/70 px-6 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:bg-white"
             >
