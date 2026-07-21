@@ -9,15 +9,15 @@ export const profile = {
   resume: "./Saman_Khan_CV.docx",
   resumeName: "Saman_Khan_CV.docx",
   summary:
-    "Full Stack Developer with 2+ years building data-intensive internal platforms and subscription portals at scale — currently at a Dubai-based mobility startup. Specialises in React, Node.js, and REST APIs, with a track record of measurable impact: cutting infrastructure costs by ~70% through a self-hosted analytics migration and improving debt recovery by 30% via invoice automation.",
+    "Full Stack Developer with 2+ years building production web applications and internal platforms. Specialises in React, TypeScript, Node.js, and REST APIs, with end-to-end ownership across frontend architecture, cloud deployment, CI/CD, authentication, and role-based access control.",
   focus:
     "End-to-end ownership across frontend architecture, AWS deployment, CI/CD, and RBAC — with a consistent focus on performance, clean code, and shipping on time.",
 };
 
 export const stats = [
-  { label: "Infra cost reduction", value: "~70%" },
-  { label: "Debt recovery lift", value: "30%" },
   { label: "Years of experience", value: "2+" },
+  { label: "Frontend", value: "React 19" },
+  { label: "Development", value: "Full-stack" },
   { label: "Ownership", value: "E2E" },
 ];
 
@@ -35,31 +35,21 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    company: "Udrive – Rent-a-Car",
+    company: "Current Role",
     role: "Full Stack Developer",
     location: "Dubai, UAE",
     period: "Aug 2024 – Present",
     projects: [
       {
-        name: "UdriveAdmin · Internal Fleet & Operations Platform",
+        name: "Production Web Platforms",
         points: [
-          "Modernized UdriveAdmin into a React 19 SPA, migrating from CRACO to Vite 8 and using MUI 5, Emotion, React Router 7, and TanStack React Query 5 across fleet, customer, reservation, billing, claims, and analytics workflows.",
+          "Build and maintain production admin platforms using React 19, TypeScript, MUI, Emotion, and React Router 7.",
+          "Modernized frontend tooling from a legacy CRACO setup to Vite 8, adding lazy-loaded routes and vendor code-splitting.",
           "Standardized server-state fetching and caching through reusable React Query hooks and a centralized, environment-driven API client with bearer authentication, unauthorized-session handling, and normalized errors.",
-          "Built live vehicle and cleaning maps with Mapbox GL and MapLibre GL, modular D3 analytics, and PDF-based fine-document workflows.",
+          "Built reusable map, data-visualization, and document interfaces with Mapbox GL, MapLibre GL, D3, and React-PDF.",
           "Improved reliability and usability with lazy-loaded routes, vendor code-splitting, global toasts, optimistic updates, an ErrorBoundary, reusable empty states, and URL-synced filters.",
-          "Delivered end-to-end invoice automation with serverless functions, improving debt recovery by 30% and cutting manual operational overhead.",
-          "Migrated analytics to self-hosted Apache Superset, designing secure data pipelines and auth layers — achieving ~70% infrastructure cost reduction.",
-          "Designed system-level monitoring dashboards using Apache Kafka with real-time alerts and interactive analytics to improve platform observability.",
-        ],
-      },
-      {
-        name: "SN Admin · Subscription Operations Platform",
-        points: [
-          "Built a React 19 operational portal using React Router 7, MUI, Emotion, D3, MapLibre GL, and Framer Motion for leads, customers, vehicles, deals, subscriptions, invoices, products, roles, and release management.",
-          "Structured feature modules around dedicated data hooks, mutation actions, reusable components, constants, and protected application routes.",
-          "Developed the deals pipeline with five sales stages, deal cards, filters, editing, preview workflows, WhatsApp quick messaging, and a standalone printable report.",
-          "Owned subscription lifecycle workflows spanning KYC, invoicing, car assignment, fleet onboarding/offboarding, and vehicle hardware actions.",
-          "Deployed to AWS EC2 using CRA + CRACO, configured Nginx, and secured production traffic with HTTPS (Certbot).",
+          "Structured feature areas around dedicated data hooks, mutation actions, reusable components, constants, and protected routes.",
+          "Contributed to production delivery through cloud infrastructure, reverse proxy configuration, HTTPS, and CI/CD workflows.",
         ],
       },
     ],

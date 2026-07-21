@@ -7,8 +7,8 @@ const highlights = [
     body: "Frontend architecture, AWS deployment, CI/CD, and RBAC — I take features from idea to production.",
   },
   {
-    title: "Measurable impact",
-    body: "~70% infrastructure cost reduction and a 30% lift in debt recovery through automation and smart migrations.",
+    title: "Product-minded delivery",
+    body: "Clear interfaces, predictable data flows, and reliable system behavior shaped around real user needs.",
   },
   {
     title: "Clean, performant code",
@@ -32,7 +32,7 @@ export default function About() {
         <Reveal delay={0.1}>
           <div className="border-l border-accent/30 pl-5">
             <p className="text-base leading-relaxed text-slate-600">
-              I’m a Dubai-based full-stack developer who turns operational complexity into calm, useful products—from internal platforms and subscription flows to analytics infrastructure.
+              I’m a Dubai-based full-stack developer who turns complex requirements into calm, useful products—from responsive interfaces to reliable application architecture.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
               My sweet spot is owning the space between product intent and production reality.

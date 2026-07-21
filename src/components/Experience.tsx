@@ -17,53 +17,53 @@ const caseStudies: {
   {
     number: "01",
     type: "operations",
-    category: "UdriveAdmin · Production platform",
-    title: "Modernizing fleet operations.",
+    category: "Production engineering",
+    title: "Modern frontend foundations.",
     summary:
-      "The back-office platform operators use across fleet, customers, reservations, billing, claims, live maps, analytics, and administration.",
+      "Modernized large React applications with current tooling, modular architecture, protected routes, and intentional code-splitting.",
     contribution:
-      "I migrated the frontend from CRACO to Vite 8, standardized server state on React Query 5, centralized API behavior, and introduced resilient, shareable UX patterns.",
+      "I migrated legacy frontend tooling to Vite 8 and established a React 19 foundation built for maintainability and faster iteration.",
     impact: [
-      { value: "30%", label: "debt recovery lift" },
-      { value: "Live", label: "operational visibility" },
+      { value: "React 19", label: "application foundation" },
+      { value: "Vite 8", label: "modern build tooling" },
     ],
     tech: ["React 19", "Vite 8", "React Query 5", "MUI 5", "MapLibre GL"],
   },
   {
     number: "02",
     type: "analytics",
-    category: "Data infrastructure · Udrive",
-    title: "Analytics without the cloud bill.",
+    category: "Data architecture",
+    title: "A predictable data layer.",
     summary:
-      "A secure migration to a self-hosted Apache Superset platform with reliable data pipelines and access controls.",
+      "A consistent approach to server state, caching, API access, authentication behavior, and normalized errors.",
     contribution:
-      "I migrated analytics to self-hosted Superset, designing the secure data pipelines and authentication layers behind the platform.",
+      "I standardized data access with thin React Query hooks and a centralized, environment-driven API client.",
     impact: [
-      { value: "~70%", label: "infrastructure savings" },
-      { value: "Secure", label: "self-hosted analytics" },
+      { value: "Cached", label: "server state" },
+      { value: "Unified", label: "error handling" },
     ],
-    tech: ["Superset", "Airflow", "AWS", "Nginx", "Cloudflare"],
+    tech: ["React Query 5", "REST APIs", "JWT", "Environment config", "Reusable hooks"],
   },
   {
     number: "03",
     type: "lifecycle",
-    category: "SN Admin · Production platform",
-    title: "From lead to active subscription.",
+    category: "Experience & reliability",
+    title: "Interfaces that fail gracefully.",
     summary:
-      "An operational portal for leads, deals, customers, vehicles, subscriptions, invoices, products, roles, and release management.",
+      "A reusable UX layer for loading, empty, error, success, and optimistic interaction states across complex applications.",
     contribution:
-      "I built modular feature areas and the central deals pipeline, including filters, editing, preview workflows, WhatsApp quick messaging, and printable reporting.",
+      "I introduced global feedback, error boundaries, reusable empty states, URL-synced filters, and shareable application state.",
     impact: [
-      { value: "5-stage", label: "sales pipeline" },
-      { value: "End-to-end", label: "subscription operations" },
+      { value: "Resilient", label: "failure states" },
+      { value: "Shareable", label: "URL state" },
     ],
-    tech: ["React 19", "React Router 7", "MUI", "D3", "MapLibre GL"],
+    tech: ["MUI", "Emotion", "React Router 7", "Framer Motion", "ESLint"],
   },
 ];
 
 const careerNotes: Record<string, string> = {
-  "Udrive – Rent-a-Car":
-    "Building and modernizing two production admin products for car-sharing and subscription operations.",
+  "Current Role":
+    "Building and modernizing production web platforms with end-to-end ownership.",
   "Arata International FZC (Bahwan International Group)":
     "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
   "Dubai Technologies":
@@ -83,12 +83,12 @@ function ProjectVisual({ type }: { type: Visual }) {
         </div>
         <div className="mt-8 grid grid-cols-2 gap-3">
           <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-white">~70%</div>
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">cost reduction</div>
+            <div className="text-3xl font-semibold text-white">Query</div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">server state</div>
           </div>
           <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-cyan-300">Secure</div>
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">self-hosted analytics</div>
+            <div className="text-3xl font-semibold text-cyan-300">Cached</div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">shared responses</div>
           </div>
         </div>
         <div className="mt-4 flex h-28 items-end gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 pb-4 pt-6">
@@ -101,22 +101,22 @@ function ProjectVisual({ type }: { type: Visual }) {
   }
 
   if (type === "lifecycle") {
-    const steps = ["Lead", "Initial contact", "Qualified", "Deal won", "Deal lost"];
+    const steps = ["Loading", "Success", "Empty", "Error"];
     return (
       <div className="relative flex h-full min-h-[290px] flex-col justify-center overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-white to-violet-50 p-6 shadow-2xl shadow-slate-900/10">
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent2/15 blur-3xl" />
-        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent2">Customer lifecycle</div>
+        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent2">Interface states</div>
         <div className="relative mt-5 space-y-2">
           {steps.map((step, index) => (
             <div key={step} className="flex items-center gap-3">
-              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 3 ? "bg-accent2 text-white" : index === 4 ? "bg-rose-500 text-white" : "border border-accent2/20 bg-white text-accent2"}`}>
+              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 1 ? "bg-accent2 text-white" : index === 3 ? "bg-rose-500 text-white" : "border border-accent2/20 bg-white text-accent2"}`}>
                 {index + 1}
               </span>
               <div className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 px-4 py-2.5 shadow-sm">
                 <div className="flex items-center justify-between text-sm font-medium text-slate-700">
                   {step}
-                  <span className={`font-mono text-[9px] ${index === 4 ? "text-rose-500" : "text-emerald-600"}`}>
-                    {index === 3 ? "Won" : index === 4 ? "Lost" : "Stage"}
+                  <span className={`font-mono text-[9px] ${index === 3 ? "text-rose-500" : "text-emerald-600"}`}>
+                    {index === 3 ? "Handled" : "Ready"}
                   </span>
                 </div>
               </div>
@@ -143,7 +143,7 @@ function ProjectVisual({ type }: { type: Visual }) {
         </div>
         <div className="space-y-3">
           <div className="grid grid-cols-3 gap-2">
-            {["30%", "RBAC", "Live"].map((value) => (
+            {["React 19", "Vite 8", "RBAC"].map((value) => (
               <div key={value} className="rounded-xl border border-slate-200 bg-white p-3">
                 <div className="font-mono text-sm font-semibold text-slate-800">{value}</div>
                 <div className="mt-1 h-1 w-8 rounded bg-slate-200" />
