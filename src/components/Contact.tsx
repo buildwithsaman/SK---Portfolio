@@ -9,7 +9,11 @@ const links = [
     value: profile.phone,
     href: `tel:${profile.phone.replace(/\s/g, "")}`,
   },
-  { label: "LinkedIn", value: "in/samankhan", href: profile.linkedin },
+  {
+    label: "LinkedIn",
+    value: "in/saman-shakil-khan",
+    href: profile.linkedin,
+  },
   { label: "GitHub", value: "github.com/samankhan", href: profile.github },
 ];
 
