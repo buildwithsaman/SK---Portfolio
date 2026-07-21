@@ -72,7 +72,7 @@ export default function Hero() {
             className="mt-3 flex items-center gap-3 font-mono text-sm text-accent md:text-base"
           >
             <span className="h-px w-8 bg-accent/60" />
-            {profile.title} · UTC+4 Dubai
+            {profile.title}
           </motion.p>
 
           <motion.p
