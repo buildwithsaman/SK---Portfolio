@@ -1,5 +1,4 @@
 import Reveal from "./ui/Reveal";
-import { profile } from "../data/cv";
 import DepthCard from "./ui/DepthCard";
 
 const highlights = [
@@ -23,25 +22,30 @@ export default function About() {
       <Reveal>
         <span className="eyebrow">01 · About</span>
       </Reveal>
-      <div className="grid gap-12 md:grid-cols-[1.3fr_1fr]">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <Reveal delay={0.05}>
-          <h2 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-            Turning complex requirements into{" "}
-            <span className="gradient-text">software people rely on</span>.
+          <h2 className="max-w-3xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
+            I connect the interface, the API, and the infrastructure{" "}
+            <span className="gradient-text">behind it</span>.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-slate-600">
-            {profile.summary}
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">
-            {profile.focus}
-          </p>
         </Reveal>
+        <Reveal delay={0.1}>
+          <div className="border-l border-accent/30 pl-5">
+            <p className="text-base leading-relaxed text-slate-600">
+              I’m a Dubai-based full-stack engineer who turns operational complexity into calm, useful products—from internal platforms and subscription flows to analytics infrastructure.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-500">
+              My sweet spot is owning the space between product intent and production reality.
+            </p>
+          </div>
+        </Reveal>
+      </div>
 
-        <div className="space-y-4">
+      <div className="mt-12 grid gap-4 md:grid-cols-3">
           {highlights.map((h, i) => (
             <Reveal key={h.title} delay={0.1 + i * 0.08}>
-              <DepthCard className="glass group rounded-2xl p-6">
-                <div className="mb-2 font-mono text-xs text-accent">
+              <DepthCard className="glass group h-full rounded-2xl p-6">
+                <div className="mb-8 font-mono text-xs text-accent">
                   0{i + 1}
                 </div>
                 <h3 className="text-lg font-semibold text-slate-900">
@@ -53,8 +57,29 @@ export default function About() {
               </DepthCard>
             </Reveal>
           ))}
-        </div>
       </div>
+
+      <Reveal className="mt-8" delay={0.15}>
+        <div className="rounded-2xl border border-slate-200/70 bg-white/40 p-5 backdrop-blur md:p-6">
+          <div className="grid gap-5 sm:grid-cols-4">
+            {["Understand", "Architect", "Ship", "Improve"].map((step, index) => (
+              <div key={step} className="relative flex items-center gap-3 sm:block">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-slate-900 font-mono text-[9px] text-white">{index + 1}</span>
+                <div className="sm:mt-3">
+                  <div className="text-sm font-medium text-slate-800">{step}</div>
+                  <div className="mt-0.5 font-mono text-[9px] uppercase tracking-wider text-slate-400">
+                    {index === 0 && "Users + constraints"}
+                    {index === 1 && "System + experience"}
+                    {index === 2 && "Tested + observable"}
+                    {index === 3 && "Measure + iterate"}
+                  </div>
+                </div>
+                {index < 3 && <span className="absolute left-7 top-3 hidden h-px w-[calc(100%-2rem)] bg-gradient-to-r from-slate-300 to-transparent sm:block" />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

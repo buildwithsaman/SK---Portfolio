@@ -39,8 +39,7 @@ export default function Contact() {
 
           <span className="eyebrow">05 · Contact</span>
           <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-            Let's build something{" "}
-            <span className="gradient-text">worth shipping</span>.
+            Have a problem <span className="gradient-text">worth solving</span>?
           </h2>
           <p className="mt-4 max-w-lg text-slate-600">
             I'm based in {profile.location} and open to full-stack roles and

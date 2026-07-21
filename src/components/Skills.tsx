@@ -16,7 +16,7 @@ export default function Skills() {
       <Reveal>
         <span className="eyebrow">03 · Skills</span>
         <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-          A <span className="gradient-text">full-stack</span> toolkit
+          Tools chosen for the <span className="gradient-text">problem</span>, not the trend.
         </h2>
         <p className="mt-4 max-w-xl text-slate-600">
           {useLiteVisuals

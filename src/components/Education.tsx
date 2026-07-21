@@ -6,10 +6,9 @@ export default function Education() {
   return (
     <section id="education" className="section-pad">
       <Reveal>
-        <span className="eyebrow">04 · Education & More</span>
+        <span className="eyebrow">04 · Beyond the work</span>
         <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-          Foundations &{" "}
-          <span className="gradient-text">continuous learning</span>
+          Learning, leadership & <span className="gradient-text">foundations</span>.
         </h2>
       </Reveal>
 
