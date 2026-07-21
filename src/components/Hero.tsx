@@ -1,0 +1,189 @@
+import { Suspense, lazy } from "react";
+import { motion } from "framer-motion";
+import { profile, stats } from "../data/cv";
+
+const HeroScene = lazy(() => import("./three/HeroScene"));
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+};
+const item = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+export default function Hero() {
+  const technologies = [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "AWS",
+    "Kafka",
+    "Three.js",
+  ];
+
+  return (
+    <section
+      id="home"
+      className="relative flex min-h-[760px] items-center overflow-hidden lg:min-h-screen"
+    >
+      {/* 3D background — interactive: drag to orbit */}
+      <div className="absolute inset-0 z-0 lg:[mask-image:linear-gradient(90deg,transparent_0%,black_35%)]">
+        <Suspense fallback={<div className="h-full w-full bg-paper" />}>
+          <HeroScene />
+        </Suspense>
+      </div>
+
+      {/* gradient vignette so text stays legible (does not block 3D interaction) */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/50 via-transparent to-paper" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_20%_30%,rgba(8,145,178,0.10),transparent_45%)]" />
+      <div className="hero-noise pointer-events-none absolute inset-0 z-[1]" />
+
+      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-6xl px-6 md:px-10">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="max-w-[42rem] pt-20"
+        >
+          <motion.span variants={item} className="eyebrow">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+            {profile.location} · Available for opportunities
+          </motion.span>
+
+          <motion.h1
+            variants={item}
+            className="text-5xl font-bold leading-[0.98] tracking-[-0.055em] text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.4rem]"
+          >
+            {profile.name.split(" ")[0]}
+            <br />
+            <span className="gradient-text inline-block pb-2">
+              {profile.name.split(" ").slice(1).join(" ")}
+            </span>
+          </motion.h1>
+
+          <motion.p
+            variants={item}
+            className="mt-3 flex items-center gap-3 font-mono text-sm text-accent md:text-base"
+          >
+            <span className="h-px w-8 bg-accent/60" />
+            {profile.title} · UTC+4 Dubai
+          </motion.p>
+
+          <motion.p
+            variants={item}
+            className="mt-6 max-w-xl text-base leading-relaxed text-slate-600 md:text-lg"
+          >
+            I build data-intensive platforms end-to-end — from crisp React
+            frontends to resilient Node.js services and cloud infrastructure
+            that ships on time.
+          </motion.p>
+
+          <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
+            <button
+              onClick={() =>
+                document
+                  .getElementById("experience")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="group pointer-events-auto inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-6 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03]"
+            >
+              View my work
+              <span className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </button>
+            <a
+              href={profile.resume}
+              download={profile.resumeName}
+              className="group pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-accent/40 bg-accent/10 px-6 py-3 font-medium text-accent backdrop-blur transition-colors hover:bg-accent/20"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3v12" />
+                <path d="m7 12 5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+              Download CV
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white/70 px-6 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:bg-white"
+            >
+              Get in touch
+            </a>
+          </motion.div>
+
+          <motion.div
+            variants={item}
+            className="mt-12 grid max-w-2xl grid-cols-2 gap-2 sm:grid-cols-4"
+          >
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-xl border border-white/80 bg-white/50 px-3 py-3 backdrop-blur-sm"
+              >
+                <div className="text-xl font-bold gradient-text">{s.value}</div>
+                <div className="mt-1 text-[11px] uppercase tracking-wider text-slate-500">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+
+      <div className="tech-rail pointer-events-none absolute inset-x-0 bottom-0 z-10 overflow-hidden border-y border-white/70 bg-white/35 py-3 backdrop-blur-md">
+        <div className="tech-track flex items-center gap-8 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">
+          {[...technologies, ...technologies].map((tech, index) => (
+            <span key={`${tech}-${index}`} className="flex items-center gap-8">
+              {tech}
+              <span className="text-accent2">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* interaction hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6 }}
+        className="pointer-events-none absolute bottom-16 right-6 z-10 hidden items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 shadow-sm backdrop-blur lg:flex"
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-accent2" />
+        Move your cursor
+      </motion.div>
+
+      {/* scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4 }}
+        className="pointer-events-none absolute bottom-16 left-1/2 z-10 hidden -translate-x-1/2 md:block"
+      >
+        <div className="flex h-9 w-5 items-start justify-center rounded-full border border-slate-300 p-1">
+          <motion.span
+            className="h-2 w-1 rounded-full bg-accent"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6 }}
+          />
+        </div>
+      </motion.div>
+    </section>
+  );
+}
