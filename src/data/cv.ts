@@ -71,7 +71,7 @@ export const experiences: Experience[] = [
     projects: [
       {
         points: [
-          "Built and shipped a cross-platform mobile app using React Native (Expo) for buying and selling used vehicles, with a focus on intuitive UI/UX.",
+          "Built a cross-platform mobile app using React Native (Expo) for buying and selling used vehicles, with a focus on intuitive UI/UX.",
           "Designed relational database schemas to manage user profiles, vehicle listings, and bidding transactions, ensuring scalability and data integrity.",
           "Developed and maintained RESTful APIs using .NET (Visual Studio) for seamless frontend–backend integration.",
           "Managed database operations and reporting for the CARPRO third-party application via iView, supporting rental and leasing workflows.",

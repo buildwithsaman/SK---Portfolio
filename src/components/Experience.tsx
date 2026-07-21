@@ -65,7 +65,7 @@ const careerNotes: Record<string, string> = {
   "Udrive – Rent-a-Car":
     "Building internal products and infrastructure for a fast-moving mobility platform.",
   "Arata International FZC (Bahwan International Group)":
-    "Shipped a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows.",
+    "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
   "Dubai Technologies":
     "Created Python desktop interfaces and translated operational requirements into working software.",
 };
