@@ -17,17 +17,17 @@ const caseStudies: {
   {
     number: "01",
     type: "operations",
-    category: "Platform engineering · Udrive",
-    title: "Mobility operations, unified.",
+    category: "UdriveAdmin · Production platform",
+    title: "Modernizing fleet operations.",
     summary:
-      "A data-intensive control centre for customers, reservations, vehicles, pricing, and protected operational workflows.",
+      "The back-office platform operators use across fleet, customers, reservations, billing, claims, live maps, analytics, and administration.",
     contribution:
-      "I built core React and Node.js workflows, enforced JWT/OAuth2 authentication and RBAC, and delivered serverless invoice automation.",
+      "I migrated the frontend from CRACO to Vite 8, standardized server state on React Query 5, centralized API behavior, and introduced resilient, shareable UX patterns.",
     impact: [
       { value: "30%", label: "debt recovery lift" },
       { value: "Live", label: "operational visibility" },
     ],
-    tech: ["React", "Redux", "Node.js", "Kafka", "JWT / OAuth2"],
+    tech: ["React 19", "Vite 8", "React Query 5", "MUI 5", "MapLibre GL"],
   },
   {
     number: "02",
@@ -47,23 +47,23 @@ const caseStudies: {
   {
     number: "03",
     type: "lifecycle",
-    category: "Product engineering · Udrive",
-    title: "One flow for every subscription.",
+    category: "SN Admin · Production platform",
+    title: "From lead to active subscription.",
     summary:
-      "A responsive admin portal covering the complete mobility subscription journey—from lead and KYC to invoicing and offboarding.",
+      "An operational portal for leads, deals, customers, vehicles, subscriptions, invoices, products, roles, and release management.",
     contribution:
-      "I translated a complex CRM lifecycle into fast, searchable workflows with optimistic updates, clear feedback, and mobile-first navigation.",
+      "I built modular feature areas and the central deals pipeline, including filters, editing, preview workflows, WhatsApp quick messaging, and printable reporting.",
     impact: [
-      { value: "End-to-end", label: "customer lifecycle" },
-      { value: "Mobile-first", label: "operations UI" },
+      { value: "5-stage", label: "sales pipeline" },
+      { value: "End-to-end", label: "subscription operations" },
     ],
-    tech: ["React 19", "TypeScript", "MUI 5", "REST APIs", "AWS EC2"],
+    tech: ["React 19", "React Router 7", "MUI", "D3", "MapLibre GL"],
   },
 ];
 
 const careerNotes: Record<string, string> = {
   "Udrive – Rent-a-Car":
-    "Building internal products and infrastructure for a fast-moving mobility platform.",
+    "Building and modernizing two production admin products for car-sharing and subscription operations.",
   "Arata International FZC (Bahwan International Group)":
     "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
   "Dubai Technologies":
@@ -101,20 +101,23 @@ function ProjectVisual({ type }: { type: Visual }) {
   }
 
   if (type === "lifecycle") {
-    const steps = ["Lead", "Deal", "Active", "Completed"];
+    const steps = ["Lead", "Initial contact", "Qualified", "Deal won", "Deal lost"];
     return (
       <div className="relative flex h-full min-h-[290px] flex-col justify-center overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-white to-violet-50 p-6 shadow-2xl shadow-slate-900/10">
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent2/15 blur-3xl" />
         <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent2">Customer lifecycle</div>
-        <div className="relative mt-8 space-y-3">
+        <div className="relative mt-5 space-y-2">
           {steps.map((step, index) => (
             <div key={step} className="flex items-center gap-3">
-              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 3 ? "bg-accent2 text-white" : "border border-accent2/20 bg-white text-accent2"}`}>
+              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 3 ? "bg-accent2 text-white" : index === 4 ? "bg-rose-500 text-white" : "border border-accent2/20 bg-white text-accent2"}`}>
                 {index + 1}
               </span>
-              <div className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 px-4 py-3 shadow-sm">
+              <div className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 px-4 py-2.5 shadow-sm">
                 <div className="flex items-center justify-between text-sm font-medium text-slate-700">
-                  {step}<span className="font-mono text-[9px] text-emerald-600">Complete</span>
+                  {step}
+                  <span className={`font-mono text-[9px] ${index === 4 ? "text-rose-500" : "text-emerald-600"}`}>
+                    {index === 3 ? "Won" : index === 4 ? "Lost" : "Stage"}
+                  </span>
                 </div>
               </div>
             </div>
