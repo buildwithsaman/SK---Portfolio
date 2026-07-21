@@ -51,19 +51,6 @@ export default function Navbar() {
             : "border border-transparent bg-white/20 backdrop-blur-sm"
         }`}
       >
-        <button
-          onClick={() => go("home")}
-          className="flex items-center gap-2 font-mono text-sm"
-        >
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent to-accent2 font-bold text-white">
-            SK
-          </span>
-          <span className="hidden font-semibold tracking-wide text-slate-900 sm:block">
-            {profile.name.split(" ")[0]}
-            <span className="text-slate-400"> // dev</span>
-          </span>
-        </button>
-
         <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
           {navLinks.map((link) => (
             <li key={link.id}>
@@ -88,7 +75,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="ml-auto hidden items-center gap-2 md:flex">
           <a
             href={profile.resume}
             download={profile.resumeName}
@@ -123,7 +110,7 @@ export default function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((o) => !o)}
-          className="grid h-9 w-9 place-items-center rounded-lg border border-slate-200 bg-white/70 md:hidden"
+          className="ml-auto grid h-9 w-9 place-items-center rounded-lg border border-slate-200 bg-white/70 md:hidden"
         >
           <div className="space-y-1.5">
             <span
