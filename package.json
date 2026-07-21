@@ -6,7 +6,7 @@
   "description": "3D interactive portfolio for Saman Shakil Khan — Full Stack Software Engineer",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite --config vite.config.ts build",
     "preview": "vite preview"
   },
   "dependencies": {

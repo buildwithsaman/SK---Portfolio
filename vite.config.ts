@@ -3,5 +3,6 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/SK---Portfolio/",
+  // Relative assets work on both the GitHub project URL and a custom domain.
+  base: "./",
 });

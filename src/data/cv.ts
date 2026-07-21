@@ -6,7 +6,7 @@ export const profile = {
   email: "samankhanhq@gmail.com",
   linkedin: "https://linkedin.com/in/samankhan",
   github: "https://github.com/samankhan",
-  resume: "/Saman_Khan_CV.docx",
+  resume: "./Saman_Khan_CV.docx",
   resumeName: "Saman_Khan_CV.docx",
   summary:
     "Full Stack Software Engineer with 2+ years building data-intensive internal platforms and subscription portals at scale — currently at a Dubai-based mobility startup. Specialises in React, Node.js, and REST APIs, with a track record of measurable impact: cutting infrastructure costs by ~70% through a self-hosted analytics migration and improving debt recovery by 30% via invoice automation.",
