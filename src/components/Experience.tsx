@@ -22,7 +22,7 @@ const caseStudies: {
     summary:
       "A data-intensive control centre for customers, reservations, vehicles, pricing, and protected operational workflows.",
     contribution:
-      "I owned features across the React interface, Node.js services, authentication, RBAC, observability, and production delivery.",
+      "I built core React and Node.js workflows, enforced JWT/OAuth2 authentication and RBAC, and delivered serverless invoice automation.",
     impact: [
       { value: "30%", label: "debt recovery lift" },
       { value: "Live", label: "operational visibility" },
@@ -35,9 +35,9 @@ const caseStudies: {
     category: "Data infrastructure · Udrive",
     title: "Analytics without the cloud bill.",
     summary:
-      "A secure migration from managed analytics to a self-hosted Apache Superset platform with reliable data pipelines and access controls.",
+      "A secure migration to a self-hosted Apache Superset platform with reliable data pipelines and access controls.",
     contribution:
-      "I designed the migration path, authentication layers, data connections, deployment, and monitoring needed to operate it confidently.",
+      "I migrated analytics to self-hosted Superset, designing the secure data pipelines and authentication layers behind the platform.",
     impact: [
       { value: "~70%", label: "infrastructure savings" },
       { value: "Secure", label: "self-hosted analytics" },
@@ -57,14 +57,14 @@ const caseStudies: {
       { value: "End-to-end", label: "customer lifecycle" },
       { value: "Mobile-first", label: "operations UI" },
     ],
-    tech: ["React", "TypeScript", "MUI", "REST APIs", "AWS EC2"],
+    tech: ["React 19", "TypeScript", "MUI 5", "REST APIs", "AWS EC2"],
   },
 ];
 
 const careerNotes: Record<string, string> = {
   "Udrive – Rent-a-Car":
     "Building internal products and infrastructure for a fast-moving mobility platform.",
-  "Arata International FZC · Bahwan International Group":
+  "Arata International FZC (Bahwan International Group)":
     "Shipped a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows.",
   "Dubai Technologies":
     "Created Python desktop interfaces and translated operational requirements into working software.",
@@ -87,8 +87,8 @@ function ProjectVisual({ type }: { type: Visual }) {
             <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">cost reduction</div>
           </div>
           <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-cyan-300">24/7</div>
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">availability</div>
+            <div className="text-3xl font-semibold text-cyan-300">Secure</div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">self-hosted analytics</div>
           </div>
         </div>
         <div className="mt-4 flex h-28 items-end gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 pb-4 pt-6">
@@ -101,7 +101,7 @@ function ProjectVisual({ type }: { type: Visual }) {
   }
 
   if (type === "lifecycle") {
-    const steps = ["Lead", "KYC", "Deal", "Active"];
+    const steps = ["Lead", "Deal", "Active", "Completed"];
     return (
       <div className="relative flex h-full min-h-[290px] flex-col justify-center overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-white to-violet-50 p-6 shadow-2xl shadow-slate-900/10">
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent2/15 blur-3xl" />
@@ -140,7 +140,7 @@ function ProjectVisual({ type }: { type: Visual }) {
         </div>
         <div className="space-y-3">
           <div className="grid grid-cols-3 gap-2">
-            {["12.4k", "842", "98.7%"].map((value) => (
+            {["30%", "RBAC", "Live"].map((value) => (
               <div key={value} className="rounded-xl border border-slate-200 bg-white p-3">
                 <div className="font-mono text-sm font-semibold text-slate-800">{value}</div>
                 <div className="mt-1 h-1 w-8 rounded bg-slate-200" />

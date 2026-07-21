@@ -20,7 +20,7 @@ const item = {
 
 export default function Hero() {
   const technologies = [
-    "React",
+    "React 19",
     "TypeScript",
     "Node.js",
     "AWS",

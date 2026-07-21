@@ -18,7 +18,7 @@ export const stats = [
   { label: "Infra cost reduction", value: "~70%" },
   { label: "Debt recovery lift", value: "30%" },
   { label: "Years of experience", value: "2+" },
-  { label: "Production platforms", value: "5+" },
+  { label: "Ownership", value: "E2E" },
 ];
 
 export type Experience = {
@@ -48,23 +48,23 @@ export const experiences: Experience[] = [
           "Delivered end-to-end invoice automation with serverless functions, improving debt recovery by 30% and cutting manual operational overhead.",
           "Migrated analytics to self-hosted Apache Superset, designing secure data pipelines and auth layers — achieving ~70% infrastructure cost reduction.",
           "Designed system-level monitoring dashboards using Apache Kafka with real-time alerts and interactive analytics to improve platform observability.",
-          "Drove frontend performance improvements through component refactoring, lazy loading, and caching for faster load times.",
-          "Maintained code quality via SOLID/DRY principles, TypeScript, code reviews, automated testing, and CI/CD pipelines.",
+          "Drove frontend performance improvements through component refactoring, lazy loading, and caching, resulting in faster load times and better internal user productivity.",
+          "Maintained code quality and delivery reliability through SOLID/DRY principles, TypeScript, code reviews, automated testing, and CI/CD pipelines.",
         ],
       },
       {
         name: "Subscription Mobility Admin Portal · Product & UX-Focused",
         points: [
-          "Built a responsive vehicle subscription admin portal using React, TypeScript, MUI, and React Router with a mobile-first, fixed-navigation layout.",
-          "Owned customer lifecycle & CRM workflows (Lead → Deal → Active → Completed), integrating KYC, invoicing, fleet onboarding/offboarding, and hardware actions via APIs.",
-          "Enhanced usability with advanced search & filtering, pagination, grid/table view toggles, and optimistic UI updates with real-time feedback.",
+          "Built a responsive vehicle subscription admin portal using React, TypeScript, MUI, and React Router, following a mobile-first design with a fixed navigation layout.",
+          "Owned customer lifecycle management and CRM workflows (Lead → Deal → Active → Completed), integrating KYC, invoicing, fleet onboarding/offboarding, and hardware actions via APIs.",
+          "Enhanced usability with advanced search and filtering, pagination, grid/table view toggles, and optimistic UI updates with real-time feedback.",
           "Deployed to AWS EC2 using CRA + CRACO, configured Nginx, and secured production traffic with HTTPS (Certbot).",
         ],
       },
     ],
   },
   {
-    company: "Arata International FZC · Bahwan International Group",
+    company: "Arata International FZC (Bahwan International Group)",
     role: "IT Intern",
     location: "Dubai, UAE",
     period: "Feb 2024 – Jun 2024",
@@ -72,7 +72,7 @@ export const experiences: Experience[] = [
       {
         points: [
           "Built and shipped a cross-platform mobile app using React Native (Expo) for buying and selling used vehicles, with a focus on intuitive UI/UX.",
-          "Designed relational database schemas for user profiles, vehicle listings, and bidding transactions, ensuring scalability and data integrity.",
+          "Designed relational database schemas to manage user profiles, vehicle listings, and bidding transactions, ensuring scalability and data integrity.",
           "Developed and maintained RESTful APIs using .NET (Visual Studio) for seamless frontend–backend integration.",
           "Managed database operations and reporting for the CARPRO third-party application via iView, supporting rental and leasing workflows.",
           "Integrated INTELLiVIEW BI dashboards and data quality checks, improving master data management and business insight delivery.",
@@ -107,11 +107,11 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
     items: [
-      "React.js",
+      "React 19",
       "TypeScript",
       "JavaScript",
       "Redux",
-      "MUI",
+      "MUI 5",
       "React Native (Expo)",
       "Framer Motion",
       "React Router",
@@ -148,21 +148,22 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "Languages & Tools",
     items: [
-      "Python",
+      "Python (Tkinter, PyQt, scripting)",
       "C++",
       "C#",
       "Java",
       "GitHub",
       "Jira",
       "Confluence",
-      "Adobe Suite",
+      "Adobe Suite (Photoshop, Illustrator)",
+      "Premiere Pro",
     ],
   },
 ];
 
 // A flat set of signature technologies for the 3D skills cloud
 export const techCloud = [
-  "React",
+  "React 19",
   "TypeScript",
   "Node.js",
   "Redux",
