@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "3D interactive portfolio for Saman Shakil Khan — Full Stack Software Engineer",
+  "description": "3D interactive portfolio for Saman Shakil Khan — Full Stack Developer",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite --config vite.config.ts build",

@@ -32,7 +32,7 @@ export default function About() {
         <Reveal delay={0.1}>
           <div className="border-l border-accent/30 pl-5">
             <p className="text-base leading-relaxed text-slate-600">
-              I’m a Dubai-based full-stack engineer who turns operational complexity into calm, useful products—from internal platforms and subscription flows to analytics infrastructure.
+              I’m a Dubai-based full-stack developer who turns operational complexity into calm, useful products—from internal platforms and subscription flows to analytics infrastructure.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
               My sweet spot is owning the space between product intent and production reality.

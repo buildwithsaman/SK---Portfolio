@@ -1,6 +1,6 @@
 # Saman Shakil Khan — 3D Interactive Portfolio
 
-A modern, single-page 3D portfolio for **Saman Shakil Khan**, Full Stack Software Engineer (Dubai, UAE).
+A modern, single-page 3D portfolio for **Saman Shakil Khan**, Full Stack Developer (Dubai, UAE).
 
 Built with a responsive WebGL hero scene, a draggable 3D skills cloud, pointer-reactive
 depth cards, scroll-driven motion, and an accessible glass-and-aurora visual system.

@@ -1,6 +1,6 @@
 export const profile = {
   name: "Saman Shakil Khan",
-  title: "Full Stack Software Engineer",
+  title: "Full Stack Developer",
   location: "Dubai, UAE",
   phone: "+971 50 601 9290",
   email: "samankhanhq@gmail.com",
@@ -9,7 +9,7 @@ export const profile = {
   resume: "./Saman_Khan_CV.docx",
   resumeName: "Saman_Khan_CV.docx",
   summary:
-    "Full Stack Software Engineer with 2+ years building data-intensive internal platforms and subscription portals at scale — currently at a Dubai-based mobility startup. Specialises in React, Node.js, and REST APIs, with a track record of measurable impact: cutting infrastructure costs by ~70% through a self-hosted analytics migration and improving debt recovery by 30% via invoice automation.",
+    "Full Stack Developer with 2+ years building data-intensive internal platforms and subscription portals at scale — currently at a Dubai-based mobility startup. Specialises in React, Node.js, and REST APIs, with a track record of measurable impact: cutting infrastructure costs by ~70% through a self-hosted analytics migration and improving debt recovery by 30% via invoice automation.",
   focus:
     "End-to-end ownership across frontend architecture, AWS deployment, CI/CD, and RBAC — with a consistent focus on performance, clean code, and shipping on time.",
 };
@@ -36,7 +36,7 @@ export type Experience = {
 export const experiences: Experience[] = [
   {
     company: "Udrive – Rent-a-Car",
-    role: "Full Stack Software Developer",
+    role: "Full Stack Developer",
     location: "Dubai, UAE",
     period: "Aug 2024 – Present",
     projects: [
