@@ -5,7 +5,7 @@ export const profile = {
   phone: "+971 50 601 9290",
   email: "samankhanhq@gmail.com",
   linkedin: "https://www.linkedin.com/in/saman-shakil-khan-62728b208/",
-  github: "https://github.com/samankhan",
+  github: "https://github.com/buildwithsaman",
   resume: "./Saman_Khan_CV.docx",
   resumeName: "Saman_Khan_CV.docx",
   summary:

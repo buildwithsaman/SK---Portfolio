@@ -14,7 +14,11 @@ const links = [
     value: "in/saman-shakil-khan",
     href: profile.linkedin,
   },
-  { label: "GitHub", value: "github.com/samankhan", href: profile.github },
+  {
+    label: "GitHub",
+    value: "github.com/buildwithsaman",
+    href: profile.github,
+  },
 ];
 
 export default function Contact() {
