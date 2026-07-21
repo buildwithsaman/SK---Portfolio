@@ -45,13 +45,13 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className={`relative mx-auto flex w-[calc(100%-2rem)] max-w-6xl items-center justify-between rounded-2xl px-5 py-3 transition-all duration-300 ${
+        className={`relative mx-auto flex w-[calc(100%-2rem)] max-w-6xl items-center justify-end rounded-2xl px-5 py-3 transition-all duration-300 lg:justify-center ${
           scrolled
             ? "glass shadow-lg shadow-slate-900/[0.04]"
             : "border border-transparent bg-white/20 backdrop-blur-sm"
         }`}
       >
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
@@ -75,7 +75,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="ml-auto hidden items-center gap-2 md:flex">
+        <div className="ml-8 hidden items-center gap-2 lg:flex">
           <a
             href={profile.resume}
             download={profile.resumeName}
@@ -110,7 +110,7 @@ export default function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((o) => !o)}
-          className="ml-auto grid h-9 w-9 place-items-center rounded-lg border border-slate-200 bg-white/70 md:hidden"
+          className="grid h-9 w-9 place-items-center rounded-lg border border-slate-200 bg-white/70 lg:hidden"
         >
           <div className="space-y-1.5">
             <span
@@ -132,7 +132,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="glass mx-4 mt-2 rounded-2xl p-3 md:hidden"
+            className="glass mx-4 mt-2 rounded-2xl p-3 lg:hidden"
           >
             {navLinks.map((link) => (
               <button
