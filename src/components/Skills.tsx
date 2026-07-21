@@ -1,11 +1,16 @@
 import { Suspense, lazy } from "react";
 import Reveal from "./ui/Reveal";
-import { skillGroups } from "../data/cv";
+import { skillGroups, techCloud } from "../data/cv";
 import DepthCard from "./ui/DepthCard";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const SkillsCloud = lazy(() => import("./three/SkillsCloud"));
 
 export default function Skills() {
+  const useLiteVisuals = useMediaQuery(
+    "(max-width: 767px), (prefers-reduced-motion: reduce)",
+  );
+
   return (
     <section id="skills" className="section-pad">
       <Reveal>
@@ -14,7 +19,9 @@ export default function Skills() {
           A <span className="gradient-text">full-stack</span> toolkit
         </h2>
         <p className="mt-4 max-w-xl text-slate-600">
-          Drag your cursor over the sphere — hover a technology to highlight it.
+          {useLiteVisuals
+            ? "A focused set of technologies I use to ship reliable products."
+            : "Drag your cursor over the sphere — hover a technology to highlight it."}
         </p>
       </Reveal>
 
@@ -23,15 +30,39 @@ export default function Skills() {
         <Reveal>
           <div className="relative h-[420px] w-full rounded-3xl">
             <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.10),transparent_60%)]" />
-            <Suspense
-              fallback={
-                <div className="grid h-full place-items-center text-slate-400">
-                  Loading…
+            {useLiteVisuals ? (
+              <div
+                className="relative flex h-full items-center justify-center overflow-hidden px-6"
+                aria-label="Technology cloud"
+              >
+                <div className="absolute h-64 w-64 rounded-full border border-accent/15" />
+                <div className="absolute h-44 w-44 rounded-full border border-accent2/20" />
+                <div className="relative flex max-w-sm flex-wrap justify-center gap-2">
+                  {techCloud.slice(0, 14).map((tech, index) => (
+                    <span
+                      key={tech}
+                      className={`rounded-full border bg-white/70 px-3 py-1.5 font-mono text-xs shadow-sm backdrop-blur ${
+                        index % 2
+                          ? "border-accent2/20 text-accent2"
+                          : "border-accent/20 text-accent"
+                      }`}
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
-              }
-            >
-              <SkillsCloud />
-            </Suspense>
+              </div>
+            ) : (
+              <Suspense
+                fallback={
+                  <div className="grid h-full place-items-center text-slate-400">
+                    Loading…
+                  </div>
+                }
+              >
+                <SkillsCloud />
+              </Suspense>
+            )}
           </div>
         </Reveal>
 

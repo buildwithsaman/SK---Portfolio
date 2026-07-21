@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { profile, stats } from "../data/cv";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const HeroScene = lazy(() => import("./three/HeroScene"));
 
@@ -26,6 +27,9 @@ export default function Hero() {
     "Kafka",
     "Three.js",
   ];
+  const useLiteVisuals = useMediaQuery(
+    "(max-width: 767px), (prefers-reduced-motion: reduce)",
+  );
 
   return (
     <section
@@ -34,9 +38,22 @@ export default function Hero() {
     >
       {/* 3D background — interactive: drag to orbit */}
       <div className="absolute inset-0 z-0 lg:[mask-image:linear-gradient(90deg,transparent_0%,black_35%)]">
-        <Suspense fallback={<div className="h-full w-full bg-paper" />}>
-          <HeroScene />
-        </Suspense>
+        {useLiteVisuals ? (
+          <div
+            className="relative h-full w-full overflow-hidden bg-paper"
+            aria-hidden="true"
+          >
+            <div className="absolute -right-28 top-24 h-80 w-80 rounded-full border border-accent/20 bg-accent/10 blur-sm" />
+            <div className="absolute -right-16 top-44 h-64 w-64 rounded-full border border-accent2/20" />
+            <div className="absolute bottom-28 right-8 font-mono text-7xl font-bold text-accent2/[0.08]">
+              {"</>"}
+            </div>
+          </div>
+        ) : (
+          <Suspense fallback={<div className="h-full w-full bg-paper" />}>
+            <HeroScene />
+          </Suspense>
+        )}
       </div>
 
       {/* gradient vignette so text stays legible (does not block 3D interaction) */}
