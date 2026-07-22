@@ -65,6 +65,27 @@ function Cloud({ animate }: { animate: boolean }) {
 
   return (
     <group ref={group}>
+      <mesh>
+        <sphereGeometry args={[1.65, 28, 28]} />
+        <meshBasicMaterial
+          color="#7c3aed"
+          wireframe
+          transparent
+          opacity={0.055}
+          depthWrite={false}
+        />
+      </mesh>
+      {[2.45, 3.25].map((radius, index) => (
+        <mesh key={radius} rotation={[1.15 + index * 0.28, index * 0.35, 0]}>
+          <torusGeometry args={[radius, 0.012, 8, 96]} />
+          <meshBasicMaterial
+            color={index ? "#0891b2" : "#db2777"}
+            transparent
+            opacity={0.18}
+            depthWrite={false}
+          />
+        </mesh>
+      ))}
       {techCloud.map((word, i) => (
         <Word
           key={word}
@@ -101,8 +122,7 @@ export default function SkillsCloud() {
       <OrbitControls
         enablePan={false}
         enableZoom={false}
-        autoRotate={!reduceMotion}
-        autoRotateSpeed={0.35}
+        autoRotate={false}
         rotateSpeed={0.55}
       />
     </Canvas>

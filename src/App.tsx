@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -15,11 +15,24 @@ const HeroScene = lazy(() => import("./components/three/HeroScene"));
 export default function App() {
   const { scrollYProgress } = useScroll();
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const [skillsActive, setSkillsActive] = useState(false);
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     mass: 0.3,
   });
+
+  useEffect(() => {
+    const skills = document.getElementById("skills");
+    if (!skills) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setSkillsActive(entry.isIntersecting),
+      { rootMargin: "-12% 0px -12% 0px", threshold: 0.12 },
+    );
+    observer.observe(skills);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="relative isolate overflow-hidden">
@@ -27,11 +40,16 @@ export default function App() {
       <div className="pointer-events-none fixed -left-48 top-[20vh] -z-10 h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-[120px]" />
       <div className="pointer-events-none fixed -right-48 top-[52vh] -z-10 h-[38rem] w-[38rem] rounded-full bg-accent2/10 blur-[130px]" />
       {!reduceMotion && (
-        <div className="pointer-events-none fixed inset-0 z-0 opacity-55 md:opacity-70 lg:opacity-75" aria-hidden="true">
+        <motion.div
+          animate={{ opacity: skillsActive ? 0 : isMobile ? 0.55 : 0.75 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="pointer-events-none fixed inset-0 z-0"
+          aria-hidden="true"
+        >
           <Suspense fallback={null}>
             <HeroScene />
           </Suspense>
-        </div>
+        </motion.div>
       )}
       <motion.div
         style={{ scaleX }}
