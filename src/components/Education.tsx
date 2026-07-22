@@ -1,10 +1,12 @@
 import Reveal from "./ui/Reveal";
 import { education, certifications, volunteer } from "../data/cv";
 import DepthCard from "./ui/DepthCard";
+import { EducationAtmosphere } from "./ui/SectionAtmosphere";
 
 export default function Education() {
   return (
-    <section id="education" className="section-pad">
+    <section id="education" className="section-pad isolate">
+      <EducationAtmosphere />
       <Reveal>
         <span className="eyebrow">04 · Beyond the work</span>
         <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
