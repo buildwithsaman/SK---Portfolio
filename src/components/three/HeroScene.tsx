@@ -351,11 +351,45 @@ function OrbitSystem() {
   );
 }
 
+function PlayfulSatellites() {
+  const group = useRef<THREE.Group>(null);
+
+  useFrame((state, delta) => {
+    if (!group.current) return;
+    group.current.rotation.z += delta * 0.12;
+    group.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.35) * 0.18;
+  });
+
+  return (
+    <group ref={group} position={[0, 0, 0.35]}>
+      <Float speed={1.8} rotationIntensity={1.2} floatIntensity={1.1}>
+        <mesh position={[2.8, 1.45, 0.2]} rotation={[0.3, 0.4, 0.2]}>
+          <icosahedronGeometry args={[0.18, 0]} />
+          <meshStandardMaterial color={KW} emissive={KW} emissiveIntensity={0.35} roughness={0.3} />
+        </mesh>
+      </Float>
+      <Float speed={2.1} rotationIntensity={1.4} floatIntensity={0.9}>
+        <mesh position={[-2.75, -1.35, 0.35]} rotation={[0.4, 0.2, 0.7]}>
+          <octahedronGeometry args={[0.16, 0]} />
+          <meshStandardMaterial color={FN} emissive={FN} emissiveIntensity={0.4} roughness={0.25} />
+        </mesh>
+      </Float>
+      <Float speed={1.5} rotationIntensity={0.9} floatIntensity={1.2}>
+        <mesh position={[2.35, -1.7, 0.1]} rotation={[0.6, 0.2, 0]}>
+          <torusKnotGeometry args={[0.12, 0.035, 48, 8]} />
+          <meshStandardMaterial color={STR} emissive={STR} emissiveIntensity={0.3} roughness={0.35} />
+        </mesh>
+      </Float>
+    </group>
+  );
+}
+
 // Moves the scene through the viewport as the page scrolls and reacts to both
 // mouse and touch input without placing the canvas above clickable content.
 function SiteRig({ children }: { children: React.ReactNode }) {
   const g = useRef<THREE.Group>(null);
   const pointer = useRef({ x: 0, y: 0 });
+  const pulse = useRef(0);
   const { viewport, size } = useThree();
 
   useEffect(() => {
@@ -363,8 +397,15 @@ function SiteRig({ children }: { children: React.ReactNode }) {
       pointer.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       pointer.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
+    const triggerPulse = () => {
+      pulse.current = 1;
+    };
     window.addEventListener("pointermove", updatePointer, { passive: true });
-    return () => window.removeEventListener("pointermove", updatePointer);
+    window.addEventListener("pointerdown", triggerPulse, { passive: true });
+    return () => {
+      window.removeEventListener("pointermove", updatePointer);
+      window.removeEventListener("pointerdown", triggerPulse);
+    };
   }, []);
 
   useFrame((state) => {
@@ -377,21 +418,34 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     const mobile = size.width < 768;
     const travelX = mobile ? viewport.width * 0.16 : viewport.width * 0.28;
     const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
-    const targetX = Math.cos(progress * Math.PI * 5) * travelX;
-    const targetY = Math.sin(progress * Math.PI * 4) * travelY;
+    const targetX = Math.cos(progress * Math.PI * 4.5) * travelX;
+    const targetY = Math.sin(progress * Math.PI * 5) * travelY;
     const targetScale = (mobile ? 0.44 : size.width < 1100 ? 0.74 : 0.9) *
-      (0.94 + Math.sin(progress * Math.PI * 3) * 0.06);
+      (0.94 + Math.sin(progress * Math.PI * 3) * 0.06 + pulse.current * 0.08);
+
+    pulse.current *= 0.9;
 
     g.current.position.x = THREE.MathUtils.lerp(g.current.position.x, targetX, 0.045);
     g.current.position.y = THREE.MathUtils.lerp(g.current.position.y, targetY, 0.045);
+    g.current.position.z = THREE.MathUtils.lerp(
+      g.current.position.z,
+      Math.sin(progress * Math.PI * 6) * 0.16,
+      0.04,
+    );
+    // Keep the editor facing forward; the previous scroll rotation exposed its back.
     g.current.rotation.y = THREE.MathUtils.lerp(
       g.current.rotation.y,
-      pointer.current.x * 0.34 + progress * Math.PI * 0.8,
+      pointer.current.x * 0.22 + Math.sin(progress * Math.PI * 4) * 0.12,
       0.04,
     );
     g.current.rotation.x = THREE.MathUtils.lerp(
       g.current.rotation.x,
-      -pointer.current.y * 0.2 + Math.sin(state.clock.elapsedTime * 0.28) * 0.05,
+      -pointer.current.y * 0.14 + Math.sin(state.clock.elapsedTime * 0.28) * 0.05,
+      0.04,
+    );
+    g.current.rotation.z = THREE.MathUtils.lerp(
+      g.current.rotation.z,
+      Math.sin(progress * Math.PI * 6) * 0.07,
       0.04,
     );
     const nextScale = THREE.MathUtils.lerp(g.current.scale.x, targetScale, 0.04);
@@ -414,6 +468,7 @@ function SceneComposition() {
         </Float>
         <FloatingGlyphs />
         <OrbitSystem />
+        <PlayfulSatellites />
       </group>
       <ParticleField count={mobile ? 90 : 280} />
     </SiteRig>

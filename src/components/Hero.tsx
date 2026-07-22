@@ -133,7 +133,7 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-16 right-6 z-10 hidden items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 shadow-sm backdrop-blur lg:flex"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-accent2" />
-        Move · touch · scroll
+        Move · tap · scroll
       </motion.div>
 
       {/* scroll cue */}
