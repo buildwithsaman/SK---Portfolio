@@ -25,10 +25,10 @@ export default function Skills() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
+      <div className="mt-12 grid items-start gap-8 lg:grid-cols-[0.98fr_1.02fr]">
         {/* 3D interactive cloud */}
-        <Reveal>
-          <div className="glass relative h-[440px] w-full overflow-hidden rounded-[2rem] border border-white/90 shadow-xl shadow-slate-900/[0.06]">
+        <Reveal className="lg:sticky lg:top-28">
+          <div className="glass relative h-[440px] w-full overflow-hidden rounded-[2rem] border border-white/90 shadow-xl shadow-slate-900/[0.06] lg:h-[520px]">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.13),transparent_62%)]" />
             <div className="pointer-events-none absolute inset-x-5 top-5 z-10 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em]">
               <span className="text-accent">Interactive skill orbit</span>
@@ -70,22 +70,35 @@ export default function Skills() {
                 <SkillsCloud />
               </Suspense>
             )}
+            <div className="pointer-events-none absolute inset-x-5 bottom-5 z-10 flex items-center justify-between border-t border-slate-200/70 pt-3 font-mono text-[9px] uppercase tracking-[0.15em] text-slate-400">
+              <span>14 signature tools</span>
+              <span>Frontend · Cloud · Data</span>
+            </div>
           </div>
         </Reveal>
 
         {/* grouped skills */}
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="columns-1 gap-4 sm:columns-2">
           {skillGroups.map((group, i) => (
-            <Reveal key={group.category} delay={i * 0.06}>
-              <DepthCard className="glass h-full rounded-2xl p-5">
-                <h3 className="mb-3 font-mono text-xs uppercase tracking-wider text-accent">
-                  {group.category}
-                </h3>
+            <Reveal
+              key={group.category}
+              delay={i * 0.05}
+              className="mb-4 break-inside-avoid"
+            >
+              <DepthCard className="glass rounded-[1.4rem] p-5">
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-accent">
+                    {group.category}
+                  </h3>
+                  <span className="rounded-full border border-slate-200 bg-white/60 px-2 py-0.5 font-mono text-[9px] text-slate-400">
+                    {String(group.items.length).padStart(2, "0")}
+                  </span>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-700 transition-colors hover:border-accent/50 hover:text-accent"
+                      className="rounded-lg border border-slate-200/80 bg-white/65 px-2.5 py-1.5 text-xs text-slate-700 transition-colors hover:border-accent/50 hover:text-accent"
                     >
                       {item}
                     </span>

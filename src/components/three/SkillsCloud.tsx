@@ -5,6 +5,9 @@ import * as THREE from "three";
 import { techCloud } from "../../data/cv";
 
 const PALETTE = ["#0891b2", "#7c3aed", "#db2777", "#334155"];
+const ORBIT_TECH = techCloud
+  .slice(0, 15)
+  .filter((technology) => technology !== "Framer Motion");
 
 function fibonacciSphere(samples: number, radius: number) {
   const points: THREE.Vector3[] = [];
@@ -31,10 +34,11 @@ function Word({
   color: string;
 }) {
   const [hovered, setHovered] = useState(false);
+  const fontSize = children.length > 12 ? 0.26 : children.length > 8 ? 0.31 : 0.38;
   return (
     <Billboard position={position}>
       <Text
-        fontSize={0.42}
+        fontSize={hovered ? fontSize * 1.08 : fontSize}
         color={hovered ? "#0f172a" : color}
         anchorX="center"
         anchorY="middle"
@@ -54,7 +58,7 @@ function Word({
 
 function Cloud({ animate }: { animate: boolean }) {
   const group = useRef<THREE.Group>(null);
-  const points = useMemo(() => fibonacciSphere(techCloud.length, 4), []);
+  const points = useMemo(() => fibonacciSphere(ORBIT_TECH.length, 3.75), []);
 
   useFrame((state, delta) => {
     if (group.current && animate) {
@@ -86,7 +90,7 @@ function Cloud({ animate }: { animate: boolean }) {
           />
         </mesh>
       ))}
-      {techCloud.map((word, i) => (
+      {ORBIT_TECH.map((word, i) => (
         <Word
           key={word}
           position={points[i]}
