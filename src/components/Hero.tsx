@@ -49,7 +49,7 @@ export default function Hero() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="mobile-hero-copy max-w-[42rem] pt-16 text-center md:pt-20 md:text-left"
+          className="mobile-hero-copy max-w-[42rem] pb-24 pt-16 text-center md:pb-0 md:pt-20 md:text-left"
         >
           <motion.span variants={item} className="eyebrow">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
@@ -86,7 +86,7 @@ export default function Hero() {
 
           <motion.div
             variants={item}
-            className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start"
+            className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start"
           >
             <button
               onClick={() =>
@@ -111,7 +111,7 @@ export default function Hero() {
 
           <motion.div
             variants={item}
-            className="mt-12 grid max-w-2xl grid-cols-2 gap-2 text-left sm:grid-cols-4"
+            className="mt-12 grid max-w-2xl grid-cols-2 gap-4 text-left sm:grid-cols-4 sm:gap-2"
           >
             {stats.map((s) => (
               <div
