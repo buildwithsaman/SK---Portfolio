@@ -40,12 +40,12 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-5"
+      className={`mobile-nav-shell fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "py-3" : "py-4 lg:py-5"
       }`}
     >
       <nav
-        className={`relative mx-auto flex w-[calc(100%-2rem)] max-w-6xl items-center justify-end rounded-2xl px-5 py-3 transition-all duration-300 lg:justify-center ${
+        className={`mobile-nav-pill relative ml-auto mr-4 flex w-fit items-center justify-end rounded-full p-1.5 transition-all duration-300 lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-6xl lg:justify-center lg:rounded-2xl lg:px-5 lg:py-3 ${
           scrolled
             ? "glass shadow-lg shadow-slate-900/[0.04]"
             : "border border-transparent bg-white/20 backdrop-blur-sm"
@@ -110,7 +110,7 @@ export default function Navbar() {
         <button
           aria-label="Toggle menu"
           onClick={() => setOpen((o) => !o)}
-          className="grid h-9 w-9 place-items-center rounded-lg border border-slate-200 bg-white/70 lg:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full border border-white/90 bg-white/75 shadow-sm backdrop-blur-xl lg:hidden"
         >
           <div className="space-y-1.5">
             <span
@@ -132,7 +132,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="glass mx-4 mt-2 rounded-2xl p-3 lg:hidden"
+            className="mobile-menu-sheet glass mx-4 mt-2 rounded-[1.6rem] p-3 lg:hidden"
           >
             {navLinks.map((link) => (
               <button

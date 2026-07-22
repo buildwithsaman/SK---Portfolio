@@ -33,12 +33,12 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_20%_30%,rgba(8,145,178,0.10),transparent_45%)]" />
       <div className="hero-noise pointer-events-none absolute inset-0 z-[1]" />
 
-      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-6xl px-6 md:px-10">
+      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-6xl px-5 md:px-10">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="max-w-[42rem] pt-20"
+          className="mobile-hero-copy max-w-[42rem] pt-16 text-center md:pt-20 md:text-left"
         >
           <motion.span variants={item} className="eyebrow">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
@@ -47,7 +47,7 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="text-5xl font-bold leading-[0.98] tracking-[-0.055em] text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.4rem]"
+            className="text-[3.35rem] font-bold leading-[0.96] tracking-[-0.06em] text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.4rem]"
           >
             {profile.name.split(" ")[0]}
             <br />
@@ -58,7 +58,7 @@ export default function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-3 flex items-center gap-3 font-mono text-sm text-accent md:text-base"
+            className="mt-4 flex items-center justify-center gap-3 font-mono text-sm text-accent md:mt-3 md:justify-start md:text-base"
           >
             <span className="h-px w-8 bg-accent/60" />
             {profile.title}
@@ -66,14 +66,14 @@ export default function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-6 max-w-xl text-base leading-relaxed text-slate-600 md:text-lg"
+            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-600 md:mx-0 md:text-lg"
           >
             I build data-intensive platforms end-to-end — from crisp React
             frontends to resilient Node.js services and cloud infrastructure
             that ships on time.
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
+          <motion.div variants={item} className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
             <button
               onClick={() =>
                 document
@@ -97,12 +97,12 @@ export default function Hero() {
 
           <motion.div
             variants={item}
-            className="mt-12 grid max-w-2xl grid-cols-2 gap-2 sm:grid-cols-4"
+            className="mt-12 grid max-w-2xl grid-cols-2 gap-2 text-left sm:grid-cols-4"
           >
             {stats.map((s) => (
               <div
                 key={s.label}
-                className="rounded-xl border border-white/80 bg-white/50 px-3 py-3 backdrop-blur-sm"
+                className="mobile-stat rounded-xl border border-white/80 bg-white/50 px-3 py-3 backdrop-blur-sm"
               >
                 <div className="text-xl font-bold gradient-text">{s.value}</div>
                 <div className="mt-1 text-[11px] uppercase tracking-wider text-slate-500">

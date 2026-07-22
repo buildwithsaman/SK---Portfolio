@@ -49,7 +49,7 @@ export default function App() {
       <div className="pointer-events-none fixed -right-48 top-[52vh] -z-10 h-[38rem] w-[38rem] rounded-full bg-accent2/10 blur-[130px]" />
       {!reduceMotion && (
         <motion.div
-          animate={{ opacity: customSceneActive ? 0 : isMobile ? 0.55 : 0.75 }}
+          animate={{ opacity: customSceneActive ? 0 : isMobile ? 0.2 : 0.75 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="pointer-events-none fixed inset-0 z-0"
           aria-hidden="true"
