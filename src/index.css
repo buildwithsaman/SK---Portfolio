@@ -145,37 +145,6 @@ body {
   }
 }
 
-@keyframes mobile-float {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-7px) scale(1.025);
-  }
-}
-
-@keyframes mobile-orbit {
-  to {
-    transform: rotate(360deg) scale(1.04);
-  }
-}
-
-@keyframes skills-orbit-spin {
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes skills-orbit-counter-spin {
-  from {
-    transform: translate(-50%, -50%) rotate(calc(var(--orbit-angle) * -1));
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(calc((var(--orbit-angle) * -1) - 360deg));
-  }
-}
-
 @keyframes skills-gradient-shift {
   0%,
   100% {
@@ -187,7 +156,7 @@ body {
 }
 
 .skills-section-grid,
-.skills-orbit-grid {
+.skills-stack-grid {
   background-image:
     linear-gradient(rgba(79, 70, 229, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(79, 70, 229, 0.035) 1px, transparent 1px);
@@ -195,7 +164,7 @@ body {
   mask-image: radial-gradient(circle at center, black, transparent 82%);
 }
 
-.skills-orbit-grid {
+.skills-stack-grid {
   background-size: 32px 32px;
   opacity: 0.6;
   mask-image: radial-gradient(circle at center, black, transparent 72%);
@@ -215,7 +184,7 @@ body {
   animation: skills-gradient-shift 7s ease infinite;
 }
 
-.skills-orbit-stage {
+.skills-stack-panel {
   border: 1px solid rgba(255, 255, 255, 0.72);
   background:
     radial-gradient(circle at 50% 48%, rgba(124, 58, 237, 0.12), transparent 28%),
@@ -227,85 +196,26 @@ body {
   backdrop-filter: blur(28px) saturate(140%);
 }
 
-.skills-orbit-sphere {
-  transform-style: preserve-3d;
+.skills-stack-layer {
+  border-color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.56);
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
-.skills-orbit-ring {
-  --orbit-duration: 30s;
-  width: 100%;
-  height: 100%;
-  border-color: rgba(99, 102, 241, 0.17);
-  transform: translate(-50%, -50%);
-  animation: skills-orbit-spin var(--orbit-duration) linear infinite;
-  will-change: transform;
+.skills-stack-layer:hover,
+.skills-stack-layer.is-active {
+  border-color: color-mix(in srgb, var(--layer-color) 34%, white);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 40px -32px var(--layer-color);
 }
 
-.skills-orbit-ring-1 {
-  width: 48%;
-  height: 48%;
-  border-color: rgba(124, 58, 237, 0.24);
+.skills-stack-pill {
+  transition: border-color 180ms ease, color 180ms ease;
 }
 
-.skills-orbit-ring-2 {
-  width: 72%;
-  height: 72%;
-  border-color: rgba(79, 70, 229, 0.2);
-  animation-direction: reverse;
-}
-
-.skills-orbit-ring-3 {
-  width: 80%;
-  height: 80%;
-  border-color: rgba(6, 182, 212, 0.18);
-}
-
-.skills-orbit-node {
-  width: 50%;
-  transform-origin: left center;
-  transform: rotate(var(--orbit-angle)) translateX(100%);
-}
-
-.skills-orbit-pill {
-  animation: skills-orbit-counter-spin var(--orbit-duration) linear infinite;
-  animation-direction: inherit;
-  will-change: transform;
-}
-
-.skills-orbit-ring-2 .skills-orbit-pill {
-  animation-direction: reverse;
-}
-
-.skills-orbit-sphere.is-paused .skills-orbit-ring,
-.skills-orbit-sphere.is-paused .skills-orbit-pill,
-.skills-orbit-pill:hover {
-  animation-play-state: paused;
-}
-
-.skills-orbit-pill::before {
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: radial-gradient(circle, var(--pill-glow), transparent 68%);
-  content: "";
-  opacity: 0;
-  filter: blur(12px);
-  transition: opacity 200ms ease;
-}
-
-.skills-orbit-pill:hover::before,
-.skills-orbit-pill:focus-visible::before {
-  opacity: 0.45;
-}
-
-.skills-core::after {
-  position: absolute;
-  inset: -18px;
-  z-index: -1;
-  border: 1px solid rgba(124, 58, 237, 0.12);
-  border-radius: 999px;
-  content: "";
+.skills-stack-layer:hover .skills-stack-pill,
+.skills-stack-layer.is-active .skills-stack-pill {
+  border-color: color-mix(in srgb, var(--layer-color) 22%, white);
 }
 
 .skills-category-card {
@@ -343,8 +253,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .skills-orbit-ring,
-  .skills-orbit-pill,
   .skills-animated-gradient {
     animation-play-state: paused;
   }
@@ -472,7 +380,7 @@ body {
   #education .glass,
   #contact .glass,
   .skills-category-card,
-  .skills-orbit-stage {
+  .skills-stack-panel {
     border-radius: 1.75rem;
   }
 
@@ -496,10 +404,6 @@ body {
     border-radius: 2rem;
   }
 
-  .skills-orbit-stage {
-    min-height: 27rem;
-  }
-
   .skills-category-card {
     padding: 1rem;
   }
@@ -509,20 +413,6 @@ body {
   #skills .depth-card,
   #education .depth-card {
     border-radius: 1.75rem;
-  }
-
-  .mobile-float {
-    animation: mobile-float 4.8s ease-in-out infinite;
-  }
-
-  .mobile-orbit {
-    animation: mobile-orbit 18s linear infinite;
-    border-style: dashed;
-  }
-
-  .mobile-orbit-reverse {
-    animation-direction: reverse;
-    animation-duration: 13s;
   }
 
   .depth-card {
