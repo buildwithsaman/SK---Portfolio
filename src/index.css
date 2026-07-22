@@ -351,6 +351,15 @@ body {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --mobile-gutter: 1.25rem;
+    --mobile-section-space: 4.5rem;
+  }
+
+  html {
+    scroll-padding-top: 4.5rem;
+  }
+
   body {
     background:
       radial-gradient(circle at 50% 2%, rgba(255, 255, 255, 0.98), transparent 30rem),
@@ -359,8 +368,8 @@ body {
   }
 
   .site-grid {
-    background-size: 32px 32px;
-    opacity: 0.38;
+    background-size: 36px 36px;
+    opacity: 0.22;
   }
 
   .hero-noise {
@@ -368,17 +377,28 @@ body {
   }
 
   .section-pad {
-    padding: 5rem 1.25rem;
+    padding: var(--mobile-section-space) var(--mobile-gutter);
+  }
+
+  #home {
+    min-height: max(48rem, 100svh);
+  }
+
+  .skills-showcase {
+    padding-block: var(--mobile-section-space);
   }
 
   .glass {
     border-color: rgba(255, 255, 255, 0.92);
     background: rgba(255, 255, 255, 0.74);
-    box-shadow: 0 24px 60px -38px rgba(15, 23, 42, 0.34);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.82),
+      0 22px 56px -38px rgba(15, 23, 42, 0.3);
     backdrop-filter: blur(24px) saturate(145%);
   }
 
   .eyebrow {
+    margin-bottom: 1.25rem;
     border-color: rgba(255, 255, 255, 0.95);
     background: rgba(255, 255, 255, 0.76);
     box-shadow: 0 8px 30px -22px rgba(15, 23, 42, 0.45);
@@ -387,6 +407,7 @@ body {
 
   .mobile-nav-shell {
     padding-top: max(0.75rem, env(safe-area-inset-top));
+    padding-right: max(0rem, env(safe-area-inset-right));
   }
 
   .mobile-nav-pill {
@@ -397,6 +418,9 @@ body {
   }
 
   .mobile-menu-sheet {
+    margin-inline: var(--mobile-gutter);
+    border-radius: 1.75rem;
+    padding: 0.75rem;
     box-shadow: 0 28px 70px -35px rgba(15, 23, 42, 0.5);
   }
 
@@ -408,6 +432,7 @@ body {
 
   .mobile-hero-copy {
     margin-inline: auto;
+    padding-top: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem));
   }
 
   .mobile-stat {
@@ -431,8 +456,52 @@ body {
   #skills h2,
   #education h2,
   #contact h2 {
+    font-size: clamp(2rem, 8.7vw, 2.35rem);
     letter-spacing: -0.035em;
     line-height: 1.06;
+  }
+
+  #about > div,
+  #experience > div,
+  #education > div {
+    min-width: 0;
+  }
+
+  #about .glass,
+  #experience .glass,
+  #education .glass,
+  #contact .glass,
+  .skills-category-card,
+  .skills-orbit-stage {
+    border-radius: 1.75rem;
+  }
+
+  #about p,
+  #experience p,
+  #education p,
+  #contact p {
+    line-height: 1.62;
+  }
+
+  #experience .depth-card > div,
+  #education .depth-card > div {
+    min-width: 0;
+  }
+
+  #experience [class*="min-h-[290px]"] {
+    min-height: 15rem;
+  }
+
+  #contact > div > div {
+    border-radius: 2rem;
+  }
+
+  .skills-orbit-stage {
+    min-height: 27rem;
+  }
+
+  .skills-category-card {
+    padding: 1rem;
   }
 
   #about .depth-card,

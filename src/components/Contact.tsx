@@ -34,7 +34,7 @@ export default function Contact() {
   return (
     <section id="contact" className="section-pad">
       <Reveal>
-        <div className="glass relative isolate overflow-hidden rounded-3xl p-8 md:p-14">
+        <div className="glass relative isolate overflow-hidden rounded-3xl p-6 md:p-14">
           <ContactAtmosphere />
           <div className="pointer-events-none absolute -right-20 -top-20 z-[1] h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-24 -left-16 z-[1] h-64 w-64 rounded-full bg-accent2/20 blur-3xl" />
@@ -49,17 +49,17 @@ export default function Contact() {
               collaborations. The fastest way to reach me is email.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-8">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-6 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03]"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] md:px-6"
             >
               Say hello →
             </a>
             <button
               type="button"
               onClick={copyEmail}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white/60 px-6 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:border-accent/30 hover:bg-white"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/60 px-5 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:border-accent/30 hover:bg-white md:px-6"
             >
               {copied ? "Copied!" : "Copy email"}
               <span aria-hidden="true">{copied ? "✓" : "⌘"}</span>
@@ -69,7 +69,7 @@ export default function Contact() {
             </span>
             </div>
 
-            <div className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-2">
+            <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:mt-10 sm:grid-cols-2">
               {links.map((l) => (
                 <a
                   key={l.label}

@@ -182,20 +182,20 @@ export default function Experience() {
         </div>
       </Reveal>
 
-      <div className="mt-14 space-y-8">
+      <div className="mt-10 space-y-6 md:mt-14 md:space-y-8">
         {caseStudies.map((project, index) => (
           <Reveal key={project.number} delay={index * 0.06}>
-            <DepthCard className="glass rounded-[2rem] p-3 md:p-5">
+            <DepthCard className="glass rounded-[2rem] p-2.5 md:p-5">
               <article className={`grid items-stretch gap-7 lg:grid-cols-2 ${index % 2 ? "" : ""}`}>
                 <div className={`flex flex-col p-4 md:p-6 ${index % 2 ? "lg:order-2" : ""}`}>
                   <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
                     <span className="grid h-8 w-8 place-items-center rounded-full border border-accent/20 bg-accent/[0.06]">{project.number}</span>
                     {project.category}
                   </div>
-                  <h3 className="mt-7 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">{project.title}</h3>
-                  <p className="mt-4 leading-relaxed text-slate-600">{project.summary}</p>
-                  <div className="mt-5 border-l-2 border-accent2/30 pl-4 text-sm leading-relaxed text-slate-500">{project.contribution}</div>
-                  <div className="mt-7 grid grid-cols-2 gap-3">
+                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-slate-900 md:mt-7 md:text-4xl">{project.title}</h3>
+                  <p className="mt-3 leading-relaxed text-slate-600 md:mt-4">{project.summary}</p>
+                  <div className="mt-4 border-l-2 border-accent2/30 pl-4 text-sm leading-relaxed text-slate-500 md:mt-5">{project.contribution}</div>
+                  <div className="mt-5 grid grid-cols-2 gap-2.5 md:mt-7 md:gap-3">
                     {project.impact.map((metric) => (
                       <div key={metric.label} className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3">
                         <div className="text-lg font-semibold gradient-text">{metric.value}</div>
@@ -203,7 +203,7 @@ export default function Experience() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2 md:mt-6">
                     {project.tech.map((tech) => (
                       <span key={tech} className="rounded-full bg-slate-900/[0.05] px-3 py-1 font-mono text-[10px] text-slate-600">{tech}</span>
                     ))}
@@ -218,7 +218,7 @@ export default function Experience() {
         ))}
       </div>
 
-      <Reveal className="mt-24">
+      <Reveal className="mt-16 md:mt-24">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">Career timeline</span>
@@ -227,15 +227,15 @@ export default function Experience() {
           <span className="hidden font-mono text-[10px] uppercase tracking-wider text-slate-400 md:block">Dubai · 2023—Now</span>
         </div>
       </Reveal>
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-3 md:gap-4 lg:grid-cols-3">
         {experiences.map((experience, index) => (
           <Reveal key={experience.company} delay={index * 0.06}>
-            <DepthCard className="glass h-full rounded-2xl p-6">
+            <DepthCard className="glass h-full rounded-2xl p-5 md:p-6">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[10px] text-accent">0{index + 1}</span>
                 <span className="font-mono text-[10px] text-slate-400">{experience.period}</span>
               </div>
-              <h4 className="mt-8 text-lg font-semibold leading-snug text-slate-900">{experience.company}</h4>
+              <h4 className="mt-6 text-lg font-semibold leading-snug text-slate-900 md:mt-8">{experience.company}</h4>
               <p className="mt-1 text-xs text-accent2">{experience.role}</p>
               <p className="mt-5 text-sm leading-relaxed text-slate-500">{careerNotes[experience.company]}</p>
               {experience.recognition && (

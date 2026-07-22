@@ -43,11 +43,11 @@ export default function About() {
         </Reveal>
       </div>
 
-      <div className="mt-12 grid gap-4 md:grid-cols-3">
+      <div className="mt-10 grid gap-3 md:mt-12 md:grid-cols-3 md:gap-4">
           {highlights.map((h, i) => (
             <Reveal key={h.title} delay={0.1 + i * 0.08}>
-              <DepthCard className="glass group h-full rounded-2xl p-6">
-                <div className="mb-8 font-mono text-xs text-accent">
+              <DepthCard className="glass group h-full rounded-2xl p-5 md:p-6">
+                <div className="mb-6 font-mono text-xs text-accent md:mb-8">
                   0{i + 1}
                 </div>
                 <h3 className="text-lg font-semibold text-slate-900">
@@ -61,7 +61,7 @@ export default function About() {
           ))}
       </div>
 
-      <Reveal className="mt-8" delay={0.15}>
+      <Reveal className="mt-6 md:mt-8" delay={0.15}>
         <div className="rounded-2xl border border-slate-200/70 bg-white/40 p-5 backdrop-blur md:p-6">
           <div className="grid gap-5 sm:grid-cols-4">
             {["Understand", "Architect", "Ship", "Improve"].map((step, index) => (

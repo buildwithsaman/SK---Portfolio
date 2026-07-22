@@ -14,9 +14,9 @@ export default function Education() {
         </h2>
       </Reveal>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 md:mt-12 md:gap-6 lg:grid-cols-3">
         <Reveal>
-          <DepthCard className="glass h-full rounded-2xl p-6">
+          <DepthCard className="glass h-full rounded-2xl p-5 md:p-6">
             <h3 className="mb-5 font-mono text-xs uppercase tracking-wider text-accent">
               Education
             </h3>
@@ -37,7 +37,7 @@ export default function Education() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <DepthCard className="glass h-full rounded-2xl p-6">
+          <DepthCard className="glass h-full rounded-2xl p-5 md:p-6">
             <h3 className="mb-5 font-mono text-xs uppercase tracking-wider text-accent">
               Professional Development
             </h3>
@@ -60,7 +60,7 @@ export default function Education() {
         </Reveal>
 
         <Reveal delay={0.16}>
-          <DepthCard className="glass h-full rounded-2xl p-6">
+          <DepthCard className="glass h-full rounded-2xl p-5 md:p-6">
             <h3 className="mb-5 font-mono text-xs uppercase tracking-wider text-accent">
               Volunteering
             </h3>
