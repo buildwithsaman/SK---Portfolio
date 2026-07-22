@@ -458,7 +458,3 @@ body {
     transform: none !important;
   }
 }
-
-canvas {
-  touch-action: none;
-}

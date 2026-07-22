@@ -17,7 +17,7 @@ export default function App() {
   });
 
   return (
-    <div className="relative isolate overflow-hidden">
+    <div className="relative isolate overflow-x-clip">
       <div className="site-grid pointer-events-none fixed inset-0 -z-20" />
       <div className="pointer-events-none fixed -left-48 top-[20vh] -z-10 h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-[120px]" />
       <div className="pointer-events-none fixed -right-48 top-[52vh] -z-10 h-[38rem] w-[38rem] rounded-full bg-accent2/10 blur-[130px]" />

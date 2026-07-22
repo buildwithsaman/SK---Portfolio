@@ -518,6 +518,7 @@ export default function HeroScene() {
 
   return (
     <Canvas
+      style={{ pointerEvents: "none", touchAction: "pan-y" }}
       dpr={mobile ? [1, 1.2] : [1, 1.6]}
       camera={{ position: [0, 0, 6.6], fov: 45 }}
       gl={{

@@ -91,7 +91,7 @@ export default function Hero() {
             <button
               onClick={() =>
                 document
-                  .getElementById("experience")
+                  .getElementById("about")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
               className="group pointer-events-auto inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-6 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03]"
