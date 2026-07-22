@@ -26,7 +26,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[760px] items-center overflow-hidden lg:min-h-screen"
+      className="relative flex min-h-[820px] items-center overflow-hidden sm:min-h-[800px] lg:min-h-screen"
     >
       {/* gradient vignette keeps copy readable above the site-wide 3D scene */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/30 via-transparent to-paper/80" />
