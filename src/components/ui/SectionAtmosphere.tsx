@@ -79,11 +79,12 @@ export function ExperienceAtmosphere() {
             <motion.circle
               cx={cx}
               cy={index % 2 ? 430 : 245}
-              r="26"
+              r={26}
+              style={{ transformOrigin: `${cx}px ${index % 2 ? 430 : 245}px` }}
               fill="none"
               stroke={colors[index % colors.length]}
               strokeOpacity="0.13"
-              animate={reduceMotion ? undefined : { r: [16, 42], opacity: [0.35, 0] }}
+              animate={reduceMotion ? undefined : { scale: [0.62, 1.62], opacity: [0.35, 0] }}
               transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.7 }}
             />
             <circle cx={cx} cy={index % 2 ? 430 : 245} r="5" fill={colors[index % colors.length]} opacity="0.42" />
@@ -158,10 +159,11 @@ export function EducationAtmosphere() {
             <motion.circle
               cx={cx}
               cy={cy}
-              r="18"
+              r={18}
+              style={{ transformOrigin: `${cx}px ${cy}px` }}
               fill={colors[index % colors.length]}
               opacity="0.07"
-              animate={reduceMotion ? undefined : { r: [13, 24, 13], opacity: [0.04, 0.12, 0.04] }}
+              animate={reduceMotion ? undefined : { scale: [0.72, 1.33, 0.72], opacity: [0.04, 0.12, 0.04] }}
               transition={{ duration: 3.4 + index * 0.25, repeat: Infinity, delay: index * 0.32 }}
             />
             <circle cx={cx} cy={cy} r="4" fill={colors[index % colors.length]} opacity="0.45" />
@@ -223,11 +225,12 @@ export function ContactAtmosphere() {
             <motion.circle
               cx={cx}
               cy={index === 1 ? 410 : 250}
-              r="28"
+              r={28}
+              style={{ transformOrigin: `${cx}px ${index === 1 ? 410 : 250}px` }}
               fill="none"
               stroke={colors[index]}
               strokeOpacity="0.16"
-              animate={reduceMotion ? undefined : { r: [18, 52], opacity: [0.35, 0] }}
+              animate={reduceMotion ? undefined : { scale: [0.64, 1.86], opacity: [0.35, 0] }}
               transition={{ duration: 2.8, repeat: Infinity, delay: index * 0.75 }}
             />
             <circle cx={cx} cy={index === 1 ? 410 : 250} r="6" fill={colors[index]} opacity="0.5" />

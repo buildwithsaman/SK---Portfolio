@@ -157,7 +157,7 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-// A flat set of signature technologies for the 3D skills cloud
+// A flat set of signature technologies used across portfolio visuals
 export const techCloud = [
   "React 19",
   "TypeScript",
