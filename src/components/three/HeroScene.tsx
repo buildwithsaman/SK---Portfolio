@@ -365,19 +365,34 @@ function PlayfulSatellites() {
       <Float speed={1.8} rotationIntensity={1.2} floatIntensity={1.1}>
         <mesh position={[2.8, 1.45, 0.2]} rotation={[0.3, 0.4, 0.2]}>
           <icosahedronGeometry args={[0.18, 0]} />
-          <meshStandardMaterial color={KW} emissive={KW} emissiveIntensity={0.35} roughness={0.3} />
+          <meshStandardMaterial
+            color={KW}
+            emissive={KW}
+            emissiveIntensity={0.35}
+            roughness={0.3}
+          />
         </mesh>
       </Float>
       <Float speed={2.1} rotationIntensity={1.4} floatIntensity={0.9}>
         <mesh position={[-2.75, -1.35, 0.35]} rotation={[0.4, 0.2, 0.7]}>
           <octahedronGeometry args={[0.16, 0]} />
-          <meshStandardMaterial color={FN} emissive={FN} emissiveIntensity={0.4} roughness={0.25} />
+          <meshStandardMaterial
+            color={FN}
+            emissive={FN}
+            emissiveIntensity={0.4}
+            roughness={0.25}
+          />
         </mesh>
       </Float>
       <Float speed={1.5} rotationIntensity={0.9} floatIntensity={1.2}>
         <mesh position={[2.35, -1.7, 0.1]} rotation={[0.6, 0.2, 0]}>
           <torusKnotGeometry args={[0.12, 0.035, 48, 8]} />
-          <meshStandardMaterial color={STR} emissive={STR} emissiveIntensity={0.3} roughness={0.35} />
+          <meshStandardMaterial
+            color={STR}
+            emissive={STR}
+            emissiveIntensity={0.3}
+            roughness={0.35}
+          />
         </mesh>
       </Float>
     </group>
@@ -420,13 +435,22 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
     const targetX = Math.cos(progress * Math.PI * 4.5) * travelX;
     const targetY = Math.sin(progress * Math.PI * 5) * travelY;
-    const targetScale = (mobile ? 0.34 : size.width < 1100 ? 0.74 : 0.9) *
+    const targetScale =
+      (mobile ? 0.34 : size.width < 1100 ? 0.74 : 0.9) *
       (0.94 + Math.sin(progress * Math.PI * 3) * 0.06 + pulse.current * 0.08);
 
     pulse.current *= 0.9;
 
-    g.current.position.x = THREE.MathUtils.lerp(g.current.position.x, targetX, 0.045);
-    g.current.position.y = THREE.MathUtils.lerp(g.current.position.y, targetY, 0.045);
+    g.current.position.x = THREE.MathUtils.lerp(
+      g.current.position.x,
+      targetX,
+      0.045,
+    );
+    g.current.position.y = THREE.MathUtils.lerp(
+      g.current.position.y,
+      targetY,
+      0.045,
+    );
     g.current.position.z = THREE.MathUtils.lerp(
       g.current.position.z,
       Math.sin(progress * Math.PI * 6) * 0.16,
@@ -440,7 +464,8 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     );
     g.current.rotation.x = THREE.MathUtils.lerp(
       g.current.rotation.x,
-      -pointer.current.y * 0.14 + Math.sin(state.clock.elapsedTime * 0.28) * 0.05,
+      -pointer.current.y * 0.14 +
+        Math.sin(state.clock.elapsedTime * 0.28) * 0.05,
       0.04,
     );
     g.current.rotation.z = THREE.MathUtils.lerp(
@@ -448,7 +473,11 @@ function SiteRig({ children }: { children: React.ReactNode }) {
       Math.sin(progress * Math.PI * 6) * 0.07,
       0.04,
     );
-    const nextScale = THREE.MathUtils.lerp(g.current.scale.x, targetScale, 0.04);
+    const nextScale = THREE.MathUtils.lerp(
+      g.current.scale.x,
+      targetScale,
+      0.04,
+    );
     g.current.scale.setScalar(nextScale);
   });
   return <group ref={g}>{children}</group>;
@@ -491,7 +520,11 @@ export default function HeroScene() {
     <Canvas
       dpr={mobile ? [1, 1.2] : [1, 1.6]}
       camera={{ position: [0, 0, 6.6], fov: 45 }}
-      gl={{ antialias: !mobile, alpha: true, powerPreference: "high-performance" }}
+      gl={{
+        antialias: !mobile,
+        alpha: true,
+        powerPreference: "high-performance",
+      }}
       frameloop={reduceMotion ? "demand" : "always"}
     >
       <fog attach="fog" args={["#eef1f7", 10, 24]} />
@@ -499,7 +532,12 @@ export default function HeroScene() {
       <ambientLight intensity={0.85} />
       <directionalLight position={[4, 6, 5]} intensity={1.2} />
       <pointLight position={[-6, -3, 2]} intensity={20} color="#0891b2" />
-      <pointLight position={[3, 1, 4]} intensity={18} color="#7c3aed" distance={16} />
+      <pointLight
+        position={[3, 1, 4]}
+        intensity={18}
+        color="#7c3aed"
+        distance={16}
+      />
 
       <SceneComposition />
 

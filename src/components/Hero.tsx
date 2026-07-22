@@ -31,7 +31,10 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-[820px] items-center overflow-hidden sm:min-h-[800px] lg:min-h-screen"
     >
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-20 md:opacity-75" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-20 md:opacity-75"
+        aria-hidden="true"
+      >
         <Suspense fallback={null}>
           <HeroScene />
         </Suspense>
@@ -81,7 +84,10 @@ export default function Hero() {
             that ships on time.
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start">
+          <motion.div
+            variants={item}
+            className="mt-8 flex flex-wrap justify-center gap-3 md:justify-start"
+          >
             <button
               onClick={() =>
                 document

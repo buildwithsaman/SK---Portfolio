@@ -42,7 +42,8 @@ export default function Contact() {
           <div className="relative z-10">
             <span className="eyebrow">05 · Contact</span>
             <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-              Have a problem <span className="gradient-text">worth solving</span>?
+              Have a problem{" "}
+              <span className="gradient-text">worth solving</span>?
             </h2>
             <p className="mt-4 max-w-lg text-slate-600">
               I'm based in {profile.location} and open to full-stack roles and
@@ -50,23 +51,23 @@ export default function Contact() {
             </p>
 
             <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-8">
-            <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] md:px-6"
-            >
-              Say hello →
-            </a>
-            <button
-              type="button"
-              onClick={copyEmail}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/60 px-5 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:border-accent/30 hover:bg-white md:px-6"
-            >
-              {copied ? "Copied!" : "Copy email"}
-              <span aria-hidden="true">{copied ? "✓" : "⌘"}</span>
-            </button>
-            <span className="sr-only" aria-live="polite">
-              {copied ? "Email address copied to clipboard" : ""}
-            </span>
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] md:px-6"
+              >
+                Say hello →
+              </a>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/60 px-5 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:border-accent/30 hover:bg-white md:px-6"
+              >
+                {copied ? "Copied!" : "Copy email"}
+                <span aria-hidden="true">{copied ? "✓" : "⌘"}</span>
+              </button>
+              <span className="sr-only" aria-live="polite">
+                {copied ? "Email address copied to clipboard" : ""}
+              </span>
             </div>
 
             <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:mt-10 sm:grid-cols-2">

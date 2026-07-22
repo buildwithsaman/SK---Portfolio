@@ -12,9 +12,15 @@ export function AboutAtmosphere() {
   ] as const;
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+      aria-hidden="true"
+    >
       <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-cyan-300/10 blur-[100px]" />
-      <svg viewBox="0 0 1200 650" className="absolute inset-0 h-full w-full opacity-50">
+      <svg
+        viewBox="0 0 1200 650"
+        className="absolute inset-0 h-full w-full opacity-50"
+      >
         <motion.path
           d="M-80 520 C 190 520 250 150 470 250 S 770 540 1280 100"
           fill="none"
@@ -44,9 +50,21 @@ export function AboutAtmosphere() {
               stroke={colors[index % colors.length]}
               strokeOpacity="0.18"
               animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-              transition={{ duration: 4 + index * 0.5, repeat: Infinity, delay: index * -0.6 }}
+              transition={{
+                duration: 4 + index * 0.5,
+                repeat: Infinity,
+                delay: index * -0.6,
+              }}
             />
-            <text x={cx} y={cy + 4} textAnchor="middle" fill={colors[index % colors.length]} fillOpacity="0.35" fontFamily="monospace" fontSize="12">
+            <text
+              x={cx}
+              y={cy + 4}
+              textAnchor="middle"
+              fill={colors[index % colors.length]}
+              fillOpacity="0.35"
+              fontFamily="monospace"
+              fontSize="12"
+            >
               {label}
             </text>
           </g>
@@ -61,9 +79,15 @@ export function ExperienceAtmosphere() {
   const milestones = [170, 470, 770, 1070];
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+      aria-hidden="true"
+    >
       <div className="absolute -right-20 top-1/4 h-96 w-96 rounded-full bg-violet-300/10 blur-[110px]" />
-      <svg viewBox="0 0 1200 900" className="absolute inset-0 h-full w-full opacity-55">
+      <svg
+        viewBox="0 0 1200 900"
+        className="absolute inset-0 h-full w-full opacity-55"
+      >
         <motion.path
           d="M-80 260 C 250 80 420 520 690 330 S 980 120 1280 410"
           fill="none"
@@ -84,10 +108,24 @@ export function ExperienceAtmosphere() {
               fill="none"
               stroke={colors[index % colors.length]}
               strokeOpacity="0.13"
-              animate={reduceMotion ? undefined : { scale: [0.62, 1.62], opacity: [0.35, 0] }}
-              transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.7 }}
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { scale: [0.62, 1.62], opacity: [0.35, 0] }
+              }
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                delay: index * 0.7,
+              }}
             />
-            <circle cx={cx} cy={index % 2 ? 430 : 245} r="5" fill={colors[index % colors.length]} opacity="0.42" />
+            <circle
+              cx={cx}
+              cy={index % 2 ? 430 : 245}
+              r="5"
+              fill={colors[index % colors.length]}
+              opacity="0.42"
+            />
           </g>
         ))}
         <motion.path
@@ -122,7 +160,10 @@ export function EducationAtmosphere() {
   ];
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+      aria-hidden="true"
+    >
       <div className="absolute -left-20 top-20 h-80 w-80 rounded-full bg-cyan-300/10 blur-[90px]" />
       <div className="absolute -right-16 bottom-10 h-96 w-96 rounded-full bg-violet-300/10 blur-[100px]" />
       <motion.svg
@@ -163,10 +204,24 @@ export function EducationAtmosphere() {
               style={{ transformOrigin: `${cx}px ${cy}px` }}
               fill={colors[index % colors.length]}
               opacity="0.07"
-              animate={reduceMotion ? undefined : { scale: [0.72, 1.33, 0.72], opacity: [0.04, 0.12, 0.04] }}
-              transition={{ duration: 3.4 + index * 0.25, repeat: Infinity, delay: index * 0.32 }}
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { scale: [0.72, 1.33, 0.72], opacity: [0.04, 0.12, 0.04] }
+              }
+              transition={{
+                duration: 3.4 + index * 0.25,
+                repeat: Infinity,
+                delay: index * 0.32,
+              }}
             />
-            <circle cx={cx} cy={cy} r="4" fill={colors[index % colors.length]} opacity="0.45" />
+            <circle
+              cx={cx}
+              cy={cy}
+              r="4"
+              fill={colors[index % colors.length]}
+              opacity="0.45"
+            />
           </g>
         ))}
         <motion.g
@@ -174,7 +229,15 @@ export function EducationAtmosphere() {
           animate={reduceMotion ? undefined : { rotate: 360 }}
           transition={{ duration: 34, repeat: Infinity, ease: "linear" }}
         >
-          <ellipse cx="850" cy="360" rx="170" ry="90" fill="none" stroke="#7c3aed" strokeOpacity="0.11" />
+          <ellipse
+            cx="850"
+            cy="360"
+            rx="170"
+            ry="90"
+            fill="none"
+            stroke="#7c3aed"
+            strokeOpacity="0.11"
+          />
           <circle cx="1015" cy="360" r="7" fill="#7c3aed" opacity="0.45" />
         </motion.g>
         {["LEARN", "BUILD", "LEAD"].map((label, index) => (
@@ -203,10 +266,16 @@ export function ContactAtmosphere() {
   const waves = [0, 1, 2];
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden" aria-hidden="true">
+    <div
+      className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden"
+      aria-hidden="true"
+    >
       <div className="absolute left-[8%] top-1/3 h-72 w-72 rounded-full bg-violet-300/10 blur-[90px]" />
       <div className="absolute right-[4%] top-10 h-80 w-80 rounded-full bg-cyan-300/10 blur-[100px]" />
-      <svg viewBox="0 0 1200 650" className="absolute inset-0 h-full w-full opacity-75">
+      <svg
+        viewBox="0 0 1200 650"
+        className="absolute inset-0 h-full w-full opacity-75"
+      >
         {waves.map((wave) => (
           <motion.path
             key={wave}
@@ -217,7 +286,11 @@ export function ContactAtmosphere() {
             strokeWidth={2 - wave * 0.3}
             strokeDasharray={`${12 + wave * 5} ${18 + wave * 6}`}
             animate={reduceMotion ? undefined : { strokeDashoffset: [0, -120] }}
-            transition={{ duration: 8 + wave * 3, repeat: Infinity, ease: "linear" }}
+            transition={{
+              duration: 8 + wave * 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
           />
         ))}
         {[260, 630, 970].map((cx, index) => (
@@ -226,23 +299,62 @@ export function ContactAtmosphere() {
               cx={cx}
               cy={index === 1 ? 410 : 250}
               r={28}
-              style={{ transformOrigin: `${cx}px ${index === 1 ? 410 : 250}px` }}
+              style={{
+                transformOrigin: `${cx}px ${index === 1 ? 410 : 250}px`,
+              }}
               fill="none"
               stroke={colors[index]}
               strokeOpacity="0.16"
-              animate={reduceMotion ? undefined : { scale: [0.64, 1.86], opacity: [0.35, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, delay: index * 0.75 }}
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { scale: [0.64, 1.86], opacity: [0.35, 0] }
+              }
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                delay: index * 0.75,
+              }}
             />
-            <circle cx={cx} cy={index === 1 ? 410 : 250} r="6" fill={colors[index]} opacity="0.5" />
+            <circle
+              cx={cx}
+              cy={index === 1 ? 410 : 250}
+              r="6"
+              fill={colors[index]}
+              opacity="0.5"
+            />
           </g>
         ))}
         <motion.g
           animate={reduceMotion ? undefined : { x: [0, 18, 0], y: [0, -10, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <rect x="930" y="390" width="118" height="64" rx="18" fill="white" fillOpacity="0.38" stroke="#0891b2" strokeOpacity="0.16" />
-          <path d="M960 454 L946 472 L980 454" fill="white" fillOpacity="0.38" />
-          {[964, 988, 1012].map((cx) => <circle key={cx} cx={cx} cy="422" r="4" fill="#0891b2" opacity="0.35" />)}
+          <rect
+            x="930"
+            y="390"
+            width="118"
+            height="64"
+            rx="18"
+            fill="white"
+            fillOpacity="0.38"
+            stroke="#0891b2"
+            strokeOpacity="0.16"
+          />
+          <path
+            d="M960 454 L946 472 L980 454"
+            fill="white"
+            fillOpacity="0.38"
+          />
+          {[964, 988, 1012].map((cx) => (
+            <circle
+              key={cx}
+              cx={cx}
+              cy="422"
+              r="4"
+              fill="#0891b2"
+              opacity="0.35"
+            />
+          ))}
         </motion.g>
       </svg>
     </div>
