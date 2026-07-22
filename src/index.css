@@ -184,7 +184,7 @@ body {
   animation: skills-gradient-shift 7s ease infinite;
 }
 
-.skills-stack-panel {
+.skills-unified-panel {
   border: 1px solid rgba(255, 255, 255, 0.72);
   background:
     radial-gradient(circle at 50% 48%, rgba(124, 58, 237, 0.12), transparent 28%),
@@ -197,16 +197,15 @@ body {
 }
 
 .skills-stack-layer {
-  border-color: rgba(255, 255, 255, 0.82);
-  background: rgba(255, 255, 255, 0.56);
+  border-color: rgba(148, 163, 184, 0.16);
+  background: transparent;
   transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .skills-stack-layer:hover,
 .skills-stack-layer.is-active {
-  border-color: color-mix(in srgb, var(--layer-color) 34%, white);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 18px 40px -32px var(--layer-color);
+  border-color: color-mix(in srgb, var(--layer-color) 24%, white);
+  background: color-mix(in srgb, var(--layer-color) 5%, transparent);
 }
 
 .skills-stack-pill {
@@ -218,16 +217,7 @@ body {
   border-color: color-mix(in srgb, var(--layer-color) 22%, white);
 }
 
-.skills-category-card {
-  background: rgba(255, 255, 255, 0.72);
-  border-color: rgba(255, 255, 255, 0.86);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 20px 54px -38px rgba(15, 23, 42, 0.32);
-  backdrop-filter: blur(24px) saturate(145%);
-}
-
-.skills-category-card::before {
+.skills-category-row::before {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, color-mix(in srgb, var(--category-color) 10%, transparent), transparent 55%, color-mix(in srgb, var(--category-color-2) 7%, transparent));
@@ -236,14 +226,13 @@ body {
   transition: opacity 300ms ease;
 }
 
-.skills-category-card:hover,
-.skills-category-card.is-active {
-  border-color: color-mix(in srgb, var(--category-color) 32%, white);
-  box-shadow: 0 28px 68px -34px color-mix(in srgb, var(--category-color) 38%, transparent);
+.skills-category-row:hover,
+.skills-category-row.is-active {
+  background: rgba(255, 255, 255, 0.52);
 }
 
-.skills-category-card:hover::before,
-.skills-category-card.is-active::before {
+.skills-category-row:hover::before,
+.skills-category-row.is-active::before {
   opacity: 1;
 }
 
@@ -379,8 +368,7 @@ body {
   #experience .glass,
   #education .glass,
   #contact .glass,
-  .skills-category-card,
-  .skills-stack-panel {
+  .skills-unified-panel {
     border-radius: 1.75rem;
   }
 
@@ -404,9 +392,6 @@ body {
     border-radius: 2rem;
   }
 
-  .skills-category-card {
-    padding: 1rem;
-  }
 
   #about .depth-card,
   #experience .depth-card,

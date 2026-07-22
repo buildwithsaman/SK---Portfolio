@@ -104,7 +104,7 @@ function TechnologyStack({
   onCategoryChange: (category: Category | null) => void;
 }) {
   return (
-    <div className="skills-stack-panel relative overflow-hidden rounded-[2rem] p-5 sm:p-7 lg:p-8" aria-label="Technology stack overview">
+    <div className="relative p-5 sm:p-7 lg:p-8" aria-label="Technology stack overview">
       <div className="skills-stack-grid pointer-events-none absolute inset-0 opacity-35" />
       <div className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-violet-400/15 blur-[90px]" />
       <div className="pointer-events-none absolute -right-16 bottom-12 h-64 w-64 rounded-full bg-cyan-300/15 blur-[90px]" />
@@ -120,10 +120,10 @@ function TechnologyStack({
       <button
         type="button"
         onClick={() => onCategoryChange(activeCategory === "Backend & APIs" ? null : "Backend & APIs")}
-        className={`relative z-10 mt-7 flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-colors sm:p-5 ${
+        className={`relative z-10 mt-7 flex w-full items-center gap-4 border-y px-1 py-5 text-left transition-colors sm:px-2 ${
           activeCategory === "Backend & APIs"
-            ? "border-indigo-300 bg-indigo-50/75"
-            : "border-white/90 bg-white/65 hover:border-indigo-200"
+            ? "border-indigo-200 bg-indigo-50/45"
+            : "border-white/80 hover:bg-white/35"
         }`}
       >
         <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 font-mono text-lg font-semibold text-white shadow-lg shadow-indigo-500/20">
@@ -146,7 +146,7 @@ function TechnologyStack({
               type="button"
               key={layer.label}
               onClick={() => onCategoryChange(active ? null : layer.category)}
-              className={`skills-stack-layer grid w-full gap-4 rounded-2xl border p-4 text-left sm:grid-cols-[10rem_1fr] sm:items-center ${active ? "is-active" : ""}`}
+              className={`skills-stack-layer grid w-full gap-4 border-t px-1 py-4 text-left first:border-t-0 sm:grid-cols-[10rem_1fr] sm:items-center sm:px-2 ${active ? "is-active" : ""}`}
               style={{ "--layer-color": meta.color } as CSSProperties}
             >
               <span>
@@ -206,8 +206,7 @@ function SkillCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.055, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={mobile ? undefined : { y: -6 }}
-      className={`skills-category-card group relative w-full overflow-hidden rounded-[1.35rem] border p-4 text-left transition-[border-color,box-shadow,background] duration-300 sm:p-5 ${active ? "is-active" : ""}`}
+      className={`skills-category-row group relative w-full overflow-hidden border-b border-slate-200/60 p-5 text-left transition-colors duration-200 last:border-b-0 sm:p-6 ${active ? "is-active" : ""}`}
       style={{ "--category-color": meta.color, "--category-color-2": meta.color2 } as CSSProperties}
     >
       <button
@@ -301,25 +300,29 @@ export default function Skills() {
           </p>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 items-start gap-8 lg:grid-cols-12 lg:gap-10">
-          <Reveal className="lg:col-span-7 lg:sticky lg:top-24">
-            <TechnologyStack activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
-          </Reveal>
+        <Reveal className="mt-14">
+          <div className="skills-unified-panel overflow-hidden rounded-[2rem]">
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              <div className="lg:col-span-7">
+                <TechnologyStack activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
+              </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
-            {orderedGroups.map((group, index) => (
-              <SkillCard
-                key={group.category}
-                group={group}
-                index={index}
-                mobile={mobile}
-                active={activeCategory === group.category}
-                expanded={expandedCategory === group.category}
-                onSelect={() => selectCategory(group.category)}
-              />
-            ))}
+              <div className="grid grid-cols-1 border-t border-slate-200/60 md:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:border-l lg:border-t-0">
+                {orderedGroups.map((group, index) => (
+                  <SkillCard
+                    key={group.category}
+                    group={group}
+                    index={index}
+                    mobile={mobile}
+                    active={activeCategory === group.category}
+                    expanded={expandedCategory === group.category}
+                    onSelect={() => selectCategory(group.category)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
