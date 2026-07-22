@@ -145,6 +145,52 @@ body {
   }
 }
 
+@keyframes mobile-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-7px) scale(1.025);
+  }
+}
+
+@keyframes mobile-orbit {
+  to {
+    transform: rotate(360deg) scale(1.04);
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-float {
+    animation: mobile-float 3.8s ease-in-out infinite;
+  }
+
+  .mobile-orbit {
+    animation: mobile-orbit 18s linear infinite;
+    border-style: dashed;
+  }
+
+  .mobile-orbit-reverse {
+    animation-direction: reverse;
+    animation-duration: 13s;
+  }
+
+  .depth-card {
+    animation: mobile-card-breathe 5s ease-in-out infinite;
+  }
+}
+
+@keyframes mobile-card-breathe {
+  0%,
+  100% {
+    box-shadow: 0 18px 45px -34px rgba(15, 23, 42, 0.35);
+  }
+  50% {
+    box-shadow: 0 24px 55px -30px rgba(124, 58, 237, 0.22);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

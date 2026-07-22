@@ -35,13 +35,14 @@ export default function Skills() {
                 className="relative flex h-full items-center justify-center overflow-hidden px-6"
                 aria-label="Technology cloud"
               >
-                <div className="absolute h-64 w-64 rounded-full border border-accent/15" />
-                <div className="absolute h-44 w-44 rounded-full border border-accent2/20" />
+                <div className="mobile-orbit absolute h-64 w-64 rounded-full border border-accent/15" />
+                <div className="mobile-orbit mobile-orbit-reverse absolute h-44 w-44 rounded-full border border-accent2/20" />
                 <div className="relative flex max-w-sm flex-wrap justify-center gap-2">
                   {techCloud.slice(0, 14).map((tech, index) => (
                     <span
                       key={tech}
-                      className={`rounded-full border bg-white/70 px-3 py-1.5 font-mono text-xs shadow-sm backdrop-blur ${
+                      style={{ animationDelay: `${index * -0.24}s` }}
+                      className={`mobile-float rounded-full border bg-white/70 px-3 py-1.5 font-mono text-xs shadow-sm backdrop-blur ${
                         index % 2
                           ? "border-accent2/20 text-accent2"
                           : "border-accent/20 text-accent"

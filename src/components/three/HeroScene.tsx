@@ -8,6 +8,7 @@ import {
   Environment,
 } from "@react-three/drei";
 import * as THREE from "three";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 // Syntax palette (matches the site accents)
 const KW = "#7c3aed"; // keywords
@@ -350,61 +351,62 @@ function OrbitSystem() {
   );
 }
 
-// Eases the whole scene toward the cursor so the editor tilts but always faces you.
-function Rig({ children }: { children: React.ReactNode }) {
+// Moves the scene through the viewport as the page scrolls and reacts to both
+// mouse and touch input without placing the canvas above clickable content.
+function SiteRig({ children }: { children: React.ReactNode }) {
   const g = useRef<THREE.Group>(null);
+  const pointer = useRef({ x: 0, y: 0 });
+  const { viewport, size } = useThree();
+
+  useEffect(() => {
+    const updatePointer = (event: PointerEvent) => {
+      pointer.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      pointer.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener("pointermove", updatePointer, { passive: true });
+    return () => window.removeEventListener("pointermove", updatePointer);
+  }, []);
+
   useFrame((state) => {
     if (!g.current) return;
-    const tx = state.pointer.x * 0.4;
-    const ty = state.pointer.y * 0.28;
-    g.current.rotation.y += (tx - g.current.rotation.y) * 0.045;
-    g.current.rotation.x += (-ty - g.current.rotation.x) * 0.045;
+    const maxScroll = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      1,
+    );
+    const progress = THREE.MathUtils.clamp(window.scrollY / maxScroll, 0, 1);
+    const mobile = size.width < 768;
+    const travelX = mobile ? viewport.width * 0.16 : viewport.width * 0.28;
+    const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
+    const targetX = Math.cos(progress * Math.PI * 5) * travelX;
+    const targetY = Math.sin(progress * Math.PI * 4) * travelY;
+    const targetScale = (mobile ? 0.44 : size.width < 1100 ? 0.74 : 0.9) *
+      (0.94 + Math.sin(progress * Math.PI * 3) * 0.06);
+
+    g.current.position.x = THREE.MathUtils.lerp(g.current.position.x, targetX, 0.045);
+    g.current.position.y = THREE.MathUtils.lerp(g.current.position.y, targetY, 0.045);
+    g.current.rotation.y = THREE.MathUtils.lerp(
+      g.current.rotation.y,
+      pointer.current.x * 0.34 + progress * Math.PI * 0.8,
+      0.04,
+    );
+    g.current.rotation.x = THREE.MathUtils.lerp(
+      g.current.rotation.x,
+      -pointer.current.y * 0.2 + Math.sin(state.clock.elapsedTime * 0.28) * 0.05,
+      0.04,
+    );
+    const nextScale = THREE.MathUtils.lerp(g.current.scale.x, targetScale, 0.04);
+    g.current.scale.setScalar(nextScale);
   });
   return <group ref={g}>{children}</group>;
-}
-
-function CursorLight() {
-  const light = useRef<THREE.PointLight>(null);
-  const { viewport } = useThree();
-  useFrame((state) => {
-    if (!light.current) return;
-    const x = (state.pointer.x * viewport.width) / 2;
-    const y = (state.pointer.y * viewport.height) / 2;
-    light.current.position.x = THREE.MathUtils.lerp(
-      light.current.position.x,
-      x,
-      0.06,
-    );
-    light.current.position.y = THREE.MathUtils.lerp(
-      light.current.position.y,
-      y,
-      0.06,
-    );
-  });
-  return (
-    <pointLight
-      ref={light}
-      position={[0, 0, 4]}
-      intensity={20}
-      color="#7c3aed"
-      distance={16}
-    />
-  );
 }
 
 function SceneComposition() {
   const { size } = useThree();
   const mobile = size.width < 768;
-  const compact = size.width < 1100;
-  const position: [number, number, number] = mobile
-    ? [0, -1.7, -0.9]
-    : compact
-      ? [1.7, 0.1, -0.2]
-      : [2.45, 0.05, 0];
 
   return (
-    <Rig>
-      <group position={position} scale={mobile ? 0.68 : compact ? 0.82 : 0.94}>
+    <SiteRig>
+      <group>
         <Float speed={1} rotationIntensity={0.15} floatIntensity={0.5}>
           <group rotation={[0.05, -0.15, 0]}>
             <CodeWindow />
@@ -413,13 +415,14 @@ function SceneComposition() {
         <FloatingGlyphs />
         <OrbitSystem />
       </group>
-      <ParticleField count={mobile ? 160 : 350} />
-    </Rig>
+      <ParticleField count={mobile ? 90 : 280} />
+    </SiteRig>
   );
 }
 
 export default function HeroScene() {
   const [reduceMotion, setReduceMotion] = useState(false);
+  const mobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -431,22 +434,21 @@ export default function HeroScene() {
 
   return (
     <Canvas
-      dpr={[1, 1.6]}
+      dpr={mobile ? [1, 1.2] : [1, 1.6]}
       camera={{ position: [0, 0, 6.6], fov: 45 }}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: !mobile, alpha: true, powerPreference: "high-performance" }}
       frameloop={reduceMotion ? "demand" : "always"}
     >
-      <color attach="background" args={["#eef1f7"]} />
       <fog attach="fog" args={["#eef1f7", 10, 24]} />
 
       <ambientLight intensity={0.85} />
       <directionalLight position={[4, 6, 5]} intensity={1.2} />
       <pointLight position={[-6, -3, 2]} intensity={20} color="#0891b2" />
-      <CursorLight />
+      <pointLight position={[3, 1, 4]} intensity={18} color="#7c3aed" distance={16} />
 
       <SceneComposition />
 
-      <Environment preset="city" />
+      {!mobile && <Environment preset="city" />}
     </Canvas>
   );
 }

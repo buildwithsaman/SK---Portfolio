@@ -1,9 +1,5 @@
-import { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { profile, stats } from "../data/cv";
-import useMediaQuery from "../hooks/useMediaQuery";
-
-const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const container = {
   hidden: {},
@@ -27,37 +23,13 @@ export default function Hero() {
     "Kafka",
     "Three.js",
   ];
-  const useLiteVisuals = useMediaQuery(
-    "(max-width: 767px), (prefers-reduced-motion: reduce)",
-  );
-
   return (
     <section
       id="home"
       className="relative flex min-h-[760px] items-center overflow-hidden lg:min-h-screen"
     >
-      {/* 3D background — interactive: drag to orbit */}
-      <div className="absolute inset-0 z-0 lg:[mask-image:linear-gradient(90deg,transparent_0%,black_35%)]">
-        {useLiteVisuals ? (
-          <div
-            className="relative h-full w-full overflow-hidden bg-paper"
-            aria-hidden="true"
-          >
-            <div className="absolute -right-28 top-24 h-80 w-80 rounded-full border border-accent/20 bg-accent/10 blur-sm" />
-            <div className="absolute -right-16 top-44 h-64 w-64 rounded-full border border-accent2/20" />
-            <div className="absolute bottom-28 right-8 font-mono text-7xl font-bold text-accent2/[0.08]">
-              {"</>"}
-            </div>
-          </div>
-        ) : (
-          <Suspense fallback={<div className="h-full w-full bg-paper" />}>
-            <HeroScene />
-          </Suspense>
-        )}
-      </div>
-
-      {/* gradient vignette so text stays legible (does not block 3D interaction) */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/50 via-transparent to-paper" />
+      {/* gradient vignette keeps copy readable above the site-wide 3D scene */}
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/30 via-transparent to-paper/80" />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_20%_30%,rgba(8,145,178,0.10),transparent_45%)]" />
       <div className="hero-noise pointer-events-none absolute inset-0 z-[1]" />
 
@@ -161,7 +133,7 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-16 right-6 z-10 hidden items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 shadow-sm backdrop-blur lg:flex"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-accent2" />
-        Move your cursor
+        Move · touch · scroll
       </motion.div>
 
       {/* scroll cue */}

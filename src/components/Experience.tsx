@@ -62,7 +62,7 @@ const caseStudies: {
 ];
 
 const careerNotes: Record<string, string> = {
-  "Current Role":
+  "Udrive - Rent a Car":
     "Building and modernizing production web platforms with end-to-end ownership.",
   "Arata International FZC (Bahwan International Group)":
     "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
