@@ -1,6 +1,7 @@
 import { experiences } from "../data/cv";
 import Reveal from "./ui/Reveal";
 import DepthCard from "./ui/DepthCard";
+import { ExperienceAtmosphere } from "./ui/SectionAtmosphere";
 
 type Visual = "operations" | "analytics" | "lifecycle";
 
@@ -166,7 +167,8 @@ function ProjectVisual({ type }: { type: Visual }) {
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-pad">
+    <section id="experience" className="section-pad isolate">
+      <ExperienceAtmosphere />
       <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-white/25" />
       <Reveal>
         <span className="eyebrow">02 · Selected work</span>

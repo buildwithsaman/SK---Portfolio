@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { profile, stats } from "../data/cv";
+
+const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const container = {
   hidden: {},
@@ -28,7 +31,12 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-[820px] items-center overflow-hidden sm:min-h-[800px] lg:min-h-screen"
     >
-      {/* gradient vignette keeps copy readable above the site-wide 3D scene */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-20 md:opacity-75" aria-hidden="true">
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
+      </div>
+      {/* gradient vignette keeps copy readable above the hero-only 3D scene */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/30 via-transparent to-paper/80" />
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_20%_30%,rgba(8,145,178,0.10),transparent_45%)]" />
       <div className="hero-noise pointer-events-none absolute inset-0 z-[1]" />

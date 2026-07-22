@@ -1,5 +1,6 @@
 import Reveal from "./ui/Reveal";
 import DepthCard from "./ui/DepthCard";
+import { AboutAtmosphere } from "./ui/SectionAtmosphere";
 
 const highlights = [
   {
@@ -18,7 +19,8 @@ const highlights = [
 
 export default function About() {
   return (
-    <section id="about" className="section-pad">
+    <section id="about" className="section-pad isolate">
+      <AboutAtmosphere />
       <Reveal>
         <span className="eyebrow">01 · About</span>
       </Reveal>

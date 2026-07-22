@@ -2,6 +2,113 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const colors = ["#0891b2", "#7c3aed", "#db2777"];
 
+export function AboutAtmosphere() {
+  const reduceMotion = useReducedMotion();
+  const steps = [
+    [150, 420, "01"],
+    [430, 220, "02"],
+    [750, 390, "03"],
+    [1050, 180, "04"],
+  ] as const;
+
+  return (
+    <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden" aria-hidden="true">
+      <div className="absolute -left-24 top-24 h-80 w-80 rounded-full bg-cyan-300/10 blur-[100px]" />
+      <svg viewBox="0 0 1200 650" className="absolute inset-0 h-full w-full opacity-50">
+        <motion.path
+          d="M-80 520 C 190 520 250 150 470 250 S 770 540 1280 100"
+          fill="none"
+          stroke="url(#about-flow)"
+          strokeWidth="2"
+          strokeDasharray="10 16"
+          animate={reduceMotion ? undefined : { strokeDashoffset: [0, -104] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "linear" }}
+        />
+        <defs>
+          <linearGradient id="about-flow" x1="0" x2="1">
+            <stop offset="0" stopColor={colors[0]} stopOpacity="0.06" />
+            <stop offset="0.5" stopColor={colors[1]} stopOpacity="0.28" />
+            <stop offset="1" stopColor={colors[2]} stopOpacity="0.06" />
+          </linearGradient>
+        </defs>
+        {steps.map(([cx, cy, label], index) => (
+          <g key={label}>
+            <motion.rect
+              x={cx - 28}
+              y={cy - 28}
+              width="56"
+              height="56"
+              rx="18"
+              fill="white"
+              fillOpacity="0.34"
+              stroke={colors[index % colors.length]}
+              strokeOpacity="0.18"
+              animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+              transition={{ duration: 4 + index * 0.5, repeat: Infinity, delay: index * -0.6 }}
+            />
+            <text x={cx} y={cy + 4} textAnchor="middle" fill={colors[index % colors.length]} fillOpacity="0.35" fontFamily="monospace" fontSize="12">
+              {label}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+export function ExperienceAtmosphere() {
+  const reduceMotion = useReducedMotion();
+  const milestones = [170, 470, 770, 1070];
+
+  return (
+    <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 overflow-hidden" aria-hidden="true">
+      <div className="absolute -right-20 top-1/4 h-96 w-96 rounded-full bg-violet-300/10 blur-[110px]" />
+      <svg viewBox="0 0 1200 900" className="absolute inset-0 h-full w-full opacity-55">
+        <motion.path
+          d="M-80 260 C 250 80 420 520 690 330 S 980 120 1280 410"
+          fill="none"
+          stroke="#0891b2"
+          strokeOpacity="0.14"
+          strokeWidth="2"
+          strokeDasharray="7 13"
+          animate={reduceMotion ? undefined : { strokeDashoffset: [0, -100] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        />
+        {milestones.map((cx, index) => (
+          <g key={cx}>
+            <motion.circle
+              cx={cx}
+              cy={index % 2 ? 430 : 245}
+              r="26"
+              fill="none"
+              stroke={colors[index % colors.length]}
+              strokeOpacity="0.13"
+              animate={reduceMotion ? undefined : { r: [16, 42], opacity: [0.35, 0] }}
+              transition={{ duration: 3.2, repeat: Infinity, delay: index * 0.7 }}
+            />
+            <circle cx={cx} cy={index % 2 ? 430 : 245} r="5" fill={colors[index % colors.length]} opacity="0.42" />
+          </g>
+        ))}
+        <motion.path
+          d="M100 720 H1100"
+          stroke="url(#delivery-line)"
+          strokeWidth="1.5"
+          strokeDasharray="4 12"
+          animate={reduceMotion ? undefined : { strokeDashoffset: [0, -64] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+        />
+        <defs>
+          <linearGradient id="delivery-line" x1="0" x2="1">
+            <stop stopColor={colors[0]} stopOpacity="0" />
+            <stop offset="0.5" stopColor={colors[1]} stopOpacity="0.24" />
+            <stop offset="1" stopColor={colors[2]} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
 export function EducationAtmosphere() {
   const reduceMotion = useReducedMotion();
   const nodes = [
