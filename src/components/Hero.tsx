@@ -1,14 +1,9 @@
-"use client";
-
-import dynamic from "next/dynamic";
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { profile, stats } from "../data/cv";
 
-const HeroScene = dynamic(() => import("./three/HeroScene"), {
-  ssr: false,
-  loading: () => null,
-});
+const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const container: Variants = {
   hidden: {},
@@ -41,7 +36,9 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 z-0 opacity-20 md:opacity-75"
         aria-hidden="true"
       >
-        <HeroScene />
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
       </div>
       {/* gradient vignette keeps copy readable above the hero-only 3D scene */}
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/30 via-transparent to-paper/80" />
