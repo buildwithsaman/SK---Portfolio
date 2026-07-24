@@ -197,7 +197,7 @@ function TechnologyStack({
 
       <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/70 pt-4 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-400">
         <span>20 signature tools</span>
-        {activeCategory ? (
+        {activeCategory && (
           <button
             type="button"
             className="transition-colors hover:text-violet-600"
@@ -205,8 +205,6 @@ function TechnologyStack({
           >
             Clear focus
           </button>
-        ) : (
-          <span>Select a layer</span>
         )}
       </div>
     </div>
