@@ -1,14 +1,15 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { profile, stats } from "../data/cv";
 
 const HeroScene = lazy(() => import("./three/HeroScene"));
 
-const container = {
+const container: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
 };
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,

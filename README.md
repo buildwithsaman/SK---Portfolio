@@ -7,7 +7,7 @@ depth cards, scroll-driven motion, and an accessible glass-and-aurora visual sys
 
 ## Tech stack
 
-- **React 18 + TypeScript + Vite** — fast, typed SPA
+- **React 19.2 + Next.js 16 + TypeScript 7** — typed App Router site with static export
 - **three.js + @react-three/fiber + @react-three/drei** — the 3D scenes
   - Interactive code window, orbital system, glyphs, particle field, and cursor lighting (hero)
   - Draggable Fibonacci-sphere technology cloud with hover highlighting (skills)
@@ -18,14 +18,17 @@ depth cards, scroll-driven motion, and an accessible glass-and-aurora visual sys
 
 ```bash
 npm install        # install dependencies
-npm run dev        # start the dev server (http://localhost:5173)
-npm run build      # type-check + production build to /dist
-npm run preview    # preview the production build locally
+npm run dev        # start the dev server (http://localhost:3000)
+npm run typecheck  # run the TypeScript 7 compiler
+npm run build      # production build and static export to /out
 ```
 
 ## Structure
 
 ```
+app/
+  layout.tsx               # root metadata and global styles
+  page.tsx                 # App Router page entry
 src/
   App.tsx                  # page composition + scroll progress bar
   data/cv.ts               # all portfolio content (single source of truth)
