@@ -1,12 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import {
-  Float,
-  RoundedBox,
-  Text,
-  Billboard,
-  Environment,
-} from "@react-three/drei";
+import { Float, RoundedBox, Text, Billboard } from "@react-three/drei";
 import * as THREE from "three";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
@@ -500,16 +494,7 @@ function SceneComposition() {
 }
 
 export default function HeroScene() {
-  const [reduceMotion, setReduceMotion] = useState(false);
   const mobile = useMediaQuery("(max-width: 767px)");
-
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
-  }, []);
 
   return (
     <Canvas
@@ -521,7 +506,7 @@ export default function HeroScene() {
         alpha: true,
         powerPreference: "high-performance",
       }}
-      frameloop={reduceMotion ? "demand" : "always"}
+      frameloop="always"
     >
       <fog attach="fog" args={["#eef1f7", 10, 24]} />
 
@@ -536,8 +521,6 @@ export default function HeroScene() {
       />
 
       <SceneComposition />
-
-      {!mobile && <Environment preset="city" />}
     </Canvas>
   );
 }
