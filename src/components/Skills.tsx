@@ -11,80 +11,49 @@ const categoryMeta: Record<
   { description: string; color: string; color2: string; symbol: string }
 > = {
   Frontend: {
-    description: "Responsive interfaces, state, routing, and design systems.",
+    description: "Interfaces, state management, design systems, and builds.",
     color: "#7c3aed",
     color2: "#a855f7",
     symbol: "◫",
   },
   "Backend & APIs": {
-    description: "Secure services, integrations, and dependable API contracts.",
+    description: "Service runtimes, API contracts, and application security.",
     color: "#4f46e5",
     color2: "#6366f1",
     symbol: "⌁",
   },
   "Cloud & DevOps": {
-    description: "Cloud delivery, automation, observability, and edge tooling.",
+    description: "Cloud infrastructure, delivery automation, and edge tooling.",
     color: "#2563eb",
     color2: "#3b82f6",
     symbol: "△",
   },
   Mobile: {
-    description: "Cross-platform mobile experiences and native foundations.",
+    description: "Cross-platform applications and native Android foundations.",
     color: "#0891b2",
     color2: "#06b6d4",
     symbol: "▯",
   },
   "Data, Maps & Monitoring": {
-    description: "Streaming data, analytics, mapping, and operational insight.",
+    description: "Data pipelines, analytics, mapping, and persistence.",
     color: "#06b6d4",
     color2: "#22d3ee",
     symbol: "⌗",
   },
   "Languages & Tools": {
-    description: "Languages and collaboration tools that support delivery.",
+    description: "Programming, collaboration, and creative delivery tools.",
     color: "#5b5bd6",
     color2: "#8b5cf6",
     symbol: "{ }",
   },
 };
 
-const stackLayers: {
-  label: string;
-  description: string;
-  category: Category;
-  technologies: string[];
-}[] = [
-  {
-    label: "Product interface",
-    description: "Fast, accessible application experiences.",
-    category: "Frontend",
-    technologies: ["React 19", "TypeScript", "React Query", "MUI", "Vite"],
-  },
-  {
-    label: "Services & security",
-    description: "Clear contracts and protected application flows.",
-    category: "Backend & APIs",
-    technologies: ["Node.js", "REST APIs", "JWT", "OAuth2", ".NET"],
-  },
-  {
-    label: "Cloud delivery",
-    description: "Reliable infrastructure and automated releases.",
-    category: "Cloud & DevOps",
-    technologies: ["AWS", "Nginx", "Cloudflare", "GitHub Actions"],
-  },
-  {
-    label: "Data & insight",
-    description: "Operational data, analytics, and mapping.",
-    category: "Data, Maps & Monitoring",
-    technologies: ["Kafka", "Airflow", "Superset", "D3", "MapLibre"],
-  },
-];
-
 function CategoryIcon({ category }: { category: Category }) {
   const meta = categoryMeta[category];
+
   return (
     <span
-      className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/80 text-[13px] font-semibold text-white shadow-lg"
+      className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/80 text-[13px] font-semibold text-white shadow-lg"
       style={{
         background: `linear-gradient(145deg, ${meta.color}, ${meta.color2})`,
         boxShadow: `0 12px 28px -14px ${meta.color}`,
@@ -96,151 +65,37 @@ function CategoryIcon({ category }: { category: Category }) {
   );
 }
 
-function TechnologyStack({
-  activeCategory,
-  onCategoryChange,
-}: {
-  activeCategory: Category | null;
-  onCategoryChange: (category: Category | null) => void;
-}) {
-  return (
-    <div
-      className="relative p-5 sm:p-7 lg:p-8"
-      aria-label="Technology stack overview"
-    >
-      <div className="skills-stack-grid pointer-events-none absolute inset-0 opacity-35" />
-      <div className="pointer-events-none absolute -left-20 top-16 h-72 w-72 rounded-full bg-violet-400/15 blur-[90px]" />
-      <div className="pointer-events-none absolute -right-16 bottom-12 h-64 w-64 rounded-full bg-cyan-300/15 blur-[90px]" />
-
-      <div className="relative z-10 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em]">
-        <span className="flex items-center gap-2 text-violet-600">
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-          Technology stack
-        </span>
-        <span className="text-slate-400">Stable overview</span>
-      </div>
-
-      <button
-        type="button"
-        onClick={() =>
-          onCategoryChange(
-            activeCategory === "Backend & APIs" ? null : "Backend & APIs",
-          )
-        }
-        className={`relative z-10 mt-7 flex w-full items-center gap-4 border-y px-1 py-5 text-left transition-colors sm:px-2 ${
-          activeCategory === "Backend & APIs"
-            ? "border-indigo-200 bg-indigo-50/45"
-            : "border-white/80 hover:bg-white/35"
-        }`}
-      >
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 font-mono text-lg font-semibold text-white shadow-lg shadow-indigo-500/20">
-          N
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-indigo-500">
-            Core runtime
-          </span>
-          <span className="mt-1 block text-xl font-semibold tracking-tight text-slate-950">
-            Node.js
-          </span>
-          <span className="mt-1 block text-xs leading-relaxed text-slate-500">
-            The service layer connecting product interfaces, APIs, and
-            infrastructure.
-          </span>
-        </span>
-        <span className="hidden rounded-full border border-indigo-100 bg-white/70 px-3 py-1 font-mono text-[9px] text-indigo-500 sm:block">
-          Full stack
-        </span>
-      </button>
-
-      <div className="relative z-10 mt-4 space-y-3">
-        {stackLayers.map((layer, index) => {
-          const meta = categoryMeta[layer.category];
-          const active = activeCategory === layer.category;
-          return (
-            <button
-              type="button"
-              key={layer.label}
-              onClick={() => onCategoryChange(active ? null : layer.category)}
-              className={`skills-stack-layer grid w-full gap-4 border-t px-1 py-4 text-left first:border-t-0 sm:grid-cols-[10rem_1fr] sm:items-center sm:px-2 ${active ? "is-active" : ""}`}
-              style={{ "--layer-color": meta.color } as CSSProperties}
-            >
-              <span>
-                <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
-                  <span className="font-mono text-[9px] text-slate-400">
-                    0{index + 1}
-                  </span>
-                  {layer.label}
-                </span>
-                <span className="mt-1 block text-[10px] leading-relaxed text-slate-500">
-                  {layer.description}
-                </span>
-              </span>
-              <span className="flex flex-wrap gap-1.5">
-                {layer.technologies.map((technology) => (
-                  <span
-                    key={technology}
-                    className="skills-stack-pill inline-flex items-center gap-1.5 rounded-full border border-white bg-white/75 px-2.5 py-1.5 text-[10px] text-slate-600 shadow-sm"
-                  >
-                    <span
-                      className="h-1.5 w-1.5 rounded-full"
-                      style={{ backgroundColor: meta.color }}
-                    />
-                    {technology}
-                  </span>
-                ))}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/70 pt-4 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-400">
-        <span>20 signature tools</span>
-        {activeCategory && (
-          <button
-            type="button"
-            className="transition-colors hover:text-violet-600"
-            onClick={() => onCategoryChange(null)}
-          >
-            Clear focus
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function SkillCard({
+function SkillCategoryCard({
   group,
   index,
-  active,
-  expanded,
   mobile,
-  onSelect,
+  expanded,
+  onToggle,
 }: {
   group: (typeof skillGroups)[number];
   index: number;
-  active: boolean;
-  expanded: boolean;
   mobile: boolean;
-  onSelect: () => void;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
   const meta = categoryMeta[group.category];
-  const cardId = `skills-card-${index}`;
+  const itemCount = group.subgroups.reduce(
+    (total, subgroup) => total + subgroup.items.length,
+    0,
+  );
+  const cardId = `skills-category-${index}`;
 
   return (
     <motion.article
-      layout
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.5,
+        duration: 0.48,
         delay: index * 0.055,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className={`skills-category-row group relative w-full overflow-hidden border-b border-slate-200/60 p-5 text-left transition-colors duration-200 last:border-b-0 sm:p-6 ${active ? "is-active" : ""}`}
+      className="skills-category-row group relative overflow-hidden rounded-2xl border border-white/80 bg-white/45 p-5 shadow-[0_20px_50px_-38px_rgba(15,23,42,0.45)] backdrop-blur-sm sm:p-6"
       style={
         {
           "--category-color": meta.color,
@@ -251,21 +106,21 @@ function SkillCard({
       <button
         type="button"
         className="relative z-10 flex w-full items-center gap-3 text-left"
-        onClick={onSelect}
-        aria-expanded={mobile ? expanded : undefined}
-        aria-controls={mobile ? cardId : undefined}
+        onClick={onToggle}
+        aria-expanded={mobile ? expanded : true}
+        aria-controls={cardId}
       >
         <CategoryIcon category={group.category} />
         <span className="min-w-0 flex-1">
-          <span className="block text-sm font-semibold tracking-tight text-slate-900">
+          <span className="block text-base font-semibold tracking-tight text-slate-900">
             {group.category}
           </span>
           <span className="mt-0.5 block text-[11px] leading-snug text-slate-500">
             {meta.description}
           </span>
         </span>
-        <span className="grid h-8 min-w-8 place-items-center rounded-full border border-slate-200/80 bg-white/60 px-2 font-mono text-[9px] text-slate-500">
-          {String(group.items.length).padStart(2, "0")}
+        <span className="grid h-8 min-w-8 place-items-center rounded-full border border-slate-200/80 bg-white/70 px-2 font-mono text-[9px] text-slate-500">
+          {String(itemCount).padStart(2, "0")}
         </span>
         {mobile && (
           <motion.span
@@ -285,24 +140,36 @@ function SkillCard({
             initial={mobile ? { height: 0, opacity: 0 } : false}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="relative z-10 overflow-hidden"
           >
-            <div className="mt-4 flex flex-wrap gap-1.5 border-t border-slate-200/60 pt-4">
-              {group.items.map((item, itemIndex) => (
-                <motion.span
-                  key={item}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: mobile ? itemIndex * 0.025 : 0 }}
-                  className="skills-tech-pill inline-flex items-center gap-1.5 rounded-full border border-white/90 bg-white/65 px-2.5 py-1.5 text-[10px] leading-tight text-slate-600 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:text-slate-900"
+            <div className="mt-5 space-y-4 border-t border-slate-200/60 pt-5">
+              {group.subgroups.map((subgroup) => (
+                <div
+                  key={subgroup.label}
+                  className="grid gap-2 sm:grid-cols-[8.5rem_1fr] sm:gap-4"
                 >
                   <span
-                    className="h-1.5 w-1.5 rounded-full"
-                    style={{ background: meta.color }}
-                  />
-                  {item}
-                </motion.span>
+                    className="pt-1 font-mono text-[9px] uppercase tracking-[0.17em]"
+                    style={{ color: meta.color }}
+                  >
+                    {subgroup.label}
+                  </span>
+                  <span className="flex flex-wrap gap-1.5">
+                    {subgroup.items.map((item) => (
+                      <span
+                        key={item}
+                        className="skills-tech-pill inline-flex items-center gap-1.5 rounded-full border border-white/90 bg-white/75 px-2.5 py-1.5 text-[10px] leading-tight text-slate-600 shadow-sm transition-all hover:-translate-y-0.5 hover:text-slate-900"
+                      >
+                        <span
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{ background: meta.color }}
+                        />
+                        {item}
+                      </span>
+                    ))}
+                  </span>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -314,29 +181,18 @@ function SkillCard({
 
 export default function Skills() {
   const mobile = useMediaQuery("(max-width: 767px)");
-  const [activeCategory, setActiveCategory] = useState<Category | null>(null);
   const [expandedCategory, setExpandedCategory] = useState<Category | null>(
     "Frontend",
   );
-  const categoryOrder: Category[] = [
-    "Frontend",
-    "Backend & APIs",
-    "Cloud & DevOps",
-    "Mobile",
-    "Data, Maps & Monitoring",
-    "Languages & Tools",
-  ];
-  const orderedGroups = categoryOrder.map((category) =>
-    skillGroups.find((group) => group.category === category)!,
+  const totalTools = skillGroups.reduce(
+    (total, group) =>
+      total +
+      group.subgroups.reduce(
+        (groupTotal, subgroup) => groupTotal + subgroup.items.length,
+        0,
+      ),
+    0,
   );
-
-  const selectCategory = (category: Category) => {
-    setActiveCategory((current) => (current === category ? null : category));
-    if (mobile)
-      setExpandedCategory((current) =>
-        current === category ? null : category,
-      );
-  };
 
   return (
     <section
@@ -357,34 +213,40 @@ export default function Skills() {
             <span className="block text-slate-500">Not the trend.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-            Every technology is selected based on performance, scalability, and
-            long-term maintainability.
+            A clear hierarchy of capabilities, with every technology assigned
+            to one focused area.
           </p>
         </Reveal>
 
         <Reveal className="mt-14">
-          <div className="skills-unified-panel overflow-hidden rounded-[2rem]">
-            <div className="grid grid-cols-1 lg:grid-cols-12">
-              <div className="lg:col-span-7">
-                <TechnologyStack
-                  activeCategory={activeCategory}
-                  onCategoryChange={setActiveCategory}
-                />
-              </div>
+          <div className="skills-unified-panel overflow-hidden rounded-[2rem] p-4 sm:p-6 lg:p-8">
+            <div className="relative z-10 mb-6 flex flex-col gap-2 border-b border-white/80 pb-5 sm:flex-row sm:items-center sm:justify-between">
+              <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-violet-600">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
+                Technology stack
+              </span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-slate-400">
+                {skillGroups.length} categories · {totalTools} tools
+              </span>
+            </div>
 
-              <div className="grid grid-cols-1 border-t border-slate-200/60 md:grid-cols-2 lg:col-span-5 lg:grid-cols-1 lg:border-l lg:border-t-0">
-                {orderedGroups.map((group, index) => (
-                  <SkillCard
-                    key={group.category}
-                    group={group}
-                    index={index}
-                    mobile={mobile}
-                    active={activeCategory === group.category}
-                    expanded={expandedCategory === group.category}
-                    onSelect={() => selectCategory(group.category)}
-                  />
-                ))}
-              </div>
+            <div className="relative z-10 grid gap-4 lg:grid-cols-2">
+              {skillGroups.map((group, index) => (
+                <SkillCategoryCard
+                  key={group.category}
+                  group={group}
+                  index={index}
+                  mobile={mobile}
+                  expanded={expandedCategory === group.category}
+                  onToggle={() => {
+                    if (mobile) {
+                      setExpandedCategory((current) =>
+                        current === group.category ? null : group.category,
+                      );
+                    }
+                  }}
+                />
+              ))}
             </div>
           </div>
         </Reveal>

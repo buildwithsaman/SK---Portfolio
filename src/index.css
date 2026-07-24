@@ -155,19 +155,12 @@ body {
   }
 }
 
-.skills-section-grid,
-.skills-stack-grid {
+.skills-section-grid {
   background-image:
     linear-gradient(rgba(79, 70, 229, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(79, 70, 229, 0.035) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(circle at center, black, transparent 82%);
-}
-
-.skills-stack-grid {
-  background-size: 32px 32px;
-  opacity: 0.6;
-  mask-image: radial-gradient(circle at center, black, transparent 72%);
 }
 
 .skills-noise {
@@ -205,32 +198,6 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 36px 90px -46px rgba(30, 41, 59, 0.38);
   backdrop-filter: blur(28px) saturate(140%);
-}
-
-.skills-stack-layer {
-  border-color: rgba(148, 163, 184, 0.16);
-  background: transparent;
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.skills-stack-layer:hover,
-.skills-stack-layer.is-active {
-  border-color: color-mix(in srgb, var(--layer-color) 24%, white);
-  background: color-mix(in srgb, var(--layer-color) 5%, transparent);
-}
-
-.skills-stack-pill {
-  transition:
-    border-color 180ms ease,
-    color 180ms ease;
-}
-
-.skills-stack-layer:hover .skills-stack-pill,
-.skills-stack-layer.is-active .skills-stack-pill {
-  border-color: color-mix(in srgb, var(--layer-color) 22%, white);
 }
 
 .skills-category-row::before {

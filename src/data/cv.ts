@@ -91,68 +91,110 @@ export const experiences: Experience[] = [
 
 export type SkillGroup = {
   category: string;
-  items: string[];
+  subgroups: {
+    label: string;
+    items: string[];
+  }[];
 };
 
 export const skillGroups: SkillGroup[] = [
   {
     category: "Frontend",
-    items: [
-      "React 19",
-      "TypeScript",
-      "JavaScript",
-      "TanStack React Query 5",
-      "MUI 5/6",
-      "Emotion",
-      "React Native (Expo)",
-      "Framer Motion",
-      "React Router 7",
+    subgroups: [
+      {
+        label: "Core",
+        items: ["React 19", "TypeScript", "JavaScript", "React Router 7"],
+      },
+      {
+        label: "State & UI",
+        items: [
+          "TanStack React Query 5",
+          "MUI 5/6",
+          "Emotion",
+          "Framer Motion",
+        ],
+      },
+      {
+        label: "Build",
+        items: ["Vite 8", "CRACO"],
+      },
     ],
   },
   {
     category: "Backend & APIs",
-    items: ["Node.js (Express)", ".NET", "RESTful API design", "JWT / OAuth2"],
-  },
-  {
-    category: "Cloud & DevOps",
-    items: [
-      "AWS (EC2, Route 53, CloudWatch)",
-      "Nginx",
-      "Cloudflare",
-      "GitHub Actions",
-      "Vite 8",
-      "CRACO",
+    subgroups: [
+      {
+        label: "Runtime",
+        items: ["Node.js (Express)", ".NET"],
+      },
+      {
+        label: "APIs & Security",
+        items: ["RESTful API design", "JWT / OAuth2"],
+      },
     ],
   },
   {
-    category: "Data, Maps & Monitoring",
-    items: [
-      "Apache Kafka",
-      "Apache Airflow",
-      "Apache Superset",
-      "Mapbox GL / MapLibre GL",
-      "D3",
-      "React-PDF",
-      "MS SQL Server",
-      "Firebase",
+    category: "Cloud & DevOps",
+    subgroups: [
+      {
+        label: "Cloud",
+        items: ["AWS (EC2, Route 53, CloudWatch)"],
+      },
+      {
+        label: "Delivery & Edge",
+        items: ["Nginx", "Cloudflare", "GitHub Actions"],
+      },
     ],
   },
   {
     category: "Mobile",
-    items: ["React Native (Expo)", "Java", "Android Development"],
+    subgroups: [
+      {
+        label: "Cross-platform",
+        items: ["React Native (Expo)"],
+      },
+      {
+        label: "Native Android",
+        items: ["Java", "Android Development"],
+      },
+    ],
+  },
+  {
+    category: "Data, Maps & Monitoring",
+    subgroups: [
+      {
+        label: "Streaming & Orchestration",
+        items: ["Apache Kafka", "Apache Airflow"],
+      },
+      {
+        label: "Analytics & Visualization",
+        items: ["Apache Superset", "D3"],
+      },
+      {
+        label: "Maps & Documents",
+        items: ["Mapbox GL / MapLibre GL", "React-PDF"],
+      },
+      {
+        label: "Data Platforms",
+        items: ["MS SQL Server", "Firebase"],
+      },
+    ],
   },
   {
     category: "Languages & Tools",
-    items: [
-      "Python (Tkinter, PyQt, scripting)",
-      "C++",
-      "C#",
-      "Java",
-      "GitHub",
-      "Jira",
-      "Confluence",
-      "Adobe Suite (Photoshop, Illustrator)",
-      "Premiere Pro",
+    subgroups: [
+      {
+        label: "Languages",
+        items: ["Python (Tkinter, PyQt, scripting)", "C++", "C#"],
+      },
+      {
+        label: "Collaboration",
+        items: ["GitHub", "Jira", "Confluence"],
+      },
+      {
+        label: "Creative",
+        items: ["Adobe Suite (Photoshop, Illustrator)", "Premiere Pro"],
+      },
     ],
   },
 ];
