@@ -420,10 +420,14 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     );
     const progress = THREE.MathUtils.clamp(window.scrollY / maxScroll, 0, 1);
     const mobile = size.width < 768;
-    const travelX = mobile ? viewport.width * 0.16 : viewport.width * 0.28;
+    const anchorX = mobile
+      ? viewport.width * 0.04
+      : viewport.width * (size.width < 1100 ? 0.16 : 0.25);
+    const travelX = viewport.width * (mobile ? 0.08 : 0.06);
     const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
-    // Start centered at the top of the page, then travel as the user scrolls.
-    const targetX = Math.sin(progress * Math.PI * 4.5) * travelX;
+    // Keep the scene anchored beside the copy while retaining subtle movement.
+    const targetX =
+      anchorX + Math.sin(progress * Math.PI * 4.5) * travelX;
     const targetY = Math.sin(progress * Math.PI * 5) * travelY;
     const targetScale =
       (mobile ? 0.52 : size.width < 1100 ? 0.74 : 0.9) *
