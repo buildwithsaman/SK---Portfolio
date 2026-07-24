@@ -33,7 +33,7 @@ export default function Hero() {
       className="relative flex min-h-[820px] items-center overflow-hidden sm:min-h-[800px] lg:min-h-screen"
     >
       <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-20 md:opacity-75"
+        className="pointer-events-none absolute inset-0 z-0 opacity-50 md:opacity-75"
         aria-hidden="true"
       >
         <Suspense fallback={null}>

@@ -422,10 +422,11 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     const mobile = size.width < 768;
     const travelX = mobile ? viewport.width * 0.16 : viewport.width * 0.28;
     const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
-    const targetX = Math.cos(progress * Math.PI * 4.5) * travelX;
+    // Start centered at the top of the page, then travel as the user scrolls.
+    const targetX = Math.sin(progress * Math.PI * 4.5) * travelX;
     const targetY = Math.sin(progress * Math.PI * 5) * travelY;
     const targetScale =
-      (mobile ? 0.34 : size.width < 1100 ? 0.74 : 0.9) *
+      (mobile ? 0.52 : size.width < 1100 ? 0.74 : 0.9) *
       (0.94 + Math.sin(progress * Math.PI * 3) * 0.06 + pulse.current * 0.08);
 
     pulse.current *= 0.9;
