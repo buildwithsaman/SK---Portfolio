@@ -213,8 +213,8 @@ export default function Skills() {
             <span className="block text-slate-500">Not the trend.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg">
-            A clear hierarchy of capabilities, with every technology assigned
-            to one focused area.
+            A clear hierarchy of capabilities, with every technology assigned to
+            one focused area.
           </p>
         </Reveal>
 

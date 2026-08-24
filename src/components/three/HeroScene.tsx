@@ -426,8 +426,7 @@ function SiteRig({ children }: { children: React.ReactNode }) {
     const travelX = viewport.width * (mobile ? 0.08 : 0.06);
     const travelY = mobile ? viewport.height * 0.12 : viewport.height * 0.18;
     // Keep the scene anchored beside the copy while retaining subtle movement.
-    const targetX =
-      anchorX + Math.sin(progress * Math.PI * 4.5) * travelX;
+    const targetX = anchorX + Math.sin(progress * Math.PI * 4.5) * travelX;
     const targetY = Math.sin(progress * Math.PI * 5) * travelY;
     const targetScale =
       (mobile ? 0.52 : size.width < 1100 ? 0.74 : 0.9) *
