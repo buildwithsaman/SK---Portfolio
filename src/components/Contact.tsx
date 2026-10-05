@@ -46,8 +46,8 @@ export default function Contact() {
               <span className="gradient-text">worth solving</span>?
             </h2>
             <p className="mt-4 max-w-lg text-slate-600">
-              I'm based in {profile.location} and open to full-stack roles and
-              collaborations. The fastest way to reach me is email.
+              I'm based in {profile.location} and open to software engineering
+              roles and collaborations. The fastest way to reach me is email.
             </p>
 
             <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-8">

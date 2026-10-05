@@ -20,12 +20,12 @@ const item: Variants = {
 
 export default function Hero() {
   const technologies = [
-    "React 19",
+    "Next.js",
+    "React",
     "TypeScript",
-    "Node.js",
+    "Python",
     "AWS",
     "Kafka",
-    "Three.js",
   ];
   return (
     <section
@@ -80,9 +80,9 @@ export default function Hero() {
             variants={item}
             className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-600 md:mx-0 md:text-lg"
           >
-            I build data-intensive platforms end-to-end — from crisp React
-            frontends to resilient Node.js services and cloud infrastructure
-            that ships on time.
+            I build production web platforms for mobility, subscriptions, and
+            analytics — from React/Next.js interfaces to AWS deployment and
+            automation that ships measurable results.
           </motion.p>
 
           <motion.div

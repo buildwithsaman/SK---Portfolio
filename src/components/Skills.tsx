@@ -11,37 +11,37 @@ const categoryMeta: Record<
   { description: string; color: string; color2: string; symbol: string }
 > = {
   Frontend: {
-    description: "Interfaces, state management, design systems, and builds.",
+    description: "Next.js/React interfaces, maps, charts, and design systems.",
     color: "#7c3aed",
     color2: "#a855f7",
     symbol: "◫",
   },
-  "Backend & APIs": {
-    description: "Service runtimes, API contracts, and application security.",
+  "Backend & Integration": {
+    description: "Python/Node services, Kafka consumers, and API security.",
     color: "#4f46e5",
     color2: "#6366f1",
     symbol: "⌁",
   },
   "Cloud & DevOps": {
-    description: "Cloud infrastructure, delivery automation, and edge tooling.",
+    description: "AWS delivery, CDN, reverse proxies, and CI automation.",
     color: "#2563eb",
     color2: "#3b82f6",
     symbol: "△",
   },
   Mobile: {
-    description: "Cross-platform applications and native Android foundations.",
+    description: "Cross-platform apps with React Native and Expo.",
     color: "#0891b2",
     color2: "#06b6d4",
     symbol: "▯",
   },
-  "Data, Maps & Monitoring": {
-    description: "Data pipelines, analytics, mapping, and persistence.",
+  "Data & Monitoring": {
+    description: "Streaming, analytics, and production data platforms.",
     color: "#06b6d4",
     color2: "#22d3ee",
     symbol: "⌗",
   },
   "Languages & Tools": {
-    description: "Programming, collaboration, and creative delivery tools.",
+    description: "Collaboration, Figma implementation, and creative tools.",
     color: "#5b5bd6",
     color2: "#8b5cf6",
     symbol: "{ }",

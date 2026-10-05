@@ -1,23 +1,23 @@
 export const profile = {
   name: "Saman Shakil Khan",
-  title: "Full Stack Developer",
+  title: "Software Engineer / Developer",
   location: "Dubai, UAE",
   phone: "+971 50 601 9290",
   email: "samankhanhq@gmail.com",
   linkedin: "https://www.linkedin.com/in/saman-shakil-khan-62728b208/",
   github: "https://github.com/buildwithsaman",
-  resume: "./Saman_Khan_CV.docx",
-  resumeName: "Saman_Khan_CV.docx",
+  resume: "./Saman_Khan_CV.pdf",
+  resumeName: "Saman_Khan_CV.pdf",
   summary:
-    "Full Stack Developer with 2+ years building production web applications and internal platforms. Specialises in React, TypeScript, Node.js, and REST APIs, with end-to-end ownership across frontend architecture, cloud deployment, CI/CD, authentication, and role-based access control.",
+    "Frontend-focused Software Engineer with 2+ years building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences. Primary frontend owner across large React/TypeScript admin systems and currently building Udrive’s new Next.js website from Figma. Experienced in responsive UI architecture, data-heavy dashboards, D3/Mapbox visualizations, performance optimization, AWS deployment, and API integration, with additional production backend experience in Python/Kafka-based KYC automation.",
   focus:
-    "End-to-end ownership across frontend architecture, AWS deployment, CI/CD, and RBAC — with a consistent focus on performance, clean code, and shipping on time.",
+    "Owning features from development through deployment — React/Next.js frontends, data-heavy operations tools, and automation that delivers measurable business impact.",
 };
 
 export const stats = [
   { label: "Years of experience", value: "2+" },
-  { label: "Frontend", value: "React 19" },
-  { label: "Development", value: "Full-stack" },
+  { label: "Cost reduction", value: "~70%" },
+  { label: "Debt recovery", value: "+30%" },
   { label: "Ownership", value: "E2E" },
 ];
 
@@ -35,21 +35,53 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    company: "Udrive - Rent A Car",
-    role: "Full Stack Developer",
+    company: "Udrive – Rent-a-Car",
+    role: "Software Engineer / Developer",
     location: "Dubai, UAE",
     period: "Aug 2024 – Present",
     projects: [
       {
-        name: "Production Web Platforms",
+        name: "Internal Operations & Analytics",
         points: [
-          "Build and maintain production admin platforms using React 19, TypeScript, MUI, Emotion, and React Router 7.",
-          "Modernized frontend tooling from a legacy CRACO setup to Vite 8, adding lazy-loaded routes and vendor code-splitting.",
-          "Standardized server-state fetching and caching through reusable React Query hooks and a centralized, environment-driven API client with bearer authentication, unauthorized-session handling, and normalized errors.",
-          "Built reusable map, data-visualization, and document interfaces with Mapbox GL, MapLibre GL, D3, and React-PDF.",
-          "Improved reliability and usability with lazy-loaded routes, vendor code-splitting, global toasts, optimistic updates, an ErrorBoundary, reusable empty states, and URL-synced filters.",
-          "Structured feature areas around dedicated data hooks, mutation actions, reusable components, constants, and protected routes.",
-          "Contributed to production delivery through cloud infrastructure, reverse proxy configuration, HTTPS, and CI/CD workflows.",
+          "Primary frontend owner for a React + MUI internal operations platform spanning customers, verifications, reservations, invoices, vehicles, damage reports, credits, fines, claims, analytics, mobility operations, and admin tooling.",
+          "Built or heavily evolved six analytics areas — Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics (D3), and TARS — with shared filters, responsive tables/charts, and CSV export workflows.",
+          "Built mobility operations modules for a near-real-time Mapbox driver map (10-second polling), rides operations, driver management, and fleet management, including create/edit/assignment workflows and reusable UI patterns.",
+          "Implemented vehicle operations including lock/unlock, immobilize/mobilize, onboarding/offboarding, location/state updates, and resilient loading, error, and toast feedback patterns.",
+          "Built an in-app Banner Studio with draggable/resizable layers, text/images/shapes, templates, undo/redo, preview, and HTML/JSON export/import for lightweight marketing content creation.",
+          "Maintained protected routing, JWT-based frontend auth flows, feature scopes/RBAC UI, release notes, and responsive layouts across desktop, tablet, and mobile.",
+        ],
+      },
+      {
+        name: "Subscription, CRM & Fleet Operations",
+        points: [
+          "Built most of the React frontend for the monthly subscription admin platform, covering the sales pipeline, customers/KYC, fleet operations, subscriptions, invoices, product catalog, analytics, and role-based administration.",
+          "Built the Lead → Initial Contact → Qualified → Won/Lost deals workflow with Kanban pipeline, stage transitions, filters/search, assignee management, lost/archive actions, lead creation, and one-click personalized WhatsApp outreach.",
+          "Developed customer and fleet consoles with verification queues, payment/device/history views, account actions, MapLibre maps, hardware controls, reservations, damage reports, and vehicle state management.",
+          "Implemented subscription car assignment, invoice operations, product management for colors/pricing/mileage packages, and D3 lead/funnel analytics; also created a filterable, print-friendly Deals Report.",
+          "Migrated the frontend from CRA/CRACO to Vite for faster startup/HMR and simpler configuration while preserving the existing build output; handled frontend build/deployment on AWS EC2 with Nginx and HTTPS.",
+        ],
+      },
+      {
+        name: "Customer-Facing Web Development",
+        points: [
+          "Building a new customer-facing website from scratch from Figma using Next.js App Router, TypeScript, and CSS Modules, translating designs into pixel-accurate responsive experiences across desktop, tablet, and mobile.",
+          "Implemented roughly 20 routes spanning home, rental offerings, fleet, mobility services, business, help content, articles, contact, careers, and legal content, with English/Arabic locale routing and RTL support.",
+          "Created reusable navigation, footer, hero, CTA, FAQ, pricing/rental, gallery, and content components to keep the design system consistent and maintainable across pages.",
+          "Optimized page delivery with AWS CloudFront-hosted WebP/SVG/Lottie assets, next/image responsive loading, lazy loading, next/font, critical asset preloading, and offscreen/play-once Lottie behavior.",
+        ],
+      },
+      {
+        name: "KYC & Verification Automation",
+        points: [
+          "Contributed to a production Python/FastStream Kafka verification pipeline that orchestrates Taareef AI OCR, face/liveness/audio checks, AWS S3 documents, Postgres updates, and automated approval/rejection workflows.",
+          "Implemented/maintained validation and decisioning around Emirates ID, UAE/foreign driving licences, and passports, including age/expiry/driving-experience eligibility, cross-document name matching, face/liveness checks, and fraud signals.",
+        ],
+      },
+      {
+        name: "Platform Automation & Observability",
+        points: [
+          "Delivered invoice automation using serverless functions, improving debt recovery by 30% while reducing manual operational overhead.",
+          "Migrated analytics to self-hosted Apache Superset with secure data pipelines/authentication, reducing infrastructure costs by ~70%; contributed to Kafka-based monitoring and operational visibility.",
         ],
       },
     ],
@@ -62,11 +94,8 @@ export const experiences: Experience[] = [
     projects: [
       {
         points: [
-          "Built a cross-platform mobile app using React Native (Expo) for buying and selling used vehicles, with a focus on intuitive UI/UX.",
-          "Designed relational database schemas to manage user profiles, vehicle listings, and bidding transactions, ensuring scalability and data integrity.",
-          "Developed and maintained RESTful APIs using .NET (Visual Studio) for seamless frontend–backend integration.",
-          "Managed database operations and reporting for the CARPRO third-party application via iView, supporting rental and leasing workflows.",
-          "Integrated INTELLiVIEW BI dashboards and data quality checks, improving master data management and business insight delivery.",
+          "Built and shipped a cross-platform React Native (Expo) app for buying and selling used vehicles, with relational data models for profiles, listings, and bidding transactions.",
+          "Developed and maintained REST APIs using .NET; supported CARPRO rental/leasing data operations and INTELLiVIEW BI dashboards/data-quality workflows.",
         ],
       },
     ],
@@ -81,8 +110,7 @@ export const experiences: Experience[] = [
     projects: [
       {
         points: [
-          "Developed responsive desktop GUIs using Python (Tkinter, PyQt), improving usability and workflow efficiency.",
-          "Collaborated with cross-functional teams to translate technical requirements into deployable software solutions.",
+          "Developed responsive desktop GUIs using Python (Tkinter, PyQt) and collaborated with cross-functional teams to translate requirements into deployable software solutions.",
         ],
       },
     ],
@@ -103,33 +131,38 @@ export const skillGroups: SkillGroup[] = [
     subgroups: [
       {
         label: "Core",
-        items: ["React 19", "TypeScript", "JavaScript", "React Router 7"],
-      },
-      {
-        label: "State & UI",
         items: [
-          "TanStack React Query 5",
-          "MUI 5/6",
-          "Emotion",
-          "Framer Motion",
+          "Next.js",
+          "React.js",
+          "TypeScript",
+          "JavaScript",
+          "React Router",
         ],
       },
       {
+        label: "UI & Motion",
+        items: ["MUI", "CSS Modules", "Redux", "Lottie", "Framer Motion"],
+      },
+      {
+        label: "Maps & Charts",
+        items: ["D3.js", "Mapbox", "MapLibre"],
+      },
+      {
         label: "Build",
-        items: ["Vite 8", "CRACO"],
+        items: ["Vite", "CRACO"],
       },
     ],
   },
   {
-    category: "Backend & APIs",
+    category: "Backend & Integration",
     subgroups: [
       {
         label: "Runtime",
-        items: ["Node.js (Express)", ".NET"],
+        items: ["Python", "FastStream", "Node.js / Express", ".NET"],
       },
       {
-        label: "APIs & Security",
-        items: ["RESTful API design", "JWT / OAuth2"],
+        label: "APIs & Auth",
+        items: ["REST APIs", "Kafka consumers", "Pydantic", "asyncpg", "JWT / OAuth2"],
       },
     ],
   },
@@ -137,8 +170,8 @@ export const skillGroups: SkillGroup[] = [
     category: "Cloud & DevOps",
     subgroups: [
       {
-        label: "Cloud",
-        items: ["AWS (EC2, Route 53, CloudWatch)"],
+        label: "AWS",
+        items: ["EC2", "S3", "CloudFront", "Route 53", "CloudWatch"],
       },
       {
         label: "Delivery & Edge",
@@ -153,30 +186,22 @@ export const skillGroups: SkillGroup[] = [
         label: "Cross-platform",
         items: ["React Native (Expo)"],
       },
-      {
-        label: "Native Android",
-        items: ["Java", "Android Development"],
-      },
     ],
   },
   {
-    category: "Data, Maps & Monitoring",
+    category: "Data & Monitoring",
     subgroups: [
       {
         label: "Streaming & Orchestration",
         items: ["Apache Kafka", "Apache Airflow"],
       },
       {
-        label: "Analytics & Visualization",
-        items: ["Apache Superset", "D3"],
-      },
-      {
-        label: "Maps & Documents",
-        items: ["Mapbox GL / MapLibre GL", "React-PDF"],
+        label: "Analytics",
+        items: ["Apache Superset"],
       },
       {
         label: "Data Platforms",
-        items: ["MS SQL Server", "Firebase"],
+        items: ["PostgreSQL", "MS SQL Server", "Firebase"],
       },
     ],
   },
@@ -184,16 +209,17 @@ export const skillGroups: SkillGroup[] = [
     category: "Languages & Tools",
     subgroups: [
       {
-        label: "Languages",
-        items: ["Python (Tkinter, PyQt, scripting)", "C++", "C#"],
-      },
-      {
         label: "Collaboration",
-        items: ["GitHub", "Jira", "Confluence"],
+        items: ["Git / GitHub", "Jira", "Confluence"],
       },
       {
-        label: "Creative",
-        items: ["Adobe Suite (Photoshop, Illustrator)", "Premiere Pro"],
+        label: "Design & Creative",
+        items: [
+          "Figma implementation",
+          "Adobe Photoshop",
+          "Illustrator",
+          "Premiere Pro",
+        ],
       },
     ],
   },
@@ -201,31 +227,28 @@ export const skillGroups: SkillGroup[] = [
 
 // A flat set of signature technologies used across portfolio visuals
 export const techCloud = [
-  "React 19",
+  "Next.js",
+  "React",
   "TypeScript",
-  "Node.js",
-  "React Query 5",
-  "AWS",
-  "Kafka",
-  "Superset",
-  "Airflow",
-  "Nginx",
   "MUI",
-  "Vite 8",
-  "MapLibre GL",
-  "D3",
-  "Framer Motion",
+  "D3.js",
+  "Mapbox",
+  "Python",
+  "Kafka",
+  "AWS",
+  "Superset",
+  "PostgreSQL",
+  "Vite",
+  "CloudFront",
+  "Nginx",
   "REST",
   "JWT",
-  "OAuth2",
-  "Cloudflare",
-  ".NET",
-  "Python",
-  "C++",
-  "Java",
-  "Firebase",
-  "SQL",
-  "CI/CD",
+  "FastStream",
+  "React Native",
+  "Airflow",
+  "CSS Modules",
+  "Lottie",
+  "Figma",
 ];
 
 export type EducationItem = {
@@ -249,7 +272,7 @@ export const education: EducationItem[] = [
 
 export const certifications = [
   {
-    name: "Mathematics for Machine Learning (Linear Algebra + Multivariate Calculus)",
+    name: "Mathematics for Machine Learning",
     org: "Imperial College London · Coursera",
     year: "2021",
   },

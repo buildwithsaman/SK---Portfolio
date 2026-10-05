@@ -18,59 +18,53 @@ const caseStudies: {
   {
     number: "01",
     type: "operations",
-    category: "Production engineering",
-    title: "Modern frontend foundations.",
+    category: "Operations platforms",
+    title: "Internal ops at production scale.",
     summary:
-      "Modernized large React applications with current tooling, modular architecture, protected routes, and intentional code-splitting.",
+      "Primary frontend ownership of a React + MUI platform covering customers, fleet, invoices, mobility, analytics, and admin tooling.",
     contribution:
-      "I migrated legacy frontend tooling to Vite 8 and established a React 19 foundation built for maintainability and faster iteration.",
+      "I built mobility modules with a near-real-time Mapbox driver map, vehicle controls, CRM/Kanban pipelines, and six analytics areas with shared filters and CSV export.",
     impact: [
-      { value: "React 19", label: "application foundation" },
-      { value: "Vite 8", label: "modern build tooling" },
+      { value: "6", label: "analytics areas" },
+      { value: "10s", label: "map polling" },
     ],
-    tech: ["React 19", "Vite 8", "React Query 5", "MUI 5", "MapLibre GL"],
+    tech: ["React", "TypeScript", "MUI", "Mapbox", "D3.js", "Vite"],
   },
   {
     number: "02",
-    type: "analytics",
-    category: "Data architecture",
-    title: "A predictable data layer.",
+    type: "lifecycle",
+    category: "Customer-facing web",
+    title: "A new Next.js website from Figma.",
     summary:
-      "A consistent approach to server state, caching, API access, authentication behavior, and normalized errors.",
+      "Building Udrive’s customer-facing site from scratch — pixel-accurate, bilingual, and performance-minded across roughly 20 routes.",
     contribution:
-      "I standardized data access with thin React Query hooks and a centralized, environment-driven API client.",
+      "I translated Figma into Next.js App Router pages with English/Arabic locale routing, RTL support, reusable design-system components, and CloudFront-optimized media delivery.",
     impact: [
-      { value: "Cached", label: "server state" },
-      { value: "Unified", label: "error handling" },
+      { value: "~20", label: "routes shipped" },
+      { value: "EN/AR", label: "locale + RTL" },
     ],
-    tech: [
-      "React Query 5",
-      "REST APIs",
-      "JWT",
-      "Environment config",
-      "Reusable hooks",
-    ],
+    tech: ["Next.js", "TypeScript", "CSS Modules", "CloudFront", "Lottie"],
   },
   {
     number: "03",
-    type: "lifecycle",
-    category: "Experience & reliability",
-    title: "Interfaces that fail gracefully.",
+    type: "analytics",
+    category: "Automation & impact",
+    title: "Automation that moves the numbers.",
     summary:
-      "A reusable UX layer for loading, empty, error, success, and optimistic interaction states across complex applications.",
+      "Production KYC pipelines, invoice automation, and analytics migration that cut costs and improved recovery.",
     contribution:
-      "I introduced global feedback, error boundaries, reusable empty states, URL-synced filters, and shareable application state.",
+      "I contributed to a Python/Kafka verification pipeline and delivered serverless invoice automation, while helping migrate analytics to self-hosted Superset.",
     impact: [
-      { value: "Resilient", label: "failure states" },
-      { value: "Shareable", label: "URL state" },
+      { value: "~70%", label: "infra cost down" },
+      { value: "+30%", label: "debt recovery" },
     ],
-    tech: ["MUI", "Emotion", "React Router 7", "Framer Motion", "ESLint"],
+    tech: ["Python", "Kafka", "FastStream", "Superset", "AWS", "PostgreSQL"],
   },
 ];
 
 const careerNotes: Record<string, string> = {
-  "Udrive - Rent A Car":
-    "Building and modernizing production web platforms with end-to-end ownership.",
+  "Udrive – Rent-a-Car":
+    "Primary frontend owner across ops platforms, subscription/CRM tools, a new Next.js website, and KYC/automation work.",
   "Arata International FZC (Bahwan International Group)":
     "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
   "Dubai Technologies":
@@ -83,22 +77,22 @@ function ProjectVisual({ type }: { type: Visual }) {
     return (
       <div className="relative h-full min-h-[290px] overflow-hidden rounded-[1.4rem] border border-white/80 bg-slate-950 p-5 shadow-2xl shadow-slate-900/20">
         <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-slate-400">
-          <span>Analytics / Overview</span>
+          <span>Impact / Overview</span>
           <span className="flex items-center gap-1.5 text-emerald-400">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
           </span>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-3">
           <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-white">Query</div>
+            <div className="text-3xl font-semibold text-white">~70%</div>
             <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">
-              server state
+              infra cost down
             </div>
           </div>
           <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-cyan-300">Cached</div>
+            <div className="text-3xl font-semibold text-cyan-300">+30%</div>
             <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">
-              shared responses
+              debt recovery
             </div>
           </div>
         </div>
@@ -116,28 +110,25 @@ function ProjectVisual({ type }: { type: Visual }) {
   }
 
   if (type === "lifecycle") {
-    const steps = ["Loading", "Success", "Empty", "Error"];
     return (
       <div className="relative flex h-full min-h-[290px] flex-col justify-center overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-white to-violet-50 p-6 shadow-2xl shadow-slate-900/10">
         <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent2/15 blur-3xl" />
         <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent2">
-          Interface states
+          Site delivery
         </div>
         <div className="relative mt-5 space-y-2">
-          {steps.map((step, index) => (
+          {["Figma", "Next.js", "Locales", "CloudFront"].map((step, index) => (
             <div key={step} className="flex items-center gap-3">
               <span
-                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 1 ? "bg-accent2 text-white" : index === 3 ? "bg-rose-500 text-white" : "border border-accent2/20 bg-white text-accent2"}`}
+                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 1 ? "bg-accent2 text-white" : index === 3 ? "bg-slate-900 text-white" : "border border-accent2/20 bg-white text-accent2"}`}
               >
                 {index + 1}
               </span>
               <div className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 px-4 py-2.5 shadow-sm">
                 <div className="flex items-center justify-between text-sm font-medium text-slate-700">
                   {step}
-                  <span
-                    className={`font-mono text-[9px] ${index === 3 ? "text-rose-500" : "text-emerald-600"}`}
-                  >
-                    {index === 3 ? "Handled" : "Ready"}
+                  <span className="font-mono text-[9px] text-emerald-600">
+                    {index === 3 ? "Live" : "Ready"}
                   </span>
                 </div>
               </div>
@@ -173,7 +164,7 @@ function ProjectVisual({ type }: { type: Visual }) {
         </div>
         <div className="space-y-3">
           <div className="grid grid-cols-3 gap-2">
-            {["React 19", "Vite 8", "RBAC"].map((value) => (
+            {["React", "Vite", "RBAC"].map((value) => (
               <div
                 key={value}
                 className="rounded-xl border border-slate-200 bg-white p-3"

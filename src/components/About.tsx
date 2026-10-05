@@ -4,16 +4,16 @@ import { AboutAtmosphere } from "./ui/SectionAtmosphere";
 
 const highlights = [
   {
-    title: "End-to-end ownership",
-    body: "Frontend architecture, AWS deployment, CI/CD, and RBAC — I take features from idea to production.",
+    title: "Frontend ownership",
+    body: "Primary owner of large React/TypeScript admin systems — operations, analytics, CRM, and mobility tooling.",
   },
   {
-    title: "Product-minded delivery",
-    body: "Clear interfaces, predictable data flows, and reliable system behavior shaped around real user needs.",
+    title: "Measurable impact",
+    body: "~70% infrastructure cost reduction via analytics migration, and 30% better debt recovery through invoice automation.",
   },
   {
-    title: "Clean, performant code",
-    body: "SOLID / DRY principles, TypeScript, code reviews, and automated testing to keep delivery reliable.",
+    title: "Full delivery cycle",
+    body: "From Figma to production — responsive UI, API integration, AWS deployment, and continuous improvement.",
   },
 ];
 
@@ -27,20 +27,21 @@ export default function About() {
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <Reveal delay={0.05}>
           <h2 className="max-w-3xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-            I connect the interface, the API, and the infrastructure{" "}
-            <span className="gradient-text">behind it</span>.
+            I turn operational complexity into{" "}
+            <span className="gradient-text">focused software</span>.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="border-l border-accent/30 pl-5">
             <p className="text-base leading-relaxed text-slate-600">
-              I’m a Dubai-based full-stack developer who turns complex
-              requirements into calm, useful products—from responsive interfaces
-              to reliable application architecture.
+              I’m a Dubai-based software engineer focused on customer-facing
+              web apps, internal operations platforms, analytics dashboards,
+              and automation — using React, Next.js, TypeScript, Python, and
+              AWS.
             </p>
             <p className="mt-3 text-sm leading-relaxed text-slate-500">
-              My sweet spot is owning the space between product intent and
-              production reality.
+              I value clear communication, collaboration, and owning quality
+              from development through deployment.
             </p>
           </div>
         </Reveal>
