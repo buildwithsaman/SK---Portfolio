@@ -1,0 +1,252 @@
+import { useId, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import Reveal from "../ui/Reveal";
+import { caseStudies, udriveDomains } from "../../data/cv";
+import { easeOut } from "../../lib/motion";
+
+const caseMap: Record<string, string[]> = {
+  "operations-analytics": ["01"],
+  "subscription-crm": [],
+  "website-apps": ["02"],
+  "kyc-backend": ["03"],
+  "automation-tools": ["03"],
+};
+
+/** Ownership focus lines when a domain has no featured case metrics */
+const ownershipFocus: Record<string, string[]> = {
+  "subscription-crm": [
+    "Sales pipeline Kanban (Lead → Won/Lost)",
+    "Vite migration + AWS EC2 / Nginx deploy",
+    "Fleet, KYC, invoices, product catalog",
+  ],
+};
+
+export default function StageWork() {
+  const [active, setActive] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const baseId = useId();
+
+  return (
+    <section id="work" className="stage-section" aria-labelledby="work-heading">
+      <Reveal>
+        <span className="stage-kicker">04 — Work</span>
+        <h2 id="work-heading" className="stage-title max-w-3xl">
+          Udrive experience —{" "}
+          <span className="gradient-role">five CV sections</span>
+        </h2>
+        <p className="mt-4 max-w-lg text-sm text-muted md:text-base">
+          Content below is taken from the Udrive experience section of the CV.
+          Select a chapter for the full detail.
+        </p>
+      </Reveal>
+
+      <div className="mt-12 space-y-0">
+        {udriveDomains.map((item, index) => {
+          const open = active === index;
+          const panelId = `${baseId}-panel-${index}`;
+          const tabId = `${baseId}-tab-${index}`;
+          const related = caseStudies.filter((c) =>
+            (caseMap[item.id] ?? []).includes(c.number),
+          );
+          const focus = ownershipFocus[item.id] ?? [];
+          const beats: [string, string][] = [
+            ["Ownership", item.ownership],
+            ["What I built", item.built],
+            ...(item.result ? ([["Result", item.result]] as [string, string][]) : []),
+          ];
+
+          return (
+            <article
+              key={item.id}
+              className={`relative border-t border-edge/70 transition-colors duration-300 ${
+                open ? "border-accent2/40 bg-white/[0.015]" : "hover:bg-white/[0.01]"
+              } ${index === udriveDomains.length - 1 ? "border-b" : ""}`}
+            >
+              {open && (
+                <span
+                  className="absolute bottom-0 left-0 top-0 w-0.5 bg-gradient-to-b from-accent2 via-accent to-transparent"
+                  aria-hidden="true"
+                />
+              )}
+
+              <h3>
+                <button
+                  type="button"
+                  id={tabId}
+                  aria-expanded={open}
+                  aria-controls={open ? panelId : undefined}
+                  onClick={() => setActive(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+                      e.preventDefault();
+                      setActive((index + 1) % udriveDomains.length);
+                    }
+                    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+                      e.preventDefault();
+                      setActive(
+                        (index - 1 + udriveDomains.length) %
+                          udriveDomains.length,
+                      );
+                    }
+                  }}
+                  className="group flex w-full items-start gap-4 py-6 text-left md:gap-8 md:py-8"
+                >
+                  <span
+                    className={`chapter-num shrink-0 text-4xl transition-opacity duration-300 md:text-6xl ${
+                      open ? "opacity-100" : "opacity-35 group-hover:opacity-65"
+                    }`}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0 flex-1 pt-1 md:pt-2">
+                    <span
+                      className={`block text-xl font-semibold tracking-tight transition-colors md:text-2xl ${
+                        open ? "gradient-role" : "text-ink"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                    {!open && (
+                      <span className="mt-2 line-clamp-2 block text-sm leading-relaxed text-muted">
+                        {item.result ?? item.ownership}
+                      </span>
+                    )}
+                    {!open && (
+                      <span className="mt-3 hidden flex-wrap gap-1.5 sm:flex">
+                        {item.tech.slice(0, 4).map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full border border-edge/70 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted/80"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                  </span>
+                  <span
+                    className={`mt-2 font-mono text-xs transition-colors md:mt-3 ${
+                      open ? "text-accent2" : "text-muted"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {open ? "−" : "+"}
+                  </span>
+                </button>
+              </h3>
+
+              {open && (
+                <motion.div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={tabId}
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.38, ease: easeOut }}
+                  className="pb-10 pl-0 md:pl-[calc(1.5rem+3.5rem)]"
+                >
+                  <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+                    <dl className="space-y-7">
+                      {beats.map(([label, body], i) => (
+                        <motion.div
+                          key={label}
+                          initial={
+                            reduceMotion ? false : { opacity: 0, y: 8 }
+                          }
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.35,
+                            delay: reduceMotion ? 0 : 0.04 * i,
+                            ease: easeOut,
+                          }}
+                        >
+                          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+                            {label}
+                          </dt>
+                          <dd className="mt-2 text-sm leading-relaxed text-muted md:text-[0.95rem] md:leading-relaxed">
+                            {body}
+                          </dd>
+                        </motion.div>
+                      ))}
+                    </dl>
+
+                    <aside className="space-y-7">
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                          Stack
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {item.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-full border border-edge bg-panel/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ink/90"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {related.length > 0 ? (
+                        related.map((study) => (
+                          <div
+                            key={study.number}
+                            className="border-l-2 border-accent2/50 pl-4"
+                          >
+                            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+                              Featured · {study.category}
+                            </p>
+                            <p className="mt-1.5 text-base font-medium leading-snug text-ink">
+                              {study.title}
+                            </p>
+                            <div className="mt-5 grid grid-cols-2 gap-4">
+                              {study.impact.map((m) => (
+                                <div key={m.label}>
+                                  <div className="text-2xl font-semibold tracking-tight gradient-role md:text-3xl">
+                                    {m.value}
+                                  </div>
+                                  <div className="mt-1 font-mono text-[9px] uppercase tracking-wider text-muted">
+                                    {m.label}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="border-l-2 border-accent/40 pl-4">
+                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+                            Technical ownership
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-muted">
+                            {item.ownership}
+                          </p>
+                          {focus.length > 0 && (
+                            <ul className="mt-4 space-y-2">
+                              {focus.map((line) => (
+                                <li
+                                  key={line}
+                                  className="flex gap-2 text-sm text-ink/90"
+                                >
+                                  <span
+                                    className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent2"
+                                    aria-hidden="true"
+                                  />
+                                  {line}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </aside>
+                  </div>
+                </motion.div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}

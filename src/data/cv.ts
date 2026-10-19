@@ -1,6 +1,6 @@
 export const profile = {
   name: "Saman Shakil Khan",
-  title: "Software Developer",
+  title: "Software Engineer/Developer",
   location: "Dubai, UAE",
   phone: "+971 50 601 9290",
   email: "samankhanhq@gmail.com",
@@ -8,12 +8,12 @@ export const profile = {
   github: "https://github.com/buildwithsaman",
   resume: "./Saman_Khan_CV.pdf",
   resumeName: "Saman_Khan_CV.pdf",
+  /** Short hero line — taken from the CV professional summary */
   heroDescription:
-    "I build scalable, production-ready software applications, combining modern frontend technologies with backend integrations, automation, and practical engineering solutions.",
+    "Frontend-focused Software Engineer with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
+  /** Full professional summary — verbatim from the CV */
   summary:
-    "Software Developer with 2+ years of experience building and maintaining production-ready applications across mobility operations, subscriptions, analytics, and customer-facing products. Strongest in frontend development with React, Next.js, TypeScript, and JavaScript, with additional production experience in Python/Kafka integrations, internal platforms, automation, and AWS deployments.",
-  openTo:
-    "Open to Software Developer, Software Engineer, and Full-Stack Development opportunities in Dubai or remote.",
+    "Frontend-focused Software Engineer with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences. Primary frontend owner across large React/TypeScript admin systems and currently building Udrive’s new Next.js website from Figma. Experienced in responsive UI architecture, data-heavy dashboards, D3/Mapbox visualizations, performance optimization, AWS deployment, and API integration, with additional production backend experience in Python/Kafka-based KYC automation. Delivered ~70% infrastructure cost reduction through analytics migration and improved debt recovery by 30% through invoice automation.",
   siteUrl: "https://buildwithsaman.dev",
 };
 
@@ -36,37 +36,33 @@ export const heroTechnologies = [
 export type ExperienceDomain = {
   id: string;
   title: string;
-  problem: string;
+  /** CV section lead / ownership line */
   ownership: string;
+  /** CV bullet details for this section */
   built: string;
   tech: string[];
-  impact: string;
+  /** Optional CV-stated outcome (metrics only when present on the CV) */
+  result?: string;
 };
 
-/** Expandable Udrive domains — verified against CV only */
+/** Expandable Udrive domains — copy taken from the CV experience sections */
 export const udriveDomains: ExperienceDomain[] = [
   {
     id: "operations-analytics",
-    title: "Operations & Analytics",
-    problem:
-      "Internal teams needed a reliable operations platform for customers, fleet, invoices, mobility, and analytics across many business workflows.",
+    title: "Internal Operations & Analytics",
     ownership:
       "Primary frontend owner for a React + MUI internal operations platform spanning customers, verifications, reservations, invoices, vehicles, damage reports, credits, fines, claims, analytics, mobility operations, and admin tooling.",
     built:
-      "Built or heavily evolved six analytics areas (Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics with D3, and TARS) with shared filters, responsive tables/charts, and CSV export. Delivered mobility modules including a near-real-time Mapbox driver map (10-second polling), rides/driver/fleet management, vehicle lock/unlock and immobilize workflows, and an in-app Banner Studio for marketing content.",
+      "Built or heavily evolved six analytics areas — Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics (D3), and TARS — with shared filters, responsive tables/charts, and CSV export workflows. Built mobility operations modules for a near-real-time Mapbox driver map (10-second polling), rides operations, driver management, and fleet management, including create/edit/assignment workflows and reusable UI patterns. Implemented vehicle operations including lock/unlock, immobilize/mobilize, onboarding/offboarding, location/state updates, and resilient loading, error, and toast feedback patterns. Built an in-app Banner Studio with draggable/resizable layers, text/images/shapes, templates, undo/redo, preview, and HTML/JSON export/import for lightweight marketing content creation. Maintained protected routing, JWT-based frontend auth flows, feature scopes/RBAC UI, release notes, and responsive layouts across desktop, tablet, and mobile.",
     tech: ["React", "TypeScript", "MUI", "Mapbox", "D3.js", "JWT", "RBAC"],
-    impact:
-      "Centralized operational tooling with reusable UI patterns, protected routing, and resilient loading/error feedback across desktop, tablet, and mobile.",
   },
   {
     id: "subscription-crm",
-    title: "Subscription & CRM",
-    problem:
-      "Sales and operations needed an admin platform for subscription lifecycle, customer KYC, fleet assignment, invoicing, and deal pipeline management.",
+    title: "Subscription, CRM & Fleet Operations",
     ownership:
-      "Built most of the React frontend for the monthly subscription admin platform, covering sales pipeline, customers/KYC, fleet operations, subscriptions, invoices, product catalog, analytics, and role-based administration.",
+      "Built most of the React frontend for the monthly subscription admin platform, covering the sales pipeline, customers/KYC, fleet operations, subscriptions, invoices, product catalog, analytics, and role-based administration.",
     built:
-      "Implemented Lead → Initial Contact → Qualified → Won/Lost Kanban workflows with filters, assignee management, and one-click personalized WhatsApp outreach. Delivered customer/fleet consoles, subscription car assignment, product management, D3 lead/funnel analytics, and a print-friendly Deals Report. Migrated the frontend from CRA/CRACO to Vite and handled AWS EC2 build/deployment with Nginx and HTTPS.",
+      "Built the Lead → Initial Contact → Qualified → Won/Lost deals workflow with Kanban pipeline, stage transitions, filters/search, assignee management, lost/archive actions, lead creation, and one-click personalized WhatsApp outreach. Developed customer and fleet consoles with verification queues, payment/device/history views, account actions, MapLibre maps, hardware controls, reservations, damage reports, and vehicle state management. Implemented subscription car assignment, invoice operations, product management for colors/pricing/mileage packages, and D3 lead/funnel analytics; also created a filterable, print-friendly Deals Report. Migrated the frontend from CRA/CRACO to Vite for faster startup/HMR and simpler configuration while preserving the existing build output; handled frontend build/deployment on AWS EC2 with Nginx and HTTPS.",
     tech: [
       "React",
       "TypeScript",
@@ -77,61 +73,46 @@ export const udriveDomains: ExperienceDomain[] = [
       "AWS EC2",
       "Nginx",
     ],
-    impact:
-      "Faster development iteration after the Vite migration, with end-to-end subscription and CRM workflows available to operations and sales teams.",
   },
   {
     id: "website-apps",
-    title: "Website & Application Development",
-    problem:
-      "The business needed a new customer-facing website built from Figma with bilingual support, consistent components, and strong page performance.",
+    title: "Customer-Facing Web Development",
     ownership:
-      "Building the customer-facing website from scratch using Next.js App Router, TypeScript, and CSS Modules, translating designs into pixel-accurate responsive experiences.",
+      "Building a new customer-facing website from scratch from Figma using Next.js App Router, TypeScript, and CSS Modules, translating designs into pixel-accurate responsive experiences across desktop, tablet, and mobile.",
     built:
-      "Implemented roughly 20 routes across home, rental offerings, fleet, mobility, business, help, articles, contact, careers, and legal content, with English/Arabic locale routing and RTL support. Created reusable navigation, footer, hero, CTA, FAQ, pricing, gallery, and content components. Optimized delivery with CloudFront-hosted assets, responsive image loading, lazy loading, font optimization, and controlled Lottie behavior.",
+      "Implemented roughly 20 routes spanning home, rental offerings, fleet, mobility services, business, help content, articles, contact, careers, and legal content, with English/Arabic locale routing and RTL support. Created reusable navigation, footer, hero, CTA, FAQ, pricing/rental, gallery, and content components to keep the design system consistent and maintainable across pages. Optimized page delivery with AWS CloudFront-hosted WebP/SVG/Lottie assets, next/image responsive loading, lazy loading, next/font, critical asset preloading, and offscreen/play-once Lottie behavior.",
     tech: [
       "Next.js",
       "TypeScript",
       "CSS Modules",
       "CloudFront",
       "Lottie",
-      "i18n",
-      "RTL",
     ],
-    impact:
-      "A maintainable bilingual site foundation with approximately 20 production routes and performance-minded asset delivery.",
   },
   {
     id: "kyc-backend",
-    title: "KYC & Backend Integrations",
-    problem:
-      "Verification needed automated document and identity checks with reliable orchestration across services and data stores.",
+    title: "KYC & Verification Automation",
     ownership:
-      "Contributed to a production Python/FastStream Kafka verification pipeline and maintained validation/decisioning logic for identity documents.",
+      "Contributed to a production Python/FastStream Kafka verification pipeline that orchestrates Taareef AI OCR, face/liveness/audio checks, AWS S3 documents, Postgres updates, and automated approval/rejection workflows.",
     built:
-      "Helped orchestrate OCR, face/liveness/audio checks, AWS S3 document handling, Postgres updates, and automated approval/rejection workflows. Implemented and maintained validation around Emirates ID, UAE/foreign driving licences, and passports — including eligibility checks, cross-document name matching, face/liveness checks, and fraud signals.",
+      "Implemented/maintained validation and decisioning around Emirates ID, UAE/foreign driving licences, and passports, including age/expiry/driving-experience eligibility, cross-document name matching, face/liveness checks, and fraud signals.",
     tech: [
       "Python",
       "FastStream",
       "Kafka",
       "AWS S3",
       "PostgreSQL",
-      "REST APIs",
     ],
-    impact:
-      "Supported automated KYC decisioning in production, reducing manual verification overhead for supported document flows.",
   },
   {
     id: "automation-tools",
-    title: "Automation & Internal Tools",
-    problem:
-      "Manual invoicing and hosted analytics were costly and operationally heavy for internal teams.",
+    title: "Platform Automation & Observability",
     ownership:
-      "Delivered invoice automation and contributed to analytics migration and operational monitoring work.",
+      "Delivered invoice automation using serverless functions, improving debt recovery by 30% while reducing manual operational overhead.",
     built:
-      "Implemented invoice automation using serverless functions. Migrated analytics to self-hosted Apache Superset with secure data pipelines and authentication. Contributed to Kafka-based monitoring and operational visibility. Also built internal utilities such as Banner Studio and WhatsApp outreach workflows within the admin platforms.",
-    tech: ["Serverless", "Apache Superset", "Kafka", "AWS", "React"],
-    impact:
+      "Migrated analytics to self-hosted Apache Superset with secure data pipelines/authentication, reducing infrastructure costs by ~70%; contributed to Kafka-based monitoring and operational visibility.",
+    tech: ["Serverless", "Apache Superset", "Kafka", "AWS"],
+    result:
       "Improved debt recovery by 30% through invoice automation and reduced infrastructure costs by ~70% via the Superset analytics migration.",
   },
 ];
@@ -149,41 +130,38 @@ export type CaseStudy = {
   tech: string[];
 };
 
+/** Featured metrics only — values stated on the CV */
 export const caseStudies: CaseStudy[] = [
   {
     number: "01",
     type: "operations",
-    category: "Internal platforms",
-    title: "Operations platform for mobility and analytics.",
-    problem:
-      "Operations teams needed a unified software platform for customers, fleet, invoices, mobility controls, and reporting — not disconnected tools.",
+    category: "Internal Operations & Analytics",
+    title: "Six analytics areas and a near-real-time Mapbox driver map.",
+    problem: "",
     ownership:
-      "Primary frontend owner of the React + MUI internal operations platform, including analytics, mobility modules, vehicle controls, auth/RBAC UI, and Banner Studio.",
+      "Primary frontend owner for a React + MUI internal operations platform.",
     implementation:
-      "Delivered six analytics areas with shared filters and CSV export; a Mapbox driver map with 10-second polling; vehicle lock/immobilize workflows; and reusable patterns for loading, errors, and protected routes.",
-    result:
-      "A production operations system used across core business workflows, with near-real-time mobility visibility and consolidated analytics tooling.",
+      "Six analytics areas (Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics with D3, and TARS) with shared filters, CSV export, and a Mapbox driver map with 10-second polling.",
+    result: "",
     impact: [
       { value: "6", label: "analytics areas" },
       { value: "10s", label: "map polling" },
     ],
-    tech: ["React", "TypeScript", "MUI", "Mapbox", "D3.js", "Vite"],
+    tech: ["React", "TypeScript", "MUI", "Mapbox", "D3.js"],
   },
   {
     number: "02",
     type: "lifecycle",
-    category: "Web applications",
-    title: "Customer-facing Next.js application from Figma.",
-    problem:
-      "Udrive needed a modern public website with accurate design implementation, bilingual UX, and production-grade performance.",
+    category: "Customer-Facing Web Development",
+    title: "Next.js website from Figma with English/Arabic routing and RTL.",
+    problem: "",
     ownership:
-      "Building the site from scratch with Next.js App Router, TypeScript, and CSS Modules — from Figma through responsive production pages.",
+      "Building a new customer-facing website from scratch from Figma using Next.js App Router, TypeScript, and CSS Modules.",
     implementation:
-      "Shipped roughly 20 routes with English/Arabic locale routing and RTL support, reusable design-system components, and CloudFront-optimized media delivery with lazy loading and controlled Lottie playback.",
-    result:
-      "A scalable bilingual web application foundation covering rental, fleet, mobility, business, and support content.",
+      "Roughly 20 routes with English/Arabic locale routing and RTL support; CloudFront-hosted assets with lazy loading and controlled Lottie behavior.",
+    result: "",
     impact: [
-      { value: "~20", label: "application routes" },
+      { value: "~20", label: "routes" },
       { value: "EN / AR", label: "locale + RTL" },
     ],
     tech: ["Next.js", "TypeScript", "CSS Modules", "CloudFront", "Lottie"],
@@ -191,21 +169,20 @@ export const caseStudies: CaseStudy[] = [
   {
     number: "03",
     type: "analytics",
-    category: "Automation & integrations",
-    title: "KYC automation and analytics cost reduction.",
-    problem:
-      "Verification and analytics processes needed automation and a more cost-efficient infrastructure footprint.",
+    category: "Platform Automation & Observability",
+    title: "Invoice automation and Apache Superset analytics migration.",
+    problem: "",
     ownership:
-      "Contributed to Python/Kafka KYC automation, delivered serverless invoice automation, and supported migration to self-hosted Apache Superset.",
+      "Delivered invoice automation using serverless functions; migrated analytics to self-hosted Apache Superset.",
     implementation:
-      "Helped orchestrate document OCR, liveness checks, S3 storage, and Postgres updates in a Kafka pipeline; automated invoice workflows; and moved analytics onto Superset with secure authentication.",
+      "Serverless invoice automation and self-hosted Apache Superset with secure data pipelines/authentication; Kafka-based monitoring contributions.",
     result:
-      "Measurable operational gains: ~70% infrastructure cost reduction from analytics migration and 30% improved debt recovery from invoice automation.",
+      "Improved debt recovery by 30%; reduced infrastructure costs by ~70%.",
     impact: [
       { value: "~70%", label: "infra cost reduction" },
       { value: "+30%", label: "debt recovery" },
     ],
-    tech: ["Python", "Kafka", "FastStream", "Superset", "AWS", "PostgreSQL"],
+    tech: ["Python", "Kafka", "FastStream", "Superset", "AWS"],
   },
 ];
 
@@ -226,11 +203,11 @@ export type Experience = {
 export const experiences: Experience[] = [
   {
     company: "Udrive – Rent-a-Car",
-    role: "Software Developer",
+    role: "Software Engineer/Developer",
     location: "Dubai, UAE",
     period: "Aug 2024 – Present",
     summary:
-      "Building and maintaining production software across operations platforms, subscription/CRM systems, a customer-facing Next.js website, KYC integrations, and automation — with primary ownership of large React/TypeScript admin experiences.",
+      "Primary frontend owner across large React/TypeScript admin systems and currently building Udrive’s new Next.js website from Figma — covering internal operations & analytics, subscription/CRM, KYC automation, and platform automation.",
     domains: udriveDomains,
     projects: [
       {
@@ -285,7 +262,7 @@ export const experiences: Experience[] = [
     location: "Dubai, UAE",
     period: "Feb 2024 – Jun 2024",
     summary:
-      "Delivered a React Native vehicle marketplace and supported .NET APIs, data operations, and BI reporting workflows.",
+      "Built and shipped a cross-platform React Native (Expo) app for buying and selling used vehicles; developed and maintained REST APIs using .NET; supported CARPRO rental/leasing data operations and INTELLiVIEW BI dashboards/data-quality workflows.",
     projects: [
       {
         points: [
@@ -303,7 +280,7 @@ export const experiences: Experience[] = [
     location: "Dubai, UAE",
     period: "Jul 2023 – Aug 2023",
     summary:
-      "Developed Python desktop interfaces and collaborated with cross-functional teams to ship production software.",
+      "Developed responsive desktop GUIs using Python (Tkinter, PyQt) and collaborated with cross-functional teams to translate requirements into deployable software solutions.",
     projects: [
       {
         points: [
@@ -512,11 +489,55 @@ export const volunteer = [
   },
 ];
 
+/** Primary chrome — all stage sections */
 export const navLinks = [
-  { id: "home", label: "Home" },
+  { id: "home", label: "Stage" },
   { id: "about", label: "About" },
-  { id: "experience", label: "Work" },
+  { id: "career", label: "Career" },
+  { id: "work", label: "Work" },
   { id: "skills", label: "Skills" },
-  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
+
+/** Full act rail for progress indicator (scroll tracking) */
+export const stageActs = [
+  { id: "home", label: "01", name: "Stage" },
+  { id: "about", label: "02", name: "About" },
+  { id: "career", label: "03", name: "Career" },
+  { id: "work", label: "04", name: "Work" },
+  { id: "skills", label: "05", name: "Skills" },
+  { id: "contact", label: "06", name: "Contact" },
+];
+
+/** Predefined Quick Facts — answers sourced only from the CV */
+export const quickFacts = [
+  {
+    id: "build",
+    question: "What do you build?",
+    answer:
+      "Production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences — with primary frontend ownership of large React/TypeScript admin systems and Udrive’s Next.js website from Figma.",
+  },
+  {
+    id: "impact",
+    question: "Verified impact?",
+    answer:
+      "~70% infrastructure cost reduction through analytics migration to self-hosted Apache Superset, and 30% improved debt recovery through invoice automation.",
+  },
+  {
+    id: "stack",
+    question: "Core stack?",
+    answer:
+      "Next.js, React, TypeScript/JavaScript, MUI, Python, FastStream, Kafka, Mapbox/MapLibre, D3.js, Apache Superset, and AWS (EC2, S3, CloudFront, Nginx).",
+  },
+  {
+    id: "role",
+    question: "Current role?",
+    answer:
+      "Software Engineer/Developer at Udrive – Rent-a-Car, Dubai (Aug 2024 – Present).",
+  },
+  {
+    id: "location",
+    question: "Where are you based?",
+    answer: "Dubai, UAE.",
+  },
+] as const;
