@@ -1,25 +1,8 @@
 import { useId, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "../ui/Reveal";
-import { caseStudies, udriveDomains } from "../../data/cv";
+import { udriveDomains } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
-
-const caseMap: Record<string, string[]> = {
-  "operations-analytics": ["01"],
-  "subscription-crm": [],
-  "website-apps": ["02"],
-  "kyc-backend": ["03"],
-  "automation-tools": ["03"],
-};
-
-/** Ownership focus lines when a domain has no featured case metrics */
-const ownershipFocus: Record<string, string[]> = {
-  "subscription-crm": [
-    "Sales pipeline Kanban (Lead → Won/Lost)",
-    "Vite migration + AWS EC2 / Nginx deploy",
-    "Fleet, KYC, invoices, product catalog",
-  ],
-};
 
 export default function StageWork() {
   const [active, setActive] = useState(0);
@@ -45,14 +28,12 @@ export default function StageWork() {
           const open = active === index;
           const panelId = `${baseId}-panel-${index}`;
           const tabId = `${baseId}-tab-${index}`;
-          const related = caseStudies.filter((c) =>
-            (caseMap[item.id] ?? []).includes(c.number),
-          );
-          const focus = ownershipFocus[item.id] ?? [];
           const beats: [string, string][] = [
             ["Ownership", item.ownership],
             ["What I built", item.built],
-            ...(item.result ? ([["Result", item.result]] as [string, string][]) : []),
+            ...(item.result
+              ? ([["Result", item.result]] as [string, string][])
+              : []),
           ];
 
           return (
@@ -89,16 +70,16 @@ export default function StageWork() {
                       );
                     }
                   }}
-                  className="group flex w-full items-start gap-4 py-6 text-left md:gap-8 md:py-8"
+                  className="group flex w-full items-start gap-4 py-6 text-left md:gap-6 md:py-8"
                 >
                   <span
-                    className={`chapter-num shrink-0 text-4xl transition-opacity duration-300 md:text-6xl ${
-                      open ? "opacity-100" : "opacity-35 group-hover:opacity-65"
+                    className={`mt-2 font-mono text-[10px] uppercase tracking-[0.2em] ${
+                      open ? "text-accent2" : "text-muted"
                     }`}
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="min-w-0 flex-1 pt-1 md:pt-2">
+                  <span className="min-w-0 flex-1">
                     <span
                       className={`block text-xl font-semibold tracking-tight transition-colors md:text-2xl ${
                         open ? "gradient-role" : "text-ink"
@@ -108,7 +89,7 @@ export default function StageWork() {
                     </span>
                     {!open && (
                       <span className="mt-2 line-clamp-2 block text-sm leading-relaxed text-muted">
-                        {item.result ?? item.ownership}
+                        {item.ownership}
                       </span>
                     )}
                     {!open && (
@@ -125,7 +106,7 @@ export default function StageWork() {
                     )}
                   </span>
                   <span
-                    className={`mt-2 font-mono text-xs transition-colors md:mt-3 ${
+                    className={`mt-1 font-mono text-xs transition-colors ${
                       open ? "text-accent2" : "text-muted"
                     }`}
                     aria-hidden="true"
@@ -143,9 +124,9 @@ export default function StageWork() {
                   initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.38, ease: easeOut }}
-                  className="pb-10 pl-0 md:pl-[calc(1.5rem+3.5rem)]"
+                  className="pb-10 pl-9 md:pl-12"
                 >
-                  <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+                  <div className="grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-14">
                     <dl className="space-y-7">
                       {beats.map(([label, body], i) => (
                         <motion.div
@@ -170,75 +151,20 @@ export default function StageWork() {
                       ))}
                     </dl>
 
-                    <aside className="space-y-7">
-                      <div>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                          Stack
-                        </p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {item.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full border border-edge bg-panel/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ink/90"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {related.length > 0 ? (
-                        related.map((study) => (
-                          <div
-                            key={study.number}
-                            className="border-l-2 border-accent2/50 pl-4"
+                    <aside>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                        Stack
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {item.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full border border-edge bg-panel/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ink/90"
                           >
-                            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-                              Featured · {study.category}
-                            </p>
-                            <p className="mt-1.5 text-base font-medium leading-snug text-ink">
-                              {study.title}
-                            </p>
-                            <div className="mt-5 grid grid-cols-2 gap-4">
-                              {study.impact.map((m) => (
-                                <div key={m.label}>
-                                  <div className="text-2xl font-semibold tracking-tight gradient-role md:text-3xl">
-                                    {m.value}
-                                  </div>
-                                  <div className="mt-1 font-mono text-[9px] uppercase tracking-wider text-muted">
-                                    {m.label}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))
-                      ) : (
-                        <div className="border-l-2 border-accent/40 pl-4">
-                          <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
-                            Technical ownership
-                          </p>
-                          <p className="mt-2 text-sm leading-relaxed text-muted">
-                            {item.ownership}
-                          </p>
-                          {focus.length > 0 && (
-                            <ul className="mt-4 space-y-2">
-                              {focus.map((line) => (
-                                <li
-                                  key={line}
-                                  className="flex gap-2 text-sm text-ink/90"
-                                >
-                                  <span
-                                    className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent2"
-                                    aria-hidden="true"
-                                  />
-                                  {line}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      )}
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </aside>
                   </div>
                 </motion.div>
