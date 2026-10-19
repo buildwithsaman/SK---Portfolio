@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1200 1200"
+     role="img"
+     aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Saman Khan — SK Logo</title>
+  <desc id="logoDesc">
+    Futuristic SK monogram with gradient lettering
+    and Saman Khan wordmark.
+  </desc>
+
+  <defs>
+    <linearGradient id="sGradient"
+                    x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1688FF"/>
+      <stop offset="35%" stop-color="#18E5F4"/>
+      <stop offset="65%" stop-color="#0876FA"/>
+      <stop offset="100%" stop-color="#A54BFA"/>
+    </linearGradient>
+
+    <linearGradient id="sLower"
+                    x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#B650F7"/>
+      <stop offset="50%" stop-color="#1756F7"/>
+      <stop offset="100%" stop-color="#02D8ED"/>
+    </linearGradient>
+
+    <linearGradient id="kGradient"
+                    x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#E9F2FF"/>
+      <stop offset="100%" stop-color="#9AAFCB"/>
+    </linearGradient>
+
+    <linearGradient id="kLower"
+                    x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#657A99"/>
+      <stop offset="50%" stop-color="#D6E5F7"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+
+    <linearGradient id="nameGradient"
+                    x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#048BFF"/>
+      <stop offset="100%" stop-color="#12D8F5"/>
+    </linearGradient>
+
+    <radialGradient id="background">
+      <stop offset="0%" stop-color="#0B1730"/>
+      <stop offset="100%" stop-color="#02050D"/>
+    </radialGradient>
+
+    <filter id="glow" x="-30%" y="-30%"
+            width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="1200"
+        fill="url(#background)"/>
+
+  <!-- Subtle cyan glow -->
+  <path d="M310 420 Q310 300 450 300
+           H690 L625 370 H460
+           Q380 370 380 440Z"
+        fill="#00CFFF" opacity=".13"
+        filter="url(#glow)"/>
+
+  <!-- S upper ribbon -->
+  <path
+    d="M290 465
+       C290 370 345 300 435 300
+       H690
+       L625 370
+       H455
+       C390 370 355 392 365 445
+       C375 480 430 498 505 530
+       C595 568 645 600 645 670
+       C645 750 582 790 490 790
+       H250
+       L330 715
+       H490
+       C550 715 575 695 575 665
+       C575 635 530 610 455 580
+       C355 540 290 520 290 465Z"
+    fill="url(#sGradient)"/>
+
+  <!-- S lower ribbon highlight -->
+  <path
+    d="M250 790
+       L330 715
+       H490
+       C550 715 575 695 575 665
+       C600 735 565 790 490 790Z"
+    fill="url(#sLower)"/>
+
+  <!-- S inner depth -->
+  <path
+    d="M365 445
+       C380 488 445 505 515 540
+       C570 567 612 590 630 625
+       C605 565 545 535 470 502
+       C405 473 380 450 365 445Z"
+    fill="#071D72" opacity=".55"/>
+
+  <!-- K upper arm -->
+  <path
+    d="M820 300
+       H970
+       L690 585
+       L635 520Z"
+    fill="url(#kGradient)"/>
+
+  <!-- K lower arm -->
+  <path
+    d="M690 585
+       L750 525
+       L970 790
+       H830
+       L635 640Z"
+    fill="url(#kLower)"/>
+
+  <!-- K center shadow -->
+  <path
+    d="M690 585 L750 525
+       L790 575 L715 645
+       L635 640Z"
+    fill="#172A48" opacity=".65"/>
+
+  <!-- Wordmark -->
+  <text x="565" y="945"
+        text-anchor="end"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="72"
+        font-weight="500"
+        letter-spacing="13"
+        fill="#F7FAFF">
+    SAMAN
+  </text>
+
+  <text x="605" y="945"
+        text-anchor="start"
+        font-family="Montserrat, Arial, sans-serif"
+        font-size="72"
+        font-weight="500"
+        letter-spacing="13"
+        fill="url(#nameGradient)">
+    KHAN
+  </text>
+</svg>

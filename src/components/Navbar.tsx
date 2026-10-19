@@ -2,15 +2,28 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { navLinks, profile } from "../data/cv";
 
+function LogoMark({ className = "" }: { className?: string }) {
+  return (
+    <img
+      src="/logo-mark.svg"
+      alt="Saman Khan"
+      width={40}
+      height={40}
+      className={`block rounded-xl object-contain shadow-sm ring-1 ring-edge ${className}`}
+      decoding="async"
+    />
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 32);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -21,7 +34,7 @@ export default function Navbar() {
           if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: "-45% 0px -50% 0px" },
+      { rootMargin: "-42% 0px -50% 0px" },
     );
     navLinks.forEach((l) => {
       const el = document.getElementById(l.id);
@@ -37,111 +50,126 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className={`mobile-nav-shell fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "py-3" : "py-4 lg:py-5"
+        scrolled ? "py-2.5" : "py-3.5"
       }`}
     >
-      <nav
-        className={`mobile-nav-pill relative ml-auto mr-4 flex w-fit items-center justify-end rounded-full p-1.5 transition-all duration-300 lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-6xl lg:justify-center lg:rounded-2xl lg:px-5 lg:py-3 ${
-          scrolled
-            ? "glass shadow-lg shadow-slate-900/[0.04]"
-            : "border border-transparent bg-white/20 backdrop-blur-sm"
-        }`}
-      >
-        <ul className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <button
-                onClick={() => go(link.id)}
-                className={`relative rounded-lg px-3 py-2 text-sm transition-colors ${
-                  active === link.id
-                    ? "text-slate-900"
-                    : "text-slate-500 hover:text-slate-900"
-                }`}
-              >
-                {active === link.id && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 -z-10 rounded-lg bg-slate-900/[0.06]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                {link.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <div className="ml-8 hidden items-center gap-2 lg:flex">
-          <a
-            href={profile.resume}
-            download={profile.resumeName}
-            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent2 px-4 py-2 text-sm font-medium text-white shadow-sm shadow-accent/20 transition-transform hover:scale-[1.03]"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 3v12" />
-              <path d="m7 12 5 5 5-5" />
-              <path d="M5 21h14" />
-            </svg>
-            Download CV
-          </a>
-          <a
-            href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/20"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-            Let's talk
-          </a>
-        </div>
-
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 lg:px-5">
         <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((o) => !o)}
-          className="grid h-11 w-11 place-items-center rounded-full border border-white/90 bg-white/75 shadow-sm backdrop-blur-xl lg:hidden"
+          type="button"
+          onClick={() => go("home")}
+          className="relative z-10 shrink-0 rounded-xl"
+          aria-label="Go to home"
         >
-          <div className="space-y-1.5">
-            <span
-              className={`block h-0.5 w-5 bg-slate-900 transition ${open ? "translate-y-2 rotate-45" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-5 bg-slate-900 transition ${open ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-5 bg-slate-900 transition ${open ? "-translate-y-2 -rotate-45" : ""}`}
-            />
-          </div>
+          <LogoMark className="h-11 w-11 lg:h-12 lg:w-12" />
         </button>
-      </nav>
+
+        <nav
+          className={`relative flex w-fit items-center justify-end rounded-full p-1.5 transition-all duration-300 lg:flex-1 lg:justify-between lg:rounded-2xl lg:px-4 lg:py-2 ${
+            scrolled
+              ? "glass shadow-panel"
+              : "border border-transparent bg-panel/25 backdrop-blur-sm"
+          }`}
+        >
+          <ul className="hidden items-center gap-0.5 lg:flex">
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <button
+                  type="button"
+                  onClick={() => go(link.id)}
+                  className={`relative rounded-lg px-3 py-1.5 text-sm transition-colors ${
+                    active === link.id
+                      ? "text-ink"
+                      : "text-muted hover:text-ink"
+                  }`}
+                >
+                  {active === link.id && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 -z-10 rounded-lg bg-accent/10"
+                      transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  {link.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div className="hidden items-center gap-2 lg:flex">
+            <a
+              href={profile.resume}
+              download={profile.resumeName}
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent2 px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-transform hover:scale-[1.02]"
+            >
+              Download CV
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-accent"
+              aria-label="Contact Me"
+            >
+              Contact
+            </a>
+          </div>
+
+          <div className="flex items-center gap-1.5 lg:hidden">
+            <button
+              type="button"
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              aria-controls="mobile-nav-menu"
+              onClick={() => setOpen((o) => !o)}
+              className="grid h-10 w-10 place-items-center rounded-full border border-edge bg-panel/80"
+            >
+              <div className="space-y-1.5" aria-hidden="true">
+                <span
+                  className={`block h-0.5 w-4 bg-ink transition ${open ? "translate-y-2 rotate-45" : ""}`}
+                />
+                <span
+                  className={`block h-0.5 w-4 bg-ink transition ${open ? "opacity-0" : ""}`}
+                />
+                <span
+                  className={`block h-0.5 w-4 bg-ink transition ${open ? "-translate-y-2 -rotate-45" : ""}`}
+                />
+              </div>
+            </button>
+          </div>
+        </nav>
+      </div>
 
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="mobile-menu-sheet glass mx-4 mt-2 rounded-[1.6rem] p-3 lg:hidden"
+            exit={{ opacity: 0, y: -8 }}
+            id="mobile-nav-menu"
+            className="mobile-menu-sheet glass mx-4 mt-2 rounded-2xl p-3 lg:hidden"
           >
+            <div className="mb-2 flex items-center gap-3 border-b border-edge/70 px-3 pb-3">
+              <LogoMark className="h-8 w-8" />
+              <div>
+                <div className="text-sm font-semibold text-ink">
+                  {profile.name}
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                  {profile.title}
+                </div>
+              </div>
+            </div>
             {navLinks.map((link) => (
               <button
                 key={link.id}
+                type="button"
                 onClick={() => go(link.id)}
-                className={`block w-full rounded-lg px-4 py-3 text-left text-sm ${
+                className={`block w-full rounded-lg px-4 py-2.5 text-left text-sm ${
                   active === link.id
-                    ? "bg-slate-900/[0.06] text-slate-900"
-                    : "text-slate-600"
+                    ? "bg-accent/10 text-ink"
+                    : "text-muted"
                 }`}
               >
                 {link.label}
@@ -151,24 +179,16 @@ export default function Navbar() {
               href={profile.resume}
               download={profile.resumeName}
               onClick={() => setOpen(false)}
-              className="mt-1 flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent2 px-4 py-3 text-sm font-medium text-white"
+              className="mt-2 flex items-center justify-center rounded-lg bg-gradient-to-r from-accent to-accent2 px-4 py-2.5 text-sm font-medium text-white"
             >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 3v12" />
-                <path d="m7 12 5 5 5-5" />
-                <path d="M5 21h14" />
-              </svg>
               Download CV
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              onClick={() => setOpen(false)}
+              className="mt-1.5 flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-medium text-accent"
+            >
+              Contact Me
             </a>
           </motion.div>
         )}

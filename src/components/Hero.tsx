@@ -1,126 +1,160 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { profile, stats } from "../data/cv";
+import { heroTechnologies, profile, stats } from "../data/cv";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 const HeroScene = lazy(() => import("./three/HeroScene"));
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
 };
 const item: Variants = {
-  hidden: { opacity: 0, y: 14 },
+  hidden: { opacity: 0, y: 12 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
+function MobileBrandVisual() {
+  return (
+    <div
+      className="hero-mobile-brand pointer-events-none absolute inset-0 z-0"
+      aria-hidden="true"
+    >
+      <div className="absolute inset-x-0 top-[16%] flex justify-center opacity-[0.16]">
+        <img
+          src="/logo-mark.svg"
+          alt=""
+          width={220}
+          height={220}
+          className="h-auto w-[min(58vw,16rem)] object-contain drop-shadow-[0_12px_40px_rgba(8,145,178,0.25)]"
+          decoding="async"
+        />
+      </div>
+      <div className="absolute bottom-[16%] left-1/2 h-px w-40 -translate-x-1/2 bg-gradient-to-r from-transparent via-accent/55 to-transparent" />
+    </div>
+  );
+}
+
 export default function Hero() {
-  const technologies = [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Python",
-    "AWS",
-    "Kafka",
-  ];
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const [showScene, setShowScene] = useState(false);
+
+  useEffect(() => {
+    if (!isDesktop || reduceMotion) {
+      setShowScene(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setShowScene(true), 180);
+    return () => window.clearTimeout(timer);
+  }, [isDesktop, reduceMotion]);
+
   return (
     <section
       id="home"
-      className="relative flex min-h-[820px] items-center overflow-hidden sm:min-h-[800px] lg:min-h-screen"
+      className="relative flex min-h-[38rem] items-center overflow-hidden md:min-h-[42rem] lg:min-h-[min(100vh,52rem)]"
     >
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-50 md:opacity-75"
-        aria-hidden="true"
-      >
-        <Suspense fallback={null}>
-          <HeroScene />
-        </Suspense>
-      </div>
-      {/* gradient vignette keeps copy readable above the hero-only 3D scene */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/30 via-transparent to-paper/80" />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_20%_30%,rgba(8,145,178,0.10),transparent_45%)]" />
+      {showScene ? (
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-70"
+          aria-hidden="true"
+        >
+          <Suspense fallback={null}>
+            <HeroScene />
+          </Suspense>
+        </div>
+      ) : (
+        <MobileBrandVisual />
+      )}
+
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-paper/40 via-transparent to-paper/90" />
       <div className="hero-noise pointer-events-none absolute inset-0 z-[1]" />
 
-      <div className="pointer-events-none relative z-10 mx-auto w-full max-w-6xl px-5 md:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 md:px-10">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="mobile-hero-copy max-w-[42rem] pb-24 pt-16 text-center md:pb-0 md:pt-20 md:text-left"
+          className="mobile-hero-copy max-w-[40rem] pb-20 pt-14 text-center md:pb-8 md:pt-16 md:text-left"
         >
           <motion.span variants={item} className="eyebrow">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-            {profile.location} · Available for opportunities
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            {profile.location} · Open to opportunities
           </motion.span>
 
           <motion.h1
             variants={item}
-            className="text-[3.35rem] font-bold leading-[0.96] tracking-[-0.06em] text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.4rem]"
+            className="text-[2.85rem] font-bold leading-[0.98] tracking-[-0.055em] text-ink sm:text-5xl md:text-6xl lg:text-[4.35rem]"
           >
             {profile.name.split(" ")[0]}
             <br />
-            <span className="gradient-text inline-block pb-2">
+            <span className="gradient-text inline-block pb-1">
               {profile.name.split(" ").slice(1).join(" ")}
             </span>
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mt-4 flex items-center justify-center gap-3 font-mono text-sm text-accent md:mt-3 md:justify-start md:text-base"
+            className="mt-3 flex items-center justify-center gap-3 font-mono text-sm text-accent md:justify-start md:text-[0.95rem]"
           >
-            <span className="h-px w-8 bg-accent/60" />
+            <span className="h-px w-7 bg-accent/60" aria-hidden="true" />
             {profile.title}
           </motion.p>
 
           <motion.p
             variants={item}
-            className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-600 md:mx-0 md:text-lg"
+            className="mx-auto mt-5 max-w-xl text-[0.95rem] leading-relaxed text-muted md:mx-0 md:text-base"
           >
-            I build production web platforms for mobility, subscriptions, and
-            analytics — from React/Next.js interfaces to AWS deployment and
-            automation that ships measurable results.
+            {profile.heroDescription}
           </motion.p>
 
           <motion.div
             variants={item}
-            className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start"
+            className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start"
           >
-            <button
-              onClick={() =>
-                document
-                  .getElementById("about")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="group pointer-events-auto inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-6 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03]"
+            <a
+              href={profile.resume}
+              download={profile.resumeName}
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-2.5 text-sm font-medium text-white shadow-glow transition-transform hover:scale-[1.02]"
             >
-              View my work
-              <span className="transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </button>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M12 3v12" />
+                <path d="m7 12 5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+              Download CV
+            </a>
             <a
               href={`mailto:${profile.email}`}
-              className="pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white/70 px-6 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:bg-white"
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-xl border border-edge bg-panel/70 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent/40"
             >
-              Get in touch
+              Contact Me
             </a>
           </motion.div>
 
           <motion.div
             variants={item}
-            className="mt-12 grid max-w-2xl grid-cols-2 gap-4 text-left sm:grid-cols-4 sm:gap-2"
+            className="mt-9 grid max-w-xl grid-cols-2 gap-2.5 text-left sm:grid-cols-4"
           >
             {stats.map((s) => (
-              <div
-                key={s.label}
-                className="mobile-stat rounded-xl border border-white/80 bg-white/50 px-3 py-3 backdrop-blur-sm"
-              >
-                <div className="text-xl font-bold gradient-text">{s.value}</div>
-                <div className="mt-1 text-[11px] uppercase tracking-wider text-slate-500">
+              <div key={s.label} className="metric-chip">
+                <div className="text-lg font-bold gradient-text">{s.value}</div>
+                <div className="mt-0.5 text-[10px] uppercase tracking-wider text-muted">
                   {s.label}
                 </div>
               </div>
@@ -129,43 +163,18 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="tech-rail pointer-events-none absolute inset-x-0 bottom-0 z-10 overflow-hidden border-y border-white/70 bg-white/35 py-3 backdrop-blur-md">
-        <div className="tech-track flex items-center gap-8 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.24em] text-slate-500">
-          {[...technologies, ...technologies].map((tech, index) => (
-            <span key={`${tech}-${index}`} className="flex items-center gap-8">
+      <div className="tech-rail pointer-events-none absolute inset-x-0 bottom-0 z-10 overflow-hidden border-y border-edge/70 bg-panel/40 py-2.5 backdrop-blur-md">
+        <div className="tech-track flex items-center gap-7 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+          {[...heroTechnologies, ...heroTechnologies].map((tech, index) => (
+            <span key={`${tech}-${index}`} className="flex items-center gap-7">
               {tech}
-              <span className="text-accent2">✦</span>
+              <span className="text-accent2/80" aria-hidden="true">
+                ◆
+              </span>
             </span>
           ))}
         </div>
       </div>
-
-      {/* interaction hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
-        className="pointer-events-none absolute bottom-16 right-6 z-10 hidden items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500 shadow-sm backdrop-blur lg:flex"
-      >
-        <span className="h-1.5 w-1.5 rounded-full bg-accent2" />
-        Move · tap · scroll
-      </motion.div>
-
-      {/* scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="pointer-events-none absolute bottom-16 left-1/2 z-10 hidden -translate-x-1/2 md:block"
-      >
-        <div className="flex h-9 w-5 items-start justify-center rounded-full border border-slate-300 p-1">
-          <motion.span
-            className="h-2 w-1 rounded-full bg-accent"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.6 }}
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }

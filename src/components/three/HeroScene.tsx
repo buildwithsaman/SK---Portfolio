@@ -477,14 +477,11 @@ function SiteRig({ children }: { children: React.ReactNode }) {
 }
 
 function SceneComposition() {
-  const { size } = useThree();
-  const mobile = size.width < 768;
-
   return (
     <SiteRig>
       <group>
-        <Float speed={1} rotationIntensity={0.15} floatIntensity={0.5}>
-          <group rotation={[0.05, -0.15, 0]}>
+        <Float speed={0.85} rotationIntensity={0.12} floatIntensity={0.42}>
+          <group rotation={[0.04, -0.12, 0]}>
             <CodeWindow />
           </group>
         </Float>
@@ -492,36 +489,36 @@ function SceneComposition() {
         <OrbitSystem />
         <PlayfulSatellites />
       </group>
-      <ParticleField count={mobile ? 90 : 280} />
+      <ParticleField count={220} />
     </SiteRig>
   );
 }
 
 export default function HeroScene() {
-  const mobile = useMediaQuery("(max-width: 767px)");
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   return (
     <Canvas
       style={{ pointerEvents: "none", touchAction: "pan-y" }}
-      dpr={mobile ? [1, 1.2] : [1, 1.6]}
-      camera={{ position: [0, 0, 6.6], fov: 45 }}
+      dpr={[1, 1.5]}
+      camera={{ position: [0, 0, 6.5], fov: 42 }}
       gl={{
-        antialias: !mobile,
+        antialias: true,
         alpha: true,
         powerPreference: "high-performance",
       }}
-      frameloop="always"
+      frameloop={reduceMotion ? "never" : "always"}
     >
-      <fog attach="fog" args={["#eef1f7", 10, 24]} />
+      <fog attach="fog" args={["#eef1f7", 11, 22]} />
 
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[4, 6, 5]} intensity={1.2} />
-      <pointLight position={[-6, -3, 2]} intensity={20} color="#0891b2" />
+      <ambientLight intensity={0.72} />
+      <directionalLight position={[5, 7, 4]} intensity={1.15} color="#ffffff" />
+      <pointLight position={[-5, -2, 3]} intensity={16} color="#22d3ee" />
       <pointLight
-        position={[3, 1, 4]}
-        intensity={18}
-        color="#7c3aed"
-        distance={16}
+        position={[4, 2, 3]}
+        intensity={14}
+        color="#a78bfa"
+        distance={15}
       />
 
       <SceneComposition />

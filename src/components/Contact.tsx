@@ -32,60 +32,72 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-pad">
+    <section
+      id="contact"
+      className="section-pad"
+      aria-labelledby="contact-heading"
+    >
       <Reveal>
-        <div className="glass relative isolate overflow-hidden rounded-3xl p-6 md:p-14">
+        <div className="surface relative isolate overflow-hidden rounded-2xl p-5 md:p-8">
           <ContactAtmosphere />
-          <div className="pointer-events-none absolute -right-20 -top-20 z-[1] h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-16 z-[1] h-64 w-64 rounded-full bg-accent2/20 blur-3xl" />
-
           <div className="relative z-10">
             <span className="eyebrow">05 · Contact</span>
-            <h2 className="max-w-2xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-              Have a problem{" "}
-              <span className="gradient-text">worth solving</span>?
+            <h2
+              id="contact-heading"
+              className="max-w-xl text-3xl font-bold leading-[1.08] tracking-tight text-ink md:text-4xl"
+            >
+              Let’s discuss the{" "}
+              <span className="gradient-text">next opportunity</span>.
             </h2>
-            <p className="mt-4 max-w-lg text-slate-600">
-              I'm based in {profile.location} and open to software engineering
-              roles and collaborations. The fastest way to reach me is email.
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted md:text-[0.95rem]">
+              {profile.openTo}
             </p>
 
-            <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-8">
+            <div className="mt-6 flex flex-wrap gap-2.5">
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-3 font-medium text-white shadow-lg shadow-accent/20 transition-transform hover:scale-[1.03] md:px-6"
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent to-accent2 px-5 py-2.5 text-sm font-medium text-white shadow-glow transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent2"
               >
-                Say hello →
+                Contact Me
               </a>
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/60 px-5 py-3 font-medium text-slate-700 backdrop-blur transition-colors hover:border-accent/30 hover:bg-white md:px-6"
+                className="inline-flex items-center justify-center rounded-xl border border-edge bg-panel/70 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent/35"
               >
-                {copied ? "Copied!" : "Copy email"}
-                <span aria-hidden="true">{copied ? "✓" : "⌘"}</span>
+                {copied ? "Email copied" : "Copy email"}
               </button>
+              <a
+                href={profile.resume}
+                download={profile.resumeName}
+                className="inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-medium text-muted transition-colors hover:text-accent"
+              >
+                Download CV
+              </a>
               <span className="sr-only" aria-live="polite">
                 {copied ? "Email address copied to clipboard" : ""}
               </span>
             </div>
 
-            <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:mt-10 sm:grid-cols-2">
+            <div className="mt-7 grid gap-px overflow-hidden rounded-xl border border-edge bg-edge sm:grid-cols-2">
               {links.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
                   target={l.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="group flex items-center justify-between bg-white px-5 py-4 transition-colors hover:bg-slate-50"
+                  rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+                  className="group flex items-center justify-between bg-panel px-4 py-3.5 transition-colors hover:bg-paper/80"
                 >
                   <div>
-                    <div className="font-mono text-xs uppercase tracking-wider text-accent">
+                    <div className="font-mono text-[10px] uppercase tracking-wider text-accent">
                       {l.label}
                     </div>
-                    <div className="mt-1 text-sm text-slate-700">{l.value}</div>
+                    <div className="mt-0.5 text-sm text-ink">{l.value}</div>
                   </div>
-                  <span className="text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-accent">
+                  <span
+                    className="text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent"
+                    aria-hidden="true"
+                  >
                     →
                   </span>
                 </a>

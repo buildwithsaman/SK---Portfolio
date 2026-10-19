@@ -1,109 +1,38 @@
-import { experiences } from "../data/cv";
+import { useId, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  caseStudies,
+  experiences,
+  type CaseStudy,
+  type ExperienceDomain,
+} from "../data/cv";
 import Reveal from "./ui/Reveal";
 import DepthCard from "./ui/DepthCard";
 import { ExperienceAtmosphere } from "./ui/SectionAtmosphere";
 
-type Visual = "operations" | "analytics" | "lifecycle";
-
-const caseStudies: {
-  number: string;
-  type: Visual;
-  category: string;
-  title: string;
-  summary: string;
-  contribution: string;
-  impact: { value: string; label: string }[];
-  tech: string[];
-}[] = [
-  {
-    number: "01",
-    type: "operations",
-    category: "Operations platforms",
-    title: "Internal ops at production scale.",
-    summary:
-      "Primary frontend ownership of a React + MUI platform covering customers, fleet, invoices, mobility, analytics, and admin tooling.",
-    contribution:
-      "I built mobility modules with a near-real-time Mapbox driver map, vehicle controls, CRM/Kanban pipelines, and six analytics areas with shared filters and CSV export.",
-    impact: [
-      { value: "6", label: "analytics areas" },
-      { value: "10s", label: "map polling" },
-    ],
-    tech: ["React", "TypeScript", "MUI", "Mapbox", "D3.js", "Vite"],
-  },
-  {
-    number: "02",
-    type: "lifecycle",
-    category: "Customer-facing web",
-    title: "A new Next.js website from Figma.",
-    summary:
-      "Building Udrive’s customer-facing site from scratch — pixel-accurate, bilingual, and performance-minded across roughly 20 routes.",
-    contribution:
-      "I translated Figma into Next.js App Router pages with English/Arabic locale routing, RTL support, reusable design-system components, and CloudFront-optimized media delivery.",
-    impact: [
-      { value: "~20", label: "routes shipped" },
-      { value: "EN/AR", label: "locale + RTL" },
-    ],
-    tech: ["Next.js", "TypeScript", "CSS Modules", "CloudFront", "Lottie"],
-  },
-  {
-    number: "03",
-    type: "analytics",
-    category: "Automation & impact",
-    title: "Automation that moves the numbers.",
-    summary:
-      "Production KYC pipelines, invoice automation, and analytics migration that cut costs and improved recovery.",
-    contribution:
-      "I contributed to a Python/Kafka verification pipeline and delivered serverless invoice automation, while helping migrate analytics to self-hosted Superset.",
-    impact: [
-      { value: "~70%", label: "infra cost down" },
-      { value: "+30%", label: "debt recovery" },
-    ],
-    tech: ["Python", "Kafka", "FastStream", "Superset", "AWS", "PostgreSQL"],
-  },
-];
-
-const careerNotes: Record<string, string> = {
-  "Udrive – Rent-a-Car":
-    "Primary frontend owner across ops platforms, subscription/CRM tools, a new Next.js website, and KYC/automation work.",
-  "Arata International FZC (Bahwan International Group)":
-    "Built a React Native vehicle marketplace and supported .NET APIs, databases, and BI workflows during the internship.",
-  "Dubai Technologies":
-    "Created Python desktop interfaces and translated operational requirements into working software.",
-};
-
-function ProjectVisual({ type }: { type: Visual }) {
+function ProjectVisual({ type }: { type: CaseStudy["type"] }) {
   if (type === "analytics") {
-    const bars = [44, 70, 52, 88, 64, 94, 76];
     return (
-      <div className="relative h-full min-h-[290px] overflow-hidden rounded-[1.4rem] border border-white/80 bg-slate-950 p-5 shadow-2xl shadow-slate-900/20">
-        <div className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-slate-400">
-          <span>Impact / Overview</span>
-          <span className="flex items-center gap-1.5 text-emerald-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
-          </span>
+      <div
+        className="relative flex h-full min-h-[220px] flex-col justify-center overflow-hidden rounded-2xl border border-edge bg-[#0b1220] p-5"
+        aria-hidden="true"
+      >
+        <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-cyan-300">
+          Impact
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-white">~70%</div>
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">
-              infra cost down
+        <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            <div className="text-2xl font-semibold text-white">~70%</div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">
+              cost reduction
             </div>
           </div>
-          <div className="rounded-xl border border-white/10 bg-white/[0.06] p-4">
-            <div className="text-3xl font-semibold text-cyan-300">+30%</div>
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-500">
-              debt recovery
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            <div className="text-2xl font-semibold text-cyan-300">+30%</div>
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">
+              recovery lift
             </div>
           </div>
-        </div>
-        <div className="mt-4 flex h-28 items-end gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 pb-4 pt-6">
-          {bars.map((height, index) => (
-            <div
-              key={index}
-              className="flex-1 rounded-t bg-gradient-to-t from-accent2 to-cyan-300"
-              style={{ height: `${height}%`, opacity: 0.55 + index * 0.06 }}
-            />
-          ))}
         </div>
       </div>
     );
@@ -111,156 +40,248 @@ function ProjectVisual({ type }: { type: Visual }) {
 
   if (type === "lifecycle") {
     return (
-      <div className="relative flex h-full min-h-[290px] flex-col justify-center overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-white to-violet-50 p-6 shadow-2xl shadow-slate-900/10">
-        <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent2/15 blur-3xl" />
-        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-accent2">
-          Site delivery
+      <div
+        className="relative flex h-full min-h-[220px] flex-col justify-center overflow-hidden rounded-2xl border border-edge bg-panel p-5"
+        aria-hidden="true"
+      >
+        <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-accent2">
+          Delivery
         </div>
-        <div className="relative mt-5 space-y-2">
-          {["Figma", "Next.js", "Locales", "CloudFront"].map((step, index) => (
-            <div key={step} className="flex items-center gap-3">
-              <span
-                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-mono text-[10px] ${index === 1 ? "bg-accent2 text-white" : index === 3 ? "bg-slate-900 text-white" : "border border-accent2/20 bg-white text-accent2"}`}
+        <div className="mt-4 space-y-2">
+          {["Figma", "Next.js", "EN / AR + RTL", "CloudFront"].map(
+            (step, index) => (
+              <div
+                key={step}
+                className="flex items-center gap-3 rounded-xl border border-edge/80 bg-paper/40 px-3 py-2"
               >
-                {index + 1}
-              </span>
-              <div className="flex-1 rounded-xl border border-slate-200/80 bg-white/80 px-4 py-2.5 shadow-sm">
-                <div className="flex items-center justify-between text-sm font-medium text-slate-700">
-                  {step}
-                  <span className="font-mono text-[9px] text-emerald-600">
-                    {index === 3 ? "Live" : "Ready"}
-                  </span>
-                </div>
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-accent/15 font-mono text-[10px] text-accent">
+                  {index + 1}
+                </span>
+                <span className="text-sm font-medium text-ink">{step}</span>
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative h-full min-h-[290px] overflow-hidden rounded-[1.4rem] border border-white/80 bg-gradient-to-br from-cyan-50 to-white p-5 shadow-2xl shadow-slate-900/10">
-      <div className="flex items-center gap-2">
-        {["#ef4444", "#f59e0b", "#22c55e"].map((color) => (
-          <span
-            key={color}
-            className="h-2 w-2 rounded-full"
-            style={{ backgroundColor: color }}
-          />
-        ))}
-        <span className="ml-2 font-mono text-[9px] uppercase tracking-wider text-slate-400">
-          Operations
-        </span>
+    <div
+      className="relative flex h-full min-h-[220px] flex-col justify-center overflow-hidden rounded-2xl border border-edge bg-gradient-to-br from-accent/10 via-panel to-accent2/10 p-5"
+      aria-hidden="true"
+    >
+      <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-accent">
+        Operations platform
       </div>
-      <div className="mt-5 grid grid-cols-[4rem_1fr] gap-3">
-        <div className="space-y-2 rounded-xl bg-slate-900 p-3">
-          {[0, 1, 2, 3, 4].map((item) => (
-            <div
-              key={item}
-              className={`h-7 rounded-lg ${item === 1 ? "bg-accent" : "bg-white/10"}`}
-            />
-          ))}
-        </div>
-        <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-2">
-            {["React", "Vite", "RBAC"].map((value) => (
-              <div
-                key={value}
-                className="rounded-xl border border-slate-200 bg-white p-3"
-              >
-                <div className="font-mono text-sm font-semibold text-slate-800">
-                  {value}
-                </div>
-                <div className="mt-1 h-1 w-8 rounded bg-slate-200" />
-              </div>
-            ))}
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {["React", "Mapbox", "D3"].map((value) => (
+          <div
+            key={value}
+            className="rounded-xl border border-edge/80 bg-panel/80 px-2.5 py-3 text-center"
+          >
+            <div className="font-mono text-xs font-semibold text-ink">
+              {value}
+            </div>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-3">
-            {[72, 48, 84, 60].map((width, index) => (
-              <div
-                key={index}
-                className="mb-3 flex items-center gap-3 last:mb-0"
-              >
-                <span className="h-6 w-6 rounded-lg bg-accent/10" />
-                <span
-                  className="h-1.5 rounded bg-slate-200"
-                  style={{ width: `${width}%` }}
-                />
-              </div>
-            ))}
-          </div>
+        ))}
+      </div>
+      <div className="mt-3 rounded-xl border border-edge/80 bg-panel/70 p-3">
+        <div className="text-xs text-muted">6 analytics · 10s map polling</div>
+        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-edge">
+          <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-accent to-accent2" />
         </div>
       </div>
     </div>
   );
 }
 
-export default function Experience() {
+function DomainAccordion({ domains }: { domains: ExperienceDomain[] }) {
+  const baseId = useId();
+  const [openId, setOpenId] = useState<string | null>(domains[0]?.id ?? null);
+
   return (
-    <section id="experience" className="section-pad isolate">
+    <div className="mt-5 space-y-2">
+      {domains.map((domain, index) => {
+        const panelId = `${baseId}-panel-${domain.id}`;
+        const buttonId = `${baseId}-button-${domain.id}`;
+        const isOpen = openId === domain.id;
+
+        return (
+          <div
+            key={domain.id}
+            className="overflow-hidden rounded-xl border border-edge/80 bg-panel/60"
+          >
+            <h4>
+              <button
+                id={buttonId}
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                onClick={() => setOpenId(isOpen ? null : domain.id)}
+                className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-panel/90"
+              >
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <span className="font-mono text-[10px] text-accent">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="truncate text-sm font-semibold text-ink">
+                    {domain.title}
+                  </span>
+                </span>
+                <span
+                  className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-edge text-sm text-muted"
+                  aria-hidden="true"
+                >
+                  {isOpen ? "−" : "+"}
+                </span>
+              </button>
+            </h4>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="space-y-3 border-t border-edge/70 px-4 py-4 text-sm leading-relaxed text-muted">
+                    <p>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                        Problem —{" "}
+                      </span>
+                      {domain.problem}
+                    </p>
+                    <p>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                        Ownership —{" "}
+                      </span>
+                      {domain.ownership}
+                    </p>
+                    <p>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                        Built —{" "}
+                      </span>
+                      {domain.built}
+                    </p>
+                    <p>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-accent">
+                        Impact —{" "}
+                      </span>
+                      {domain.impact}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {domain.tech.map((tech) => (
+                        <span key={tech} className="tech-pill">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Experience() {
+  const udrive = experiences.find((experience) => experience.domains?.length);
+
+  return (
+    <section
+      id="experience"
+      className="section-pad isolate"
+      aria-labelledby="experience-heading"
+    >
       <ExperienceAtmosphere />
-      <div className="pointer-events-none absolute inset-y-0 left-1/2 -z-10 w-screen -translate-x-1/2 bg-white/25" />
       <Reveal>
         <span className="eyebrow">02 · Selected work</span>
-        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-          <h2 className="max-w-3xl text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-            Products built around{" "}
-            <span className="gradient-text">real outcomes</span>.
+        <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+          <h2
+            id="experience-heading"
+            className="max-w-2xl text-3xl font-bold leading-[1.08] tracking-tight text-ink md:text-4xl"
+          >
+            Engineering work with{" "}
+            <span className="gradient-text">demonstrable impact</span>.
           </h2>
-          <p className="max-w-sm text-sm leading-relaxed text-slate-500">
-            A closer look at how I turn operational complexity into focused,
-            dependable software.
+          <p className="max-w-xs text-sm leading-relaxed text-muted">
+            Production systems across platforms, applications, integrations, and
+            automation.
           </p>
         </div>
       </Reveal>
 
-      <div className="mt-10 space-y-6 md:mt-14 md:space-y-8">
+      <div className="mt-8 space-y-5 md:mt-10 md:space-y-6">
         {caseStudies.map((project, index) => (
-          <Reveal key={project.number} delay={index * 0.06}>
-            <DepthCard className="glass rounded-[2rem] p-2.5 md:p-5">
-              <article
-                className={`grid items-stretch gap-7 lg:grid-cols-2 ${index % 2 ? "" : ""}`}
-              >
+          <Reveal key={project.number} delay={index * 0.05}>
+            <DepthCard
+              tilt={index === 0}
+              className="surface rounded-2xl p-3 md:p-4"
+            >
+              <article className="grid items-stretch gap-5 lg:grid-cols-2">
                 <div
-                  className={`flex flex-col p-4 md:p-6 ${index % 2 ? "lg:order-2" : ""}`}
+                  className={`flex flex-col p-2 md:p-3 ${index % 2 ? "lg:order-2" : ""}`}
                 >
-                  <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-                    <span className="grid h-8 w-8 place-items-center rounded-full border border-accent/20 bg-accent/[0.06]">
+                  <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+                    <span className="grid h-7 w-7 place-items-center rounded-full border border-accent/25 bg-accent/10">
                       {project.number}
                     </span>
                     {project.category}
                   </div>
-                  <h3 className="mt-5 text-2xl font-semibold tracking-tight text-slate-900 md:mt-7 md:text-4xl">
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink md:text-2xl">
                     {project.title}
                   </h3>
-                  <p className="mt-3 leading-relaxed text-slate-600 md:mt-4">
-                    {project.summary}
-                  </p>
-                  <div className="mt-4 border-l-2 border-accent2/30 pl-4 text-sm leading-relaxed text-slate-500 md:mt-5">
-                    {project.contribution}
-                  </div>
-                  <div className="mt-5 grid grid-cols-2 gap-2.5 md:mt-7 md:gap-3">
+                  <dl className="mt-4 space-y-3 text-sm leading-relaxed">
+                    <div>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                        Problem
+                      </dt>
+                      <dd className="mt-1 text-muted">{project.problem}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                        Ownership
+                      </dt>
+                      <dd className="mt-1 text-muted">{project.ownership}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                        Implementation
+                      </dt>
+                      <dd className="mt-1 text-muted">
+                        {project.implementation}
+                      </dd>
+                    </div>
+                    <div className="rounded-xl border border-accent2/20 bg-accent2/5 px-3 py-2.5">
+                      <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent2">
+                        Result
+                      </dt>
+                      <dd className="mt-1 text-sm text-ink/90">{project.result}</dd>
+                    </div>
+                  </dl>
+                  <div className="mt-4 grid grid-cols-2 gap-2">
                     {project.impact.map((metric) => (
-                      <div
-                        key={metric.label}
-                        className="rounded-xl border border-slate-200/70 bg-white/60 px-4 py-3"
-                      >
-                        <div className="text-lg font-semibold gradient-text">
+                      <div key={metric.label} className="metric-chip">
+                        <div className="text-base font-semibold gradient-text">
                           {metric.value}
                         </div>
-                        <div className="mt-1 text-[9px] uppercase tracking-[0.14em] text-slate-500">
+                        <div className="mt-0.5 text-[9px] uppercase tracking-[0.12em] text-muted">
                           {metric.label}
                         </div>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-5 flex flex-wrap gap-2 md:mt-6">
+                  <div className="mt-4 flex flex-wrap gap-1.5">
                     {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full bg-slate-900/[0.05] px-3 py-1 font-mono text-[10px] text-slate-600"
-                      >
+                      <span key={tech} className="tech-pill">
                         {tech}
                       </span>
                     ))}
@@ -275,46 +296,60 @@ export default function Experience() {
         ))}
       </div>
 
-      <Reveal className="mt-16 md:mt-24">
-        <div className="mb-8 flex items-end justify-between gap-4">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
-              Career timeline
+      {udrive?.domains && (
+        <Reveal className="mt-12 md:mt-14">
+          <div className="mb-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+              Udrive · domains
             </span>
-            <h3 className="mt-2 text-2xl font-semibold text-slate-900 md:text-3xl">
-              The path behind the work.
+            <h3 className="mt-1.5 text-xl font-semibold text-ink md:text-2xl">
+              Expandable ownership areas
             </h3>
           </div>
-          <span className="hidden font-mono text-[10px] uppercase tracking-wider text-slate-400 md:block">
+          <DomainAccordion domains={udrive.domains} />
+        </Reveal>
+      )}
+
+      <Reveal className="mt-12 md:mt-14">
+        <div className="mb-5 flex items-end justify-between gap-3">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
+              Career
+            </span>
+            <h3 className="mt-1.5 text-xl font-semibold text-ink md:text-2xl">
+              Professional experience
+            </h3>
+          </div>
+          <span className="hidden font-mono text-[10px] uppercase tracking-wider text-muted md:block">
             Dubai · 2023—Now
           </span>
         </div>
       </Reveal>
-      <div className="grid gap-3 md:gap-4 lg:grid-cols-3">
+      <div className="grid gap-2.5 lg:grid-cols-3">
         {experiences.map((experience, index) => (
-          <Reveal key={experience.company} delay={index * 0.06}>
-            <DepthCard className="glass h-full rounded-2xl p-5 md:p-6">
-              <div className="flex items-center justify-between">
+          <Reveal key={experience.company} delay={index * 0.04}>
+            <article className="surface h-full rounded-2xl p-4 md:p-5">
+              <div className="flex items-center justify-between gap-2">
                 <span className="font-mono text-[10px] text-accent">
                   0{index + 1}
                 </span>
-                <span className="font-mono text-[10px] text-slate-400">
+                <span className="font-mono text-[10px] text-muted">
                   {experience.period}
                 </span>
               </div>
-              <h4 className="mt-6 text-lg font-semibold leading-snug text-slate-900 md:mt-8">
+              <h4 className="mt-4 text-base font-semibold leading-snug text-ink">
                 {experience.company}
               </h4>
               <p className="mt-1 text-xs text-accent2">{experience.role}</p>
-              <p className="mt-5 text-sm leading-relaxed text-slate-500">
-                {careerNotes[experience.company]}
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {experience.summary}
               </p>
               {experience.recognition && (
-                <div className="mt-5 border-t border-slate-200 pt-4 text-xs leading-relaxed text-slate-500">
+                <div className="mt-4 border-t border-edge pt-3 text-xs leading-relaxed text-muted">
                   ★ {experience.recognition}
                 </div>
               )}
-            </DepthCard>
+            </article>
           </Reveal>
         ))}
       </div>
