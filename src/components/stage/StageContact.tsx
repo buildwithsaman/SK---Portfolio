@@ -64,13 +64,13 @@ export default function StageContact() {
                       ? "me noopener noreferrer"
                       : undefined
                   }
-                  className="group flex items-baseline justify-between gap-4 border-b border-edge/70 py-4 transition-colors hover:border-accent2/50"
+                  className="group flex min-w-0 items-baseline justify-between gap-4 border-b border-edge/70 py-4 transition-colors hover:border-accent2/50"
                 >
-                  <span>
+                  <span className="min-w-0">
                     <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-accent2">
                       {c.label}
                     </span>
-                    <span className="mt-1 block text-sm text-ink">
+                    <span className="mt-1 block break-all text-sm text-ink">
                       {c.value}
                     </span>
                   </span>

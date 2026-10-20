@@ -149,21 +149,24 @@ function SkillsHorizontal() {
       style={{ height: `calc(100svh + ${scrollBudget}px)` }}
       aria-labelledby="skills-heading"
     >
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] h-[100dvh] flex-col justify-center overflow-hidden pt-16 pb-[max(1rem,env(safe-area-inset-bottom))] md:pt-20">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_18%_35%,rgb(var(--accent)/0.12),transparent_52%),radial-gradient(ellipse_at_82%_65%,rgb(var(--accent2)/0.09),transparent_48%)]"
           aria-hidden="true"
         />
 
         <div className="relative z-[1] mx-auto w-full max-w-6xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
+          <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
+            <div className="min-w-0">
               <span className="stage-kicker">05 — Technical Skills</span>
               <h2 id="skills-heading" className="stage-title max-w-2xl">
                 Technical <span className="gradient-role">Skills</span>
               </h2>
             </div>
-            <div className="mb-1 w-28 md:w-40" aria-hidden="true">
+            <div
+              className="mb-1 w-24 shrink-0 sm:w-28 md:w-40"
+              aria-hidden="true"
+            >
               <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
                 Scroll
               </p>
@@ -180,24 +183,24 @@ function SkillsHorizontal() {
         <motion.div
           ref={trackRef}
           style={{ x, willChange: "transform" }}
-          className="relative z-[1] mt-10 flex w-max gap-6 pl-5 pr-[10vw] md:gap-8 md:pl-8 md:pr-[14vw]"
+          className="relative z-[1] mt-6 flex w-max gap-4 pl-5 pr-[12vw] sm:mt-8 sm:gap-6 md:mt-10 md:gap-8 md:pl-8 md:pr-[14vw]"
         >
           {skillGroups.map((group, index) => (
             <article
               key={group.category}
-              className="flex h-[min(48vh,340px)] w-[min(82vw,320px)] shrink-0 flex-col border border-edge/70 bg-paper/50 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(56vh,400px)] sm:w-[min(78vw,340px)] sm:p-6 md:w-[380px] md:p-8"
+              className="flex h-[min(42vh,300px)] w-[min(78vw,300px)] shrink-0 flex-col border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(52vh,380px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(56vh,400px)] md:w-[380px] md:p-8"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
+              <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink sm:mt-3 sm:text-2xl">
                 {group.category}
               </h3>
-              <ul className="mt-6 flex flex-1 flex-wrap content-start gap-2 overflow-y-auto pr-1">
+              <ul className="mt-4 flex flex-1 flex-wrap content-start gap-2 overflow-y-auto overscroll-contain pr-1 sm:mt-6">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded-full border border-edge/60 bg-white/[0.04] px-3 py-1.5 text-sm text-ink/90"
+                    className="rounded-full border border-edge/60 bg-white/[0.04] px-2.5 py-1 text-xs text-ink/90 sm:px-3 sm:py-1.5 sm:text-sm"
                   >
                     {item}
                   </li>

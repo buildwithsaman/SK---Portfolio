@@ -79,7 +79,7 @@ export default function StageTextScroll() {
             </div>
           </div>
 
-          <div className="relative min-h-[11rem] sm:min-h-[13rem] md:min-h-[16rem]">
+          <div className="relative min-h-[9.5rem] sm:min-h-[13rem] md:min-h-[16rem]">
             {lines.map((line, index) => (
               <TextLine
                 key={line}
@@ -142,7 +142,7 @@ function TextLine({
   return (
     <motion.p
       style={{ opacity, y }}
-      className="absolute inset-x-0 top-0 display-name text-[clamp(1.55rem,5.2vw,3.25rem)] leading-[1.14] text-ink"
+      className="absolute inset-x-0 top-0 display-name break-words text-[clamp(1.35rem,6.2vw,3.25rem)] leading-[1.12] text-ink sm:text-[clamp(1.55rem,5.2vw,3.25rem)] sm:leading-[1.14]"
     >
       {line}
     </motion.p>

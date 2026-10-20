@@ -151,7 +151,7 @@ export default function StageChrome() {
   return (
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-        <div className="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 md:px-8">
+        <div className="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:gap-3 sm:py-4 md:px-8">
           <a
             href="#home"
             onClick={(e) => onNavClick(e, "home")}
@@ -208,19 +208,20 @@ export default function StageChrome() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <a
               href={profile.resume}
               download={profile.resumeName}
-              className="inline-flex items-center gap-2 rounded-full border border-edge/80 bg-paper/60 px-3.5 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink backdrop-blur-md transition-colors hover:border-accent2/50 hover:text-accent2"
+              className="inline-flex items-center gap-1.5 rounded-full border border-edge/80 bg-paper/60 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink backdrop-blur-md transition-colors hover:border-accent2/50 hover:text-accent2 sm:gap-2 sm:px-3.5"
             >
-              Download CV
+              <span className="sm:hidden">CV</span>
+              <span className="hidden sm:inline">Download CV</span>
               <span aria-hidden="true">↗</span>
             </a>
             <button
               ref={menuButtonRef}
               type="button"
-              className="grid h-10 w-10 place-items-center rounded-full border border-edge/80 bg-paper/60 backdrop-blur-md lg:hidden"
+              className="grid h-11 w-11 place-items-center rounded-full border border-edge/80 bg-paper/60 backdrop-blur-md lg:hidden"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               aria-controls={menuId}
@@ -277,7 +278,7 @@ export default function StageChrome() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.28 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-paper px-6 pb-10 pt-24 lg:hidden"
+            className="fixed inset-0 z-[60] flex flex-col bg-paper px-6 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-24 lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"

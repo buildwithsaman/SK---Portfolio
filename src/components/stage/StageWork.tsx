@@ -73,7 +73,7 @@ export default function StageWork() {
                       );
                     }
                   }}
-                  className="group flex w-full items-start gap-4 py-6 text-left md:gap-6 md:py-8"
+                  className="group flex w-full items-start gap-3 py-5 text-left sm:gap-4 sm:py-6 md:gap-6 md:py-8"
                 >
                   <span
                     className={`mt-2 font-mono text-[10px] uppercase tracking-[0.2em] ${
@@ -84,7 +84,7 @@ export default function StageWork() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span
-                      className={`block text-xl font-semibold tracking-tight transition-colors md:text-2xl ${
+                      className={`block text-lg font-semibold tracking-tight transition-colors sm:text-xl md:text-2xl ${
                         open ? "gradient-role" : "text-ink"
                       }`}
                     >
