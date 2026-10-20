@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type MouseEvent,
-} from "react";
+import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navLinks, profile, stageActs } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
