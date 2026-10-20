@@ -1,8 +1,10 @@
 node_modules
 dist
 dist-ssr
+# Legacy Next.js artifacts (this project is Vite)
 .next
 out
+app
 *.tsbuildinfo
 *.local
 .DS_Store

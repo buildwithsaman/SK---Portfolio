@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "3D interactive portfolio for Saman Shakil Khan — Software Developer",
+  "description": "Portfolio for Saman Khan — Software Engineer | Frontend Development (Dubai)",
   "scripts": {
     "dev": "vite",
     "build": "npm run typecheck && vite build",
@@ -11,18 +11,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "framer-motion": "^12.42.2",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "three": "0.182.0"
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/three": "^0.183.1",
     "@vitejs/plugin-react": "^6.0.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

@@ -1,8 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { buildSeoStaticShell } from "./scripts/seoStaticShell";
+
+/** Injects crawlable HTML into #root at build/dev time. createRoot replaces it client-side. */
+function seoStaticShellPlugin() {
+  return {
+    name: "seo-static-shell",
+    transformIndexHtml(html: string) {
+      const shell = buildSeoStaticShell();
+      return html.replace(
+        '<div id="root"></div>',
+        `<div id="root">\n${shell}\n</div>`,
+      );
+    },
+  };
+}
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), seoStaticShellPlugin()],
   base: "./",
   server: {
     host: "127.0.0.1",
@@ -14,7 +29,6 @@ export default defineConfig({
     port: 4180,
   },
   build: {
-    // SkSculpture (Three.js) is lazy-loaded and desktop-only; size warning is expected.
-    chunkSizeWarningLimit: 1100,
+    chunkSizeWarningLimit: 600,
   },
 });

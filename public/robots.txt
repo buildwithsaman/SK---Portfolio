@@ -1,4 +1,16 @@
+# https://buildwithsaman.dev/robots.txt
 User-agent: *
 Allow: /
 
+# Allow major search crawlers explicitly
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Do not disallow CSS, JS, or images required for rendering
 Sitemap: https://buildwithsaman.dev/sitemap.xml

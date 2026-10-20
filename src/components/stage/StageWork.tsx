@@ -12,14 +12,21 @@ export default function StageWork() {
   return (
     <section id="work" className="stage-section" aria-labelledby="work-heading">
       <Reveal>
-        <span className="stage-kicker">04 — Work</span>
+        <span className="stage-kicker">04 — Selected Work</span>
         <h2 id="work-heading" className="stage-title max-w-3xl">
-          Udrive experience —{" "}
-          <span className="gradient-role">five CV sections</span>
+          Production Applications &{" "}
+          <span className="gradient-role">Engineering Experience</span>
         </h2>
-        <p className="mt-4 max-w-lg text-sm text-muted md:text-base">
-          Content below is taken from the Udrive experience section of the CV.
-          Select a chapter for the full detail.
+        <p className="mt-4 max-w-2xl text-sm text-muted md:text-base">
+          A selection of engineering contributions across Udrive&apos;s mobility
+          technology ecosystem.
+        </p>
+        <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+          <a href="#career" className="transition-colors hover:text-accent2">
+            From Professional Experience
+          </a>
+          <span aria-hidden="true"> · </span>
+          {udriveDomains.length} production areas
         </p>
       </Reveal>
 
@@ -28,19 +35,14 @@ export default function StageWork() {
           const open = active === index;
           const panelId = `${baseId}-panel-${index}`;
           const tabId = `${baseId}-tab-${index}`;
-          const beats: [string, string][] = [
-            ["Ownership", item.ownership],
-            ["What I built", item.built],
-            ...(item.result
-              ? ([["Result", item.result]] as [string, string][])
-              : []),
-          ];
 
           return (
             <article
               key={item.id}
               className={`relative border-t border-edge/70 transition-colors duration-300 ${
-                open ? "border-accent2/40 bg-white/[0.015]" : "hover:bg-white/[0.01]"
+                open
+                  ? "border-accent2/40 bg-white/[0.015]"
+                  : "hover:bg-white/[0.01]"
               } ${index === udriveDomains.length - 1 ? "border-b" : ""}`}
             >
               {open && (
@@ -56,6 +58,7 @@ export default function StageWork() {
                   id={tabId}
                   aria-expanded={open}
                   aria-controls={open ? panelId : undefined}
+                  aria-label={`${String(index + 1).padStart(2, "0")} ${item.title}, ${item.role}`}
                   onClick={() => setActive(index)}
                   onKeyDown={(e) => {
                     if (e.key === "ArrowDown" || e.key === "ArrowRight") {
@@ -87,22 +90,35 @@ export default function StageWork() {
                     >
                       {item.title}
                     </span>
+
+                    {/* Collapsed recruiter scan: role → overview → stack.
+                        Overview + stack are aria-hidden so the button name
+                        stays title + role (not the full description). */}
                     {!open && (
-                      <span className="mt-2 line-clamp-2 block text-sm leading-relaxed text-muted">
-                        {item.ownership}
-                      </span>
-                    )}
-                    {!open && (
-                      <span className="mt-3 hidden flex-wrap gap-1.5 sm:flex">
-                        {item.tech.slice(0, 4).map((t) => (
-                          <span
-                            key={t}
-                            className="rounded-full border border-edge/70 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted/80"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </span>
+                      <>
+                        <span className="mt-2 block font-mono text-[10px] uppercase tracking-[0.18em] text-accent2">
+                          {item.role}
+                        </span>
+                        <span
+                          className="mt-2 line-clamp-2 block text-sm leading-relaxed text-muted"
+                          aria-hidden="true"
+                        >
+                          {item.ownership}
+                        </span>
+                        <span
+                          className="mt-3 flex flex-wrap gap-1.5"
+                          aria-hidden="true"
+                        >
+                          {item.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="rounded-full border border-edge/70 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted/80"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </span>
+                      </>
                     )}
                   </span>
                   <span
@@ -126,34 +142,60 @@ export default function StageWork() {
                   transition={{ duration: 0.38, ease: easeOut }}
                   className="pb-10 pl-9 md:pl-12"
                 >
-                  <div className="grid gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-14">
-                    <dl className="space-y-7">
-                      {beats.map(([label, body], i) => (
-                        <motion.div
-                          key={label}
-                          initial={
-                            reduceMotion ? false : { opacity: 0, y: 8 }
-                          }
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            duration: 0.35,
-                            delay: reduceMotion ? 0 : 0.04 * i,
-                            ease: easeOut,
-                          }}
-                        >
-                          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
-                            {label}
-                          </dt>
-                          <dd className="mt-2 text-sm leading-relaxed text-muted md:text-[0.95rem] md:leading-relaxed">
-                            {body}
-                          </dd>
-                        </motion.div>
-                      ))}
-                    </dl>
+                  <div className="grid gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:gap-14">
+                    <div className="space-y-7">
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+                            Role
+                          </p>
+                          <p className="mt-2 text-sm font-medium text-ink">
+                            {item.role}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+                            Focus
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-muted">
+                            {item.focus}
+                          </p>
+                        </div>
+                      </div>
 
-                    <aside>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
-                        Stack
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+                          Overview
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-muted md:text-[0.95rem]">
+                          {item.ownership}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+                          Key Contributions
+                        </p>
+                        <ul className="mt-3 space-y-2.5">
+                          {item.contributions.map((point) => (
+                            <li
+                              key={point.slice(0, 48)}
+                              className="flex gap-2.5 text-sm leading-relaxed text-muted md:text-[0.95rem]"
+                            >
+                              <span
+                                className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent2"
+                                aria-hidden="true"
+                              />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <aside className="lg:sticky lg:top-28 lg:self-start">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent2">
+                        Technology Stack
                       </p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {item.tech.map((t) => (

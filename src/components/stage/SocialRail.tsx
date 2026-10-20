@@ -19,7 +19,9 @@ export default function SocialRail() {
             href={link.href}
             target={link.href.startsWith("http") ? "_blank" : undefined}
             rel={
-              link.href.startsWith("http") ? "noopener noreferrer" : undefined
+              link.href.startsWith("http")
+                ? "me noopener noreferrer"
+                : undefined
             }
             className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent2"
             style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
