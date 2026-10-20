@@ -34,7 +34,6 @@ src/
   data/cv.ts            # All portfolio copy & structured data (edit content here)
   components/stage/     # Page sections + chrome (nav, hero, about, …)
   components/ui/        # Reveal, Parallax helpers
-  hooks/                # useMediaQuery
   lib/                  # Motion easing / scroll springs
 scripts/
   seoStaticShell.ts     # Build-time crawlable HTML for #root

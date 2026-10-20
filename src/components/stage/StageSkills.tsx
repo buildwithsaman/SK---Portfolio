@@ -7,7 +7,6 @@ import {
   useTransform,
 } from "framer-motion";
 import { skillGroups } from "../../data/cv";
-import useMediaQuery from "../../hooks/useMediaQuery";
 import { scrollSpring } from "../../lib/scrollMotion";
 
 /** Vertical scroll needed as a fraction of horizontal travel (was 1:1). */
@@ -15,10 +14,10 @@ const SCROLL_TRAVEL_FACTOR = 0.72;
 
 export default function StageSkills() {
   const reduceMotion = useReducedMotion();
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const enableHorizontal = isDesktop && !reduceMotion;
 
-  if (!enableHorizontal) {
+  // Same scroll-driven horizontal gallery on mobile and desktop.
+  // Stacked accordion only for prefers-reduced-motion.
+  if (reduceMotion) {
     return <SkillsStacked />;
   }
 
@@ -186,7 +185,7 @@ function SkillsHorizontal() {
           {skillGroups.map((group, index) => (
             <article
               key={group.category}
-              className="flex h-[min(56vh,400px)] w-[min(78vw,340px)] shrink-0 flex-col border border-edge/70 bg-paper/50 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm md:w-[380px] md:p-8"
+              className="flex h-[min(48vh,340px)] w-[min(82vw,320px)] shrink-0 flex-col border border-edge/70 bg-paper/50 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(56vh,400px)] sm:w-[min(78vw,340px)] sm:p-6 md:w-[380px] md:p-8"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
                 {String(index + 1).padStart(2, "0")}
