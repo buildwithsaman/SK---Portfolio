@@ -1,3 +1,4 @@
+import StageIntro from "./components/stage/StageIntro";
 import StageChrome from "./components/stage/StageChrome";
 import SocialRail from "./components/stage/SocialRail";
 import StageHero from "./components/stage/StageHero";
@@ -12,6 +13,7 @@ import StageFooter from "./components/stage/StageFooter";
 export default function App() {
   return (
     <div className="relative isolate min-h-screen">
+      <StageIntro />
       <StageChrome />
       <SocialRail />
       <main id="main-content">

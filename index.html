@@ -91,23 +91,23 @@
       })();
     </script>
 
-    <!-- Only weights used in CSS: Space Grotesk 400–700, JetBrains Mono 400 -->
+    <!-- Site: Space Grotesk + JetBrains Mono. Loader: Quattrocento Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media = 'all'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
         rel="stylesheet"
       />
     </noscript>
@@ -216,6 +216,103 @@
     </script>
   </head>
   <body>
+    <!-- Covers first paint + SEO-shell swap until StageIntro finishes -->
+    <div id="stage-boot" class="loading" role="presentation" aria-hidden="true">
+      <style>
+        #stage-boot.loading {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          /* --paper */
+          background: rgb(6 5 9);
+          z-index: 99999;
+          opacity: 1;
+          transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #stage-boot.loading.is-exiting {
+          opacity: 0;
+          pointer-events: none;
+        }
+        #stage-boot[data-done="true"] {
+          display: none !important;
+        }
+        #stage-boot .loading-text {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+          text-align: center;
+          width: 100%;
+          height: 4.5rem;
+          line-height: 4.5rem;
+        }
+        #stage-boot .loading-text-words {
+          display: inline-block;
+          margin: 0 0.35rem;
+          /* --ink */
+          color: rgb(250 250 252);
+          font-family: "Quattrocento Sans", "Space Grotesk", sans-serif;
+          font-size: clamp(2.25rem, 9vw, 4rem);
+          font-weight: 400;
+          letter-spacing: 0.08em;
+        }
+        #stage-boot .loading-text-words:nth-child(1) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 0s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(2) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 0.2s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(3) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 0.4s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(4) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 0.6s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(5) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 0.8s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(6) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 1s infinite linear alternate;
+        }
+        #stage-boot .loading-text-words:nth-child(7) {
+          filter: blur(0px);
+          animation: stage-blur-text 1.5s 1.2s infinite linear alternate;
+        }
+        @keyframes stage-blur-text {
+          0% {
+            filter: blur(0px);
+          }
+          100% {
+            filter: blur(4px);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #stage-boot .loading-text-words {
+            animation: none !important;
+            filter: none !important;
+          }
+        }
+      </style>
+      <div class="loading-text">
+        <span class="loading-text-words">L</span>
+        <span class="loading-text-words">O</span>
+        <span class="loading-text-words">A</span>
+        <span class="loading-text-words">D</span>
+        <span class="loading-text-words">I</span>
+        <span class="loading-text-words">N</span>
+        <span class="loading-text-words">G</span>
+      </div>
+    </div>
     <!--
       Crawlable portfolio content is injected into #root at build time
       (see scripts/seoStaticShell.ts). createRoot() replaces it on the client.
