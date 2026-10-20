@@ -14,11 +14,6 @@ const channels = [
     href: undefined as string | undefined,
   },
   {
-    label: "Phone",
-    value: profile.phone,
-    href: `tel:${profile.phone.replace(/\s/g, "")}`,
-  },
-  {
     label: "LinkedIn",
     value: profile.linkedinLabel,
     href: profile.linkedin,

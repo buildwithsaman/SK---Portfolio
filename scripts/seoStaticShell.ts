@@ -133,7 +133,6 @@ export function buildSeoStaticShell(): string {
     <ul>
       <li>Email: <a href="mailto:${esc(profile.email)}">${esc(profile.email)}</a></li>
       <li>Location: ${esc(profile.locationFull)}</li>
-      <li>Phone: <a href="tel:${esc(profile.phone.replace(/\s/g, ""))}">${esc(profile.phone)}</a></li>
       <li>LinkedIn: <a href="${esc(profile.linkedin)}">${esc(profile.linkedinLabel)}</a></li>
       <li>GitHub: <a href="${esc(profile.github)}">${esc(profile.githubLabel)}</a></li>
     </ul>

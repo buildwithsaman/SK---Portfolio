@@ -3,7 +3,6 @@ export const profile = {
   title: "Software Engineer | Frontend Development",
   location: "Dubai, UAE",
   locationFull: "Dubai, United Arab Emirates",
-  phone: "+971 50 601 9290",
   email: "samankhanhq@gmail.com",
   linkedin: "https://www.linkedin.com/in/saman-shakil-khan-62728b208/",
   linkedinLabel: "linkedin.com/in/saman-shakil-khan-62728b208",
