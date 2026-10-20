@@ -98,16 +98,6 @@ export default function StageHero() {
             <a href="#work" className="cta-solid">
               Explore My Work
             </a>
-            <a
-              href={profile.resume}
-              download={profile.resumeName}
-              className="cta-ghost"
-            >
-              Download CV
-            </a>
-            <a href={`mailto:${profile.email}`} className="cta-ghost">
-              Contact Me
-            </a>
           </div>
         </div>
       </motion.div>

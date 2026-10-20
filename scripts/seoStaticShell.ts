@@ -88,10 +88,6 @@ export function buildSeoStaticShell(): string {
     <p>${esc(profile.heroSupport)}</p>
     <p>
       <a href="#work">Explore My Work</a>
-      ·
-      <a href="${esc(profile.resume)}">Download CV</a>
-      ·
-      <a href="mailto:${esc(profile.email)}">Contact Me</a>
     </p>
   </header>
 
