@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Reveal from "../ui/Reveal";
 import { certifications, profile, volunteer } from "../../data/cv";
 
@@ -26,18 +25,6 @@ const channels = [
 ];
 
 export default function StageContact() {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
-  };
-
   return (
     <section
       id="contact"
@@ -61,19 +48,6 @@ export default function StageContact() {
           <a href={`mailto:${profile.email}`} className="cta-solid">
             Contact Me
           </a>
-          <button type="button" onClick={copyEmail} className="cta-ghost">
-            {copied ? "Email copied" : "Copy Email"}
-          </button>
-          <a
-            href={profile.resume}
-            download={profile.resumeName}
-            className="inline-flex items-center px-4 py-3 text-sm text-muted transition-colors hover:text-accent2"
-          >
-            Download CV
-          </a>
-          <span className="sr-only" aria-live="polite">
-            {copied ? "Email address copied to clipboard" : ""}
-          </span>
         </div>
       </Reveal>
 

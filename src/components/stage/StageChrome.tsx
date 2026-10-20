@@ -311,14 +311,6 @@ export default function StageChrome() {
               >
                 Contact Me
               </a>
-              <a
-                href={profile.resume}
-                download={profile.resumeName}
-                onClick={() => setOpen(false)}
-                className="cta-ghost justify-center"
-              >
-                Download CV
-              </a>
             </div>
           </motion.div>
         )}
