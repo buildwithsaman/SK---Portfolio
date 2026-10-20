@@ -188,19 +188,19 @@ function SkillsHorizontal() {
           {skillGroups.map((group, index) => (
             <article
               key={group.category}
-              className="flex h-[min(42vh,300px)] w-[min(78vw,300px)] shrink-0 flex-col border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(52vh,380px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(56vh,400px)] md:w-[380px] md:p-8"
+              className="flex h-[min(46vh,320px)] w-[min(78vw,300px)] shrink-0 flex-col overflow-hidden border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(54vh,390px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(58vh,420px)] md:w-[380px] md:p-8"
             >
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
+              <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink sm:mt-3 sm:text-2xl">
+              <h3 className="mt-2 shrink-0 text-xl font-semibold tracking-tight text-ink sm:mt-3 sm:text-2xl">
                 {group.category}
               </h3>
-              <ul className="mt-4 flex flex-1 flex-wrap content-start gap-2 overflow-y-auto overscroll-contain pr-1 sm:mt-6">
+              <ul className="mt-4 flex min-h-0 flex-1 flex-wrap content-start gap-2 overflow-y-auto overscroll-contain pb-1 pr-1 sm:mt-6">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded-full border border-edge/60 bg-white/[0.04] px-2.5 py-1 text-xs text-ink/90 sm:px-3 sm:py-1.5 sm:text-sm"
+                    className="rounded-full border border-edge/60 bg-white/[0.04] px-2.5 py-1 text-xs leading-snug text-ink/90 sm:px-3 sm:py-1.5 sm:text-sm"
                   >
                     {item}
                   </li>

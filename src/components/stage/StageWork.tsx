@@ -106,13 +106,13 @@ export default function StageWork() {
                           {item.ownership}
                         </span>
                         <span
-                          className="mt-3 flex flex-wrap gap-1.5"
+                          className="mt-3 flex min-w-0 flex-wrap gap-1.5"
                           aria-hidden="true"
                         >
                           {item.tech.map((t) => (
                             <span
                               key={t}
-                              className="rounded-full border border-edge/70 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted/80"
+                              className="inline-flex max-w-full shrink-0 rounded-full border border-edge/70 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted/80"
                             >
                               {t}
                             </span>
@@ -140,10 +140,10 @@ export default function StageWork() {
                   initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.38, ease: easeOut }}
-                  className="pb-10 pl-9 md:pl-12"
+                  className="min-w-0 pb-10 pl-9 md:pl-12"
                 >
-                  <div className="grid gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:gap-14">
-                    <div className="space-y-7">
+                  <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-14">
+                    <div className="min-w-0 space-y-7">
                       <div className="grid gap-6 sm:grid-cols-2">
                         <div>
                           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
@@ -193,15 +193,15 @@ export default function StageWork() {
                       </div>
                     </div>
 
-                    <aside className="lg:sticky lg:top-28 lg:self-start">
+                    <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
                       <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent2">
                         Technology Stack
                       </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
+                      <div className="mt-3 flex min-w-0 flex-wrap gap-2">
                         {item.tech.map((t) => (
                           <span
                             key={t}
-                            className="rounded-full border border-edge bg-panel/40 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ink/90"
+                            className="inline-flex max-w-full rounded-full border border-edge bg-panel/40 px-2.5 py-1 font-mono text-[10px] uppercase leading-snug tracking-wider text-ink/90"
                           >
                             {t}
                           </span>
