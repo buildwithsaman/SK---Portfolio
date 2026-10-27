@@ -183,12 +183,12 @@ function SkillsHorizontal() {
         <motion.div
           ref={trackRef}
           style={{ x, willChange: "transform" }}
-          className="relative z-[1] mt-6 flex w-max gap-4 pl-5 pr-[12vw] sm:mt-8 sm:gap-6 md:mt-10 md:gap-8 md:pl-8 md:pr-[14vw]"
+          className="relative z-[1] mt-6 flex w-max gap-4 pl-5 pr-[12vw] [perspective:1200px] sm:mt-8 sm:gap-6 md:mt-10 md:gap-8 md:pl-8 md:pr-[14vw]"
         >
           {skillGroups.map((group, index) => (
             <article
               key={group.category}
-              className="flex h-[min(46vh,320px)] w-[min(78vw,300px)] shrink-0 flex-col overflow-hidden border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(54vh,390px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(58vh,420px)] md:w-[380px] md:p-8"
+              className="flex h-[min(46vh,320px)] w-[min(78vw,300px)] shrink-0 flex-col overflow-hidden border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(54vh,390px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(58vh,420px)] md:w-[380px] md:p-8 md:[transform:rotateY(-2deg)] md:transition-transform md:duration-500 md:hover:[transform:rotateY(0deg)_translateY(-4px)]"
             >
               <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
                 {String(index + 1).padStart(2, "0")}

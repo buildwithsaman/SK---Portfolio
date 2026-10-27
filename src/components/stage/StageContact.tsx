@@ -1,4 +1,5 @@
 import Reveal from "../ui/Reveal";
+import Magnetic from "../ui/Magnetic";
 import { certifications, profile, volunteer } from "../../data/cv";
 
 const channels = [
@@ -45,9 +46,11 @@ export default function StageContact() {
 
       <Reveal className="mt-10" delay={0.06}>
         <div className="flex flex-wrap gap-3">
-          <a href={`mailto:${profile.email}`} className="cta-solid">
-            Contact Me
-          </a>
+          <Magnetic>
+            <a href={`mailto:${profile.email}`} className="cta-solid">
+              Contact Me
+            </a>
+          </Magnetic>
         </div>
       </Reveal>
 

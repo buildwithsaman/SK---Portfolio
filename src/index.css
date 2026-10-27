@@ -67,6 +67,31 @@ body {
   outline-offset: 3px;
 }
 
+#main-content:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  top: -5rem;
+  z-index: 300;
+  border-radius: 9999px;
+  background: rgb(var(--ink));
+  color: rgb(var(--paper));
+  padding: 0.6rem 1.1rem;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: max(0.75rem, env(safe-area-inset-top));
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -118,6 +143,9 @@ body {
     letter-spacing: 0.02em;
     text-transform: uppercase;
     line-height: 0.88;
+    text-shadow:
+      0 1px 0 rgb(var(--ink) / 0.2),
+      0 22px 48px rgb(var(--stage-glow) / 0.3);
   }
 
   .gradient-role {
@@ -155,7 +183,8 @@ body {
   }
 
   .cta-solid:hover {
-    transform: scale(1.02);
+    transform: none;
+    background: rgb(255 255 255);
   }
 
   .cta-ghost {
@@ -228,6 +257,10 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .cta-solid:hover {
+    background: rgb(var(--ink));
   }
 }
 

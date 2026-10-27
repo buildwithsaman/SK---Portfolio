@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navLinks, profile, stageActs } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
+import Magnetic from "../ui/Magnetic";
 
 function sectionIdFromHash(hash: string): string | null {
   const id = hash.replace(/^#/, "");
@@ -209,15 +210,17 @@ export default function StageChrome() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2">
-            <a
-              href={profile.resume}
-              download={profile.resumeName}
-              className="inline-flex items-center gap-1.5 rounded-full border border-edge/80 bg-paper/60 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink backdrop-blur-md transition-colors hover:border-accent2/50 hover:text-accent2 sm:gap-2 sm:px-3.5"
-            >
-              <span className="sm:hidden">CV</span>
-              <span className="hidden sm:inline">Download CV</span>
-              <span aria-hidden="true">↗</span>
-            </a>
+            <Magnetic strength={8}>
+              <a
+                href={profile.resume}
+                download={profile.resumeName}
+                className="inline-flex items-center gap-1.5 rounded-full border border-edge/80 bg-paper/60 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink backdrop-blur-md transition-colors hover:border-accent2/50 hover:text-accent2 sm:gap-2 sm:px-3.5"
+              >
+                <span className="sm:hidden">CV</span>
+                <span className="hidden sm:inline">Download CV</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </Magnetic>
             <button
               ref={menuButtonRef}
               type="button"

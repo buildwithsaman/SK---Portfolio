@@ -19,10 +19,11 @@ export default function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y, rotateX: 3 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.65, delay, ease: easeOut }}
+      transition={{ duration: 0.7, delay, ease: easeOut }}
+      style={{ transformPerspective: 1200 }}
     >
       {children}
     </motion.div>

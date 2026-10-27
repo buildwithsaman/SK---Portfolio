@@ -12,6 +12,10 @@ function applyLandingHash() {
   });
 }
 
+function revealStage() {
+  window.dispatchEvent(new Event("stage-intro-done"));
+}
+
 function dismissBoot() {
   const boot = document.getElementById("stage-boot");
   boot?.setAttribute("data-done", "true");
@@ -30,11 +34,13 @@ export default function StageIntro() {
 
     const boot = document.getElementById("stage-boot");
     if (!boot) {
+      revealStage();
       dismissBoot();
       return;
     }
 
     if (reduceMotion === true) {
+      revealStage();
       dismissBoot();
       return;
     }
@@ -47,6 +53,7 @@ export default function StageIntro() {
     const fadeMs = 700;
     const hold = window.setTimeout(() => {
       boot.classList.add("is-exiting");
+      revealStage();
       window.setTimeout(dismissBoot, fadeMs);
     }, holdMs);
 
