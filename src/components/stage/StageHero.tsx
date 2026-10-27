@@ -7,7 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { profile, skillGroups } from "../../data/cv";
-import { easeOut, STAGE_PERSPECTIVE } from "../../lib/motion";
+import { easeOut } from "../../lib/motion";
 import { scrollSpring } from "../../lib/scrollMotion";
 import usePointerNorm from "../../hooks/usePointerNorm";
 import Magnetic from "../ui/Magnetic";
@@ -60,8 +60,6 @@ export default function StageHero() {
 
   const lightX = useTransform(nx, [-1, 1], ["32%", "68%"]);
   const lightY = useTransform(ny, [-1, 1], ["28%", "58%"]);
-  const nameRotateY = useTransform(nx, [-1, 1], [5.5, -5.5]);
-  const nameRotateX = useTransform(ny, [-1, 1], [-3.5, 3.5]);
 
   const showMotion = !reduceMotion && ready;
 
@@ -111,36 +109,23 @@ export default function StageHero() {
         <motion.h1
           className="relative z-[4] mt-4 sm:mt-5"
           variants={{
-            hidden: { opacity: 0, y: 28, rotateX: 8 },
+            hidden: { opacity: 0, y: 28 },
             show: {
               opacity: 1,
               y: 0,
-              rotateX: 0,
               transition: { duration: 0.9, ease: easeOut },
             },
           }}
-          style={{ perspective: STAGE_PERSPECTIVE }}
         >
           <span className="sr-only">
             {profile.name} — {profile.title}
           </span>
-          <motion.span
+          <span
             aria-hidden="true"
-            className="display-name relative mx-auto block w-fit origin-center px-1 text-[clamp(2.6rem,11vw,6.5rem)] text-ink [transform-style:preserve-3d]"
-            style={
-              pointerOn
-                ? { rotateX: nameRotateX, rotateY: nameRotateY }
-                : undefined
-            }
+            className="display-name relative mx-auto block w-fit px-1 text-[clamp(2.6rem,11vw,6.5rem)] text-ink"
           >
-            <span
-              className="pointer-events-none absolute inset-0 select-none text-accent/20"
-              style={{ transform: "translateZ(-22px) translateY(8px)" }}
-            >
-              {profile.name}
-            </span>
-            <span className="relative block">{profile.name}</span>
-          </motion.span>
+            {profile.name}
+          </span>
         </motion.h1>
 
         <div className="relative z-[5] mx-auto mt-4 max-w-2xl sm:mt-5 md:mt-7">
