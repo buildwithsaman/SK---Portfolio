@@ -3,10 +3,24 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { navLinks, profile, stageActs } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
 import Magnetic from "../ui/Magnetic";
+import HoverLink from "../ui/HoverLink";
+
+/** Document-order sections mapped onto existing nav items. */
+const NAV_SECTIONS: { id: string; nav: string }[] = [
+  { id: "home", nav: "home" },
+  { id: "about", nav: "about" },
+  { id: "highlights", nav: "about" },
+  { id: "career", nav: "career" },
+  { id: "work", nav: "work" },
+  { id: "skills", nav: "skills" },
+  { id: "contact", nav: "contact" },
+];
 
 function sectionIdFromHash(hash: string): string | null {
   const id = hash.replace(/^#/, "");
-  return stageActs.some((act) => act.id === id) ? id : null;
+  if (stageActs.some((act) => act.id === id)) return id;
+  if (id === "highlights") return "about";
+  return null;
 }
 
 function scrollToSection(id: string, behavior: ScrollBehavior = "smooth") {
@@ -24,19 +38,24 @@ export default function StageChrome() {
   const preferSmooth = !reduceMotion;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-42% 0px -48% 0px" },
-    );
-    stageActs.forEach((act) => {
-      const el = document.getElementById(act.id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const measure = () => {
+      const marker = window.innerHeight * 0.42;
+      let current = "home";
+      for (const section of NAV_SECTIONS) {
+        const el = document.getElementById(section.id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= marker) current = section.nav;
+      }
+      setActive(current);
+    };
+
+    measure();
+    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   useEffect(() => {
@@ -145,8 +164,8 @@ export default function StageChrome() {
   };
 
   const linkClass = (id: string) =>
-    `rounded-full px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] transition-colors xl:px-3 ${
-      active === id ? "bg-white/10 text-ink" : "text-muted hover:text-ink"
+    `px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] xl:px-3 ${
+      active === id ? "text-ink" : "text-muted"
     }`;
 
   return (
@@ -197,15 +216,14 @@ export default function StageChrome() {
             aria-label="Primary"
           >
             {navLinks.map((link) => (
-              <a
+              <HoverLink
                 key={link.id}
                 href={`#${link.id}`}
+                text={link.label}
+                current={active === link.id}
                 onClick={(e) => onNavClick(e, link.id)}
                 className={linkClass(link.id)}
-                aria-current={active === link.id ? "page" : undefined}
-              >
-                {link.label}
-              </a>
+              />
             ))}
           </nav>
 
@@ -255,7 +273,7 @@ export default function StageChrome() {
             <span
               className={`font-mono text-[9px] uppercase tracking-wider transition-opacity ${
                 active === act.id
-                  ? "text-accent2 opacity-100"
+                  ? "text-accent2 opacity-0 group-hover:opacity-100"
                   : "text-muted opacity-0 group-hover:opacity-70"
               }`}
             >
@@ -281,12 +299,12 @@ export default function StageChrome() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.28 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-paper px-6 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-24 lg:hidden"
+            className="fixed inset-0 z-[60] flex flex-col bg-paper px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20 lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Site menu"
           >
-            <div className="flex flex-1 flex-col justify-center gap-1">
+            <div className="flex min-h-0 flex-1 flex-col justify-center gap-1 overflow-y-auto">
               {stageActs.map((act, i) => (
                 <motion.a
                   key={act.id}
@@ -295,19 +313,19 @@ export default function StageChrome() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.04 * i, duration: 0.4, ease: easeOut }}
                   onClick={(e) => onNavClick(e, act.id)}
-                  className="flex items-baseline gap-4 border-b border-edge/60 py-4 text-left"
+                  className="flex items-baseline gap-4 border-b border-edge/60 py-3 text-left sm:py-4"
                   aria-current={active === act.id ? "page" : undefined}
                 >
                   <span className="font-mono text-xs text-accent2">
                     {act.label}
                   </span>
-                  <span className="text-3xl font-semibold tracking-tight text-ink">
+                  <span className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                     {act.name}
                   </span>
                 </motion.a>
               ))}
             </div>
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="mt-4 flex shrink-0 flex-col gap-3">
               <a
                 href={`mailto:${profile.email}`}
                 onClick={() => setOpen(false)}

@@ -63,7 +63,7 @@ export default function StageCursor() {
         opacity: visible ? 0.7 : 0,
       }}
     >
-      <span className="-ml-2 -mt-2 block h-4 w-4 rounded-full border border-accent2/55" />
+      <span className="-ml-4 -mt-4 block h-8 w-8 rounded-full border border-accent2/50 bg-accent2/5" />
     </motion.div>
   );
 }

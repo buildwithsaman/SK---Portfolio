@@ -9,52 +9,89 @@ function isCurrent(period: string) {
   return /present/i.test(period);
 }
 
+function yearLabel(periodStart: string, current: boolean) {
+  if (current) return "NOW";
+  return periodStart.slice(0, 4);
+}
+
 export default function StageCareer() {
   return (
     <section
       id="career"
-      className="stage-section"
+      className="mx-auto w-full max-w-[92rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-32 xl:px-16"
       aria-labelledby="career-heading"
     >
-      <Reveal>
+      <Reveal className="text-center">
         <span className="stage-kicker">03 — Career</span>
-        <h2 id="career-heading" className="stage-title max-w-2xl">
-          Professional <span className="gradient-role">Experience</span>
+        <h2 id="career-heading" className="stage-title mx-auto max-w-2xl">
+          My career &amp; <span className="gradient-role">experience</span>
         </h2>
       </Reveal>
 
-      <ol className="relative mt-12 md:mt-16">
+      <ol className="relative mx-auto mt-16 max-w-5xl">
         <div
-          className="absolute bottom-2 left-[0.35rem] top-2 w-px bg-gradient-to-b from-accent2/80 via-edge to-transparent md:left-[7.25rem]"
+          className="absolute bottom-6 left-[0.35rem] top-6 w-px bg-gradient-to-b from-accent2 via-accent/50 to-transparent md:left-1/2 md:-translate-x-1/2"
           aria-hidden="true"
         />
 
         {experiences.map((job, index) => {
           const current = isCurrent(job.period);
           const internship = isInternship(job.role);
+          const year = yearLabel(job.periodStart, current);
 
           return (
-            <li
-              key={job.company}
-              className={`relative py-8 md:py-10 ${current ? "md:pt-8" : ""}`}
-            >
+            <li key={job.company} className="relative py-10 md:py-12">
+              <span
+                className={`absolute left-[0.1rem] top-12 z-10 h-2.5 w-2.5 rounded-full ring-4 ring-paper md:left-1/2 md:-translate-x-1/2 ${
+                  current
+                    ? "bg-accent2 shadow-[0_0_16px_rgb(var(--accent2)/0.65)]"
+                    : "bg-accent2/80"
+                }`}
+                aria-hidden="true"
+              />
+
               <Reveal
-                delay={index * 0.05}
-                className="grid gap-3 md:grid-cols-[7.5rem_1fr] md:gap-12"
+                delay={index * 0.06}
+                className="grid items-start gap-4 pl-7 md:grid-cols-[1fr_6.5rem_1fr] md:gap-10 md:pl-0"
               >
-                <div className="relative flex items-center gap-3 md:block md:pt-1">
-                  <span
-                    className={`relative z-10 h-2 w-2 shrink-0 rounded-full ring-4 ring-paper md:absolute md:-right-[0.3rem] md:left-auto md:top-2.5 ${
-                      current
-                        ? "bg-accent2 shadow-[0_0_12px_rgb(var(--accent2)/0.55)]"
-                        : "bg-accent2"
-                    }`}
-                    aria-hidden="true"
-                  />
+                <div className="md:text-right">
+                  <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                    {current && (
+                      <span className="rounded-full border border-accent2/40 bg-accent2/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-accent2">
+                        Current
+                      </span>
+                    )}
+                    {internship && (
+                      <span className="rounded-full border border-edge px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
+                        Internship
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink md:text-2xl">
+                    {job.role}
+                  </h3>
+                  <p className="mt-1 text-sm text-accent2">{job.company}</p>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    {job.location}
+                  </p>
+                </div>
+
+                <div className="hidden pt-1 text-center md:block">
                   <time
-                    className={`pl-1 font-mono text-[10px] uppercase tracking-[0.18em] md:pl-0 md:text-right md:text-[11px] ${
-                      current ? "text-accent2" : "text-muted"
-                    }`}
+                    className="text-3xl font-medium tracking-tight text-ink"
+                    dateTime={
+                      job.periodEnd
+                        ? `${job.periodStart}/${job.periodEnd}`
+                        : job.periodStart
+                    }
+                  >
+                    {year}
+                  </time>
+                </div>
+
+                <div>
+                  <time
+                    className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted md:hidden"
                     dateTime={
                       job.periodEnd
                         ? `${job.periodStart}/${job.periodEnd}`
@@ -63,39 +100,7 @@ export default function StageCareer() {
                   >
                     {job.period}
                   </time>
-                </div>
-
-                <div
-                  className={`border-b border-edge/50 pb-8 pl-5 last:border-b-0 md:border-b-0 md:pb-0 md:pl-0 ${
-                    current
-                      ? "rounded-xl md:-ml-3 md:border md:border-accent2/25 md:bg-white/[0.02] md:p-5 md:pl-5"
-                      : ""
-                  }`}
-                >
-                  <div className="flex flex-wrap items-center gap-2">
-                    {current && (
-                      <span className="rounded-full border border-accent2/40 bg-accent2/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-accent2">
-                        Current
-                      </span>
-                    )}
-                    {internship && (
-                      <span className="rounded-full border border-edge/80 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-muted">
-                        Internship
-                      </span>
-                    )}
-                  </div>
-
-                  <h3
-                    className={`text-lg font-semibold tracking-tight text-ink md:text-xl ${
-                      current || internship ? "mt-2" : ""
-                    }`}
-                  >
-                    {job.role}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-accent2">
-                    {job.company} | {job.location}
-                  </p>
-                  <div className="mt-3 max-w-2xl space-y-3 text-sm leading-relaxed text-muted md:text-[0.95rem]">
+                  <div className="mt-2 space-y-3 text-sm leading-relaxed text-muted md:mt-1 md:text-[0.95rem]">
                     {job.summary.map((paragraph) => (
                       <p key={paragraph.slice(0, 40)}>{paragraph}</p>
                     ))}

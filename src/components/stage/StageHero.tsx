@@ -1,174 +1,194 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { profile, skillGroups } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
-import { scrollSpring } from "../../lib/scrollMotion";
-import usePointerNorm from "../../hooks/usePointerNorm";
 import Magnetic from "../ui/Magnetic";
+import IdentityRig from "./IdentityRig";
 
-const heroStack = skillGroups[0].items.slice(0, 3);
+const roles = [
+  profile.title.split(" | ")[0],
+  profile.title.split(" | ")[1] ?? "Frontend Development",
+  skillGroups[0].items.slice(0, 3).join(" · "),
+];
 
-const enter = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
+const longestRole = roles.reduce((a, b) => (a.length >= b.length ? a : b));
+
+const roleTextClass =
+  "gradient-role text-[1.15rem] font-semibold leading-snug tracking-tight sm:text-3xl md:text-4xl";
+
+const char = {
+  hidden: { opacity: 0, y: 72, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.85, ease: easeOut },
+  },
 };
+
+function SplitLine({ text, className }: { text: string; className?: string }) {
+  return (
+    <motion.span
+      className={className}
+      initial="hidden"
+      animate="show"
+      variants={{
+        hidden: {},
+        show: { transition: { staggerChildren: 0.03, delayChildren: 0.08 } },
+      }}
+    >
+      {text.split("").map((letter, index) => (
+        <motion.span
+          key={`${letter}-${index}`}
+          className="inline-block"
+          variants={char}
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
 
 export default function StageHero() {
   const reduceMotion = useReducedMotion();
-  const ref = useRef<HTMLElement>(null);
-  const { nx, ny, enabled: pointerOn } = usePointerNorm();
   const [ready, setReady] = useState(false);
+  const [role, setRole] = useState(0);
 
   useEffect(() => {
-    if (reduceMotion) {
-      setReady(true);
-      return;
-    }
     const boot = document.getElementById("stage-boot");
-    if (!boot || boot.getAttribute("data-done") === "true") {
+    if (!boot || boot.getAttribute("data-done") === "true" || reduceMotion) {
       setReady(true);
       return;
     }
     const onDone = () => setReady(true);
     window.addEventListener("stage-intro-done", onDone);
-    return () => window.removeEventListener("stage-intro-done", onDone);
+    const fallback = window.setTimeout(() => setReady(true), 700);
+    return () => {
+      window.removeEventListener("stage-intro-done", onDone);
+      window.clearTimeout(fallback);
+    };
   }, [reduceMotion]);
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const bgY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 120]),
-    scrollSpring,
-  );
-  const contentY = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 56]),
-    scrollSpring,
-  );
-  const contentOpacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.62, 1], [1, 0.82, 0.15]),
-    scrollSpring,
-  );
-
-  const lightX = useTransform(nx, [-1, 1], ["32%", "68%"]);
-  const lightY = useTransform(ny, [-1, 1], ["28%", "58%"]);
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setInterval(() => {
+      setRole((current) => (current + 1) % roles.length);
+    }, 3200);
+    return () => window.clearInterval(id);
+  }, [reduceMotion]);
 
   const showMotion = !reduceMotion && ready;
 
   return (
     <section
-      ref={ref}
       id="home"
-      className="relative flex min-h-[100svh] min-h-[100dvh] items-center justify-center overflow-x-clip overflow-y-hidden pt-[max(4.5rem,env(safe-area-inset-top)+3rem)]"
+      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)]"
     >
-      <motion.div
-        className="stage-noise absolute inset-[-10%] z-0"
-        aria-hidden="true"
-        style={reduceMotion ? undefined : { y: bgY }}
-      />
-      <motion.div
-        className="hero-vignette pointer-events-none absolute inset-[-8%] z-[1]"
-        aria-hidden="true"
-        style={reduceMotion ? undefined : { y: bgY }}
-      />
-      {pointerOn && (
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute z-[2] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgb(var(--stage-glow)/0.24),transparent_68%)]"
-          style={{ left: lightX, top: lightY, x: "-50%", y: "-50%" }}
-        />
-      )}
+      <div className="stage-noise pointer-events-none absolute inset-[-8%] z-0" />
 
       <motion.div
-        style={
-          reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }
-        }
-        className="relative z-[3] mx-auto w-full max-w-3xl px-5 pb-16 pt-2 text-center sm:pb-20 sm:pt-4 md:px-8 md:pt-6"
+        className="relative z-[3] mx-auto grid w-full max-w-[92rem] items-center gap-8 px-5 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.7fr)] lg:gap-6 lg:px-12 lg:pb-10 xl:px-16"
         initial={reduceMotion ? false : "hidden"}
         animate={showMotion ? "show" : reduceMotion ? undefined : "hidden"}
         variants={{
           hidden: {},
-          show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
+          show: { transition: { staggerChildren: 0.08 } },
         }}
       >
-        <motion.p className="flex justify-center" variants={enter}>
-          <span className="stage-kicker">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent2" />
+        <div className="relative z-[4] max-w-3xl">
+          <motion.p
+            className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent2 sm:text-[11px]"
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, ease: easeOut },
+              },
+            }}
+          >
             Hello, I&apos;m
-          </span>
-        </motion.p>
-
-        <motion.h1
-          className="relative z-[4] mt-4 sm:mt-5"
-          variants={{
-            hidden: { opacity: 0, y: 28 },
-            show: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.9, ease: easeOut },
-            },
-          }}
-        >
-          <span className="sr-only">
-            {profile.name} — {profile.title}
-          </span>
-          <span
-            aria-hidden="true"
-            className="display-name relative mx-auto block w-fit px-1 text-[clamp(2.6rem,11vw,6.5rem)] text-ink"
-          >
-            {profile.name}
-          </span>
-        </motion.h1>
-
-        <div className="relative z-[5] mx-auto mt-4 max-w-2xl sm:mt-5 md:mt-7">
-          <motion.p
-            className="px-1 font-mono text-[0.7rem] uppercase leading-snug tracking-[0.16em] text-balance sm:text-sm sm:tracking-[0.22em] md:text-base"
-            variants={enter}
-          >
-            <span className="gradient-role font-semibold">{profile.title}</span>
           </motion.p>
-          <motion.p
-            className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted sm:tracking-[0.2em] md:text-[11px]"
-            variants={enter}
-          >
-            {profile.location}
-            <span className="mx-2 text-edge" aria-hidden="true">
-              ·
+
+          <h1 className="mt-4">
+            <span className="sr-only">
+              {profile.name} — {profile.title}
             </span>
-            <span className="inline sm:hidden">
-              {heroStack.slice(0, 2).join(" · ")}
+            <span
+              aria-hidden="true"
+              className="display-name block text-[clamp(3.4rem,12vw,9.25rem)] text-ink"
+            >
+              {reduceMotion ? (
+                <>
+                  <span className="block">Saman</span>
+                  <span className="block">Khan</span>
+                </>
+              ) : (
+                <>
+                  <SplitLine text="SAMAN" className="block" />
+                  <SplitLine text="KHAN" className="block" />
+                </>
+              )}
             </span>
-            <span className="hidden sm:inline">{heroStack.join(" · ")}</span>
-          </motion.p>
+          </h1>
+
+          <div className="relative mt-5 sm:mt-7">
+            <p className={`${roleTextClass} invisible select-none`} aria-hidden>
+              {longestRole}
+            </p>
+            {reduceMotion ? (
+              <p className={`absolute inset-0 ${roleTextClass}`}>{roles[0]}</p>
+            ) : (
+              <AnimatePresence initial={false} mode="sync">
+                <motion.p
+                  key={roles[role]}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.4, ease: easeOut }}
+                  className={`pointer-events-none absolute inset-0 ${roleTextClass}`}
+                >
+                  {roles[role]}
+                </motion.p>
+              </AnimatePresence>
+            )}
+          </div>
+
           <motion.p
-            className="mt-4 text-[0.95rem] font-medium leading-relaxed text-ink sm:mt-5 sm:text-base md:text-lg"
-            variants={enter}
+            className="mt-6 max-w-md text-sm leading-relaxed text-muted sm:text-base"
+            variants={{
+              hidden: { opacity: 0, y: 18 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, ease: easeOut },
+              },
+            }}
           >
             {profile.heroLead}
           </motion.p>
+
           <motion.p
-            className="mt-3 text-sm leading-relaxed text-muted [text-shadow:0_2px_20px_rgb(6_5_9)] sm:mt-4 md:text-[0.95rem]"
-            variants={enter}
+            className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted"
+            variants={{
+              hidden: { opacity: 0 },
+              show: { opacity: 1, transition: { duration: 0.6, delay: 0.2 } },
+            }}
           >
-            {profile.heroDescription}
+            {profile.location}
           </motion.p>
-          <motion.p
-            className="mt-3 hidden text-sm leading-relaxed text-muted [text-shadow:0_2px_20px_rgb(6_5_9)] sm:block md:text-[0.95rem]"
-            variants={enter}
-          >
-            {profile.heroSupport}
-          </motion.p>
+
           <motion.div
-            className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-8"
-            variants={enter}
+            className="mt-8"
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, ease: easeOut },
+              },
+            }}
           >
             <Magnetic>
               <a href="#work" className="cta-solid">
@@ -176,6 +196,14 @@ export default function StageHero() {
               </a>
             </Magnetic>
           </motion.div>
+        </div>
+
+        <div
+          className={`flex justify-center max-sm:pointer-events-none max-sm:absolute max-sm:-right-[46%] max-sm:top-0 max-sm:z-0 max-sm:origin-top-right max-sm:scale-[0.68] max-sm:opacity-[0.16] max-[360px]:-right-[54%] max-[360px]:opacity-[0.12] sm:relative sm:z-[1] sm:scale-100 sm:opacity-100 ${
+            reduceMotion ? "xl:justify-end" : "xl:hidden"
+          }`}
+        >
+          <IdentityRig compact />
         </div>
       </motion.div>
     </section>

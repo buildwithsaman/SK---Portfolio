@@ -3,9 +3,8 @@ import StageIntro from "./components/stage/StageIntro";
 import StageCursor from "./components/ui/StageCursor";
 import StageChrome from "./components/stage/StageChrome";
 import SocialRail from "./components/stage/SocialRail";
-import StageHero from "./components/stage/StageHero";
-import StageAbout from "./components/stage/StageAbout";
-import StageTextScroll from "./components/stage/StageTextScroll";
+import StageIdentity from "./components/stage/StageIdentity";
+import StagePractice from "./components/stage/StagePractice";
 import StageCareer from "./components/stage/StageCareer";
 import StageWork from "./components/stage/StageWork";
 import StageSkills from "./components/stage/StageSkills";
@@ -31,9 +30,8 @@ export default function App() {
       <StageChrome />
       <SocialRail />
       <main id="main-content" tabIndex={-1}>
-        <StageHero />
-        <StageAbout />
-        <StageTextScroll />
+        <StageIdentity />
+        <StagePractice />
         <StageCareer />
         <StageWork />
         <StageSkills />

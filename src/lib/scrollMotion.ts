@@ -1,9 +1,9 @@
 /** Shared spring configs for scroll-linked motion */
 export const scrollSpring = {
-  stiffness: 70,
-  damping: 26,
-  mass: 0.45,
-  restDelta: 0.001,
+  stiffness: 90,
+  damping: 34,
+  mass: 0.4,
+  restDelta: 0.0005,
 } as const;
 
 export const scrollSpringSnappy = {

@@ -1,214 +1,60 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import Reveal from "../ui/Reveal";
 import { skillGroups } from "../../data/cv";
-import { scrollSpring } from "../../lib/scrollMotion";
 
-/** Vertical scroll needed as a fraction of horizontal travel (was 1:1). */
-const SCROLL_TRAVEL_FACTOR = 0.72;
+const featured = [
+  "React.js",
+  "Next.js",
+  "TypeScript",
+  "Python",
+  "AWS",
+  "D3.js",
+];
 
 export default function StageSkills() {
-  const reduceMotion = useReducedMotion();
-
-  // Same scroll-driven horizontal gallery on mobile and desktop.
-  // Stacked accordion only for prefers-reduced-motion.
-  if (reduceMotion) {
-    return <SkillsStacked />;
-  }
-
-  return <SkillsHorizontal />;
-}
-
-function SkillsStacked() {
-  const [active, setActive] = useState(0);
-
   return (
     <section
       id="skills"
-      className="stage-section"
+      className="mx-auto w-full max-w-[92rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-32 xl:px-16"
       aria-labelledby="skills-heading"
     >
-      <span className="stage-kicker">05 — Technical Skills</span>
-      <h2 id="skills-heading" className="stage-title max-w-2xl">
-        Technical <span className="gradient-role">Skills</span>
-      </h2>
+      <Reveal>
+        <span className="stage-kicker">05 — Technical Skills</span>
+        <h2 id="skills-heading" className="stage-title max-w-2xl">
+          Tech <span className="gradient-role">stack</span>
+        </h2>
+      </Reveal>
 
-      <div className="mt-10 space-y-3">
-        {skillGroups.map((g, index) => {
-          const selected = active === index;
-          const panelId = `skills-panel-${index}`;
-          return (
-            <div
-              key={g.category}
-              className={`rounded-2xl transition-colors ${
-                selected
-                  ? "bg-gradient-to-br from-accent2/20 via-accent/10 to-transparent ring-1 ring-accent2/40"
-                  : "bg-white/[0.03] ring-1 ring-edge/60"
-              }`}
+      <Reveal delay={0.06}>
+        <ul className="mt-12 flex flex-wrap gap-3 sm:gap-4">
+          {featured.map((item) => (
+            <li
+              key={item}
+              className="rounded-full border border-edge bg-white/[0.03] px-5 py-2.5 text-sm font-medium tracking-tight text-ink sm:text-base"
             >
-              <button
-                type="button"
-                aria-expanded={selected}
-                aria-controls={panelId}
-                onClick={() => setActive(index)}
-                className="flex w-full items-start gap-3 px-4 py-5 text-left"
-              >
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent2">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-lg font-semibold text-ink">
-                    {g.category}
-                  </span>
-                  {!selected && (
-                    <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                      {g.items.length} skills
-                    </span>
-                  )}
-                </span>
-                <span
-                  className="font-mono text-xs text-muted"
-                  aria-hidden="true"
-                >
-                  {selected ? "−" : "+"}
-                </span>
-              </button>
-              {selected && (
-                <ul
-                  id={panelId}
-                  className="flex flex-wrap gap-2 px-4 pb-5"
-                  aria-label={`${g.category} skills`}
-                >
-                  {g.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full bg-white/[0.05] px-3 py-1.5 text-sm text-ink"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function SkillsHorizontal() {
-  const containerRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [travel, setTravel] = useState(0);
-
-  const measure = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const next = Math.max(0, track.scrollWidth - window.innerWidth);
-    setTravel(next);
-  };
-
-  useLayoutEffect(() => {
-    measure();
-  }, []);
-
-  useEffect(() => {
-    measure();
-    const track = trackRef.current;
-    const ro = track ? new ResizeObserver(measure) : null;
-    if (track && ro) ro.observe(track);
-    window.addEventListener("resize", measure);
-    return () => {
-      ro?.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
-
-  const scrollBudget = Math.max(travel * SCROLL_TRAVEL_FACTOR, 1);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel]);
-  const x = useSpring(xRaw, scrollSpring);
-  const progressScale = useSpring(scrollYProgress, scrollSpring);
-
-  return (
-    <section
-      ref={containerRef}
-      id="skills"
-      className="relative"
-      style={{ height: `calc(100svh + ${scrollBudget}px)` }}
-      aria-labelledby="skills-heading"
-    >
-      <div className="sticky top-0 flex h-[100svh] h-[100dvh] flex-col justify-center overflow-hidden pt-16 pb-[max(1rem,env(safe-area-inset-bottom))] md:pt-20">
-        <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_18%_35%,rgb(var(--accent)/0.12),transparent_52%),radial-gradient(ellipse_at_82%_65%,rgb(var(--accent2)/0.09),transparent_48%)]"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-[1] mx-auto w-full max-w-6xl px-5 md:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
-            <div className="min-w-0">
-              <span className="stage-kicker">05 — Technical Skills</span>
-              <h2 id="skills-heading" className="stage-title max-w-2xl">
-                Technical <span className="gradient-role">Skills</span>
-              </h2>
-            </div>
-            <div
-              className="mb-1 w-24 shrink-0 sm:w-28 md:w-40"
-              aria-hidden="true"
-            >
-              <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
-                Scroll
-              </p>
-              <div className="h-px overflow-hidden bg-edge/60">
-                <motion.div
-                  className="h-full origin-left bg-accent2"
-                  style={{ scaleX: progressScale }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <motion.div
-          ref={trackRef}
-          style={{ x, willChange: "transform" }}
-          className="relative z-[1] mt-6 flex w-max gap-4 pl-5 pr-[12vw] [perspective:1200px] sm:mt-8 sm:gap-6 md:mt-10 md:gap-8 md:pl-8 md:pr-[14vw]"
-        >
-          {skillGroups.map((group, index) => (
-            <article
-              key={group.category}
-              className="flex h-[min(46vh,320px)] w-[min(78vw,300px)] shrink-0 flex-col overflow-hidden border border-edge/70 bg-paper/50 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-sm sm:h-[min(54vh,390px)] sm:w-[min(78vw,340px)] sm:p-6 md:h-[min(58vh,420px)] md:w-[380px] md:p-8 md:[transform:rotateY(-2deg)] md:transition-transform md:duration-500 md:hover:[transform:rotateY(0deg)_translateY(-4px)]"
-            >
-              <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] text-accent2">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-2 shrink-0 text-xl font-semibold tracking-tight text-ink sm:mt-3 sm:text-2xl">
-                {group.category}
-              </h3>
-              <ul className="mt-4 flex min-h-0 flex-1 flex-wrap content-start gap-2 overflow-y-auto overscroll-contain pb-1 pr-1 sm:mt-6">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-full border border-edge/60 bg-white/[0.04] px-2.5 py-1 text-xs leading-snug text-ink/90 sm:px-3 sm:py-1.5 sm:text-sm"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
+              {item}
+            </li>
           ))}
-        </motion.div>
+        </ul>
+      </Reveal>
+
+      <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group, index) => (
+          <Reveal key={group.category} delay={0.04 * index}>
+            <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent2">
+              {String(index + 1).padStart(2, "0")} — {group.category}
+            </h3>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  className="text-sm text-muted after:ml-2 after:text-edge after:content-['/'] last:after:content-none"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ const links = [
 export default function SocialRail() {
   return (
     <aside
-      className="pointer-events-none fixed bottom-0 left-5 top-0 z-40 hidden flex-col items-center justify-end pb-8 lg:flex"
+      className="pointer-events-none fixed bottom-0 left-5 top-0 z-40 hidden flex-col items-center justify-end pb-8 xl:flex"
       aria-label="Social links"
     >
       <div className="pointer-events-auto flex flex-col items-center gap-4">

@@ -102,7 +102,10 @@ export function buildSeoStaticShell(): string {
   </section>
 
   <section id="highlights">
-    <h2>Career highlights</h2>
+    <h2>What I do</h2>
+    <p>${esc(profile.summary[1])}</p>
+    <p>${esc(profile.summary[3])}</p>
+    <h3>Career highlights</h3>
     <ul>${highlights}</ul>
   </section>
 
