@@ -1,0 +1,17 @@
+---
+description: When the user says commit — fix, prettier, commit, then push
+alwaysApply: true
+---
+
+# Commit Workflow
+
+When the user says **commit** (or asks to commit changes), always do these steps **in order**:
+
+1. **Fix all errors and warnings** in the changed/related files (eslint, TypeScript/IDE diagnostics, obvious runtime issues). Do not leave known lint/build failures.
+2. **Run Prettier** on the changed source files (or `npx prettier --write .` when appropriate).
+3. **Commit** following the normal git safety protocol (status/diff/log, stage relevant files, HEREDOC message, verify status).
+4. **Push** the branch to its remote (`git push` or `git push -u origin HEAD` if no upstream). Do not force-push unless the user explicitly asks.
+
+**Never stage or commit Cursor rules** — keep `.cursor/` (including `.cursor/rules/*.mdc`) local only. It is gitignored; do not force-add it.
+
+Do not skip prettier, lint cleanup, or push when the user only says “commit”.
