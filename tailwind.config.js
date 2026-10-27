@@ -7,11 +7,9 @@ export default {
         ink: "rgb(var(--ink) / <alpha-value>)",
         muted: "rgb(var(--muted) / <alpha-value>)",
         paper: "rgb(var(--paper) / <alpha-value>)",
-        panel: "rgb(var(--panel) / <alpha-value>)",
         edge: "rgb(var(--line) / <alpha-value>)",
         accent: "rgb(var(--accent) / <alpha-value>)",
         accent2: "rgb(var(--accent2) / <alpha-value>)",
-        accent3: "rgb(var(--accent3) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["Space Grotesk", "system-ui", "sans-serif"],

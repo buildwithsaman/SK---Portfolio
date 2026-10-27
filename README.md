@@ -33,7 +33,7 @@ src/
   index.css             # Global tokens + stage styles
   data/cv.ts            # All portfolio copy & structured data (edit content here)
   components/stage/     # Page sections + chrome (nav, hero, about, …)
-  components/ui/        # Reveal, Parallax helpers
+  components/ui/        # Reveal, Magnetic, HoverLink, cursor helpers
   lib/                  # Motion easing / scroll springs
 scripts/
   seoStaticShell.ts     # Build-time crawlable HTML for #root

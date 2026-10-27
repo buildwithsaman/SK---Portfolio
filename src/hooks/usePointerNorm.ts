@@ -7,7 +7,6 @@ import useFinePointer from "./useFinePointer";
 export default function usePointerNorm(): {
   nx: MotionValue<number>;
   ny: MotionValue<number>;
-  enabled: boolean;
 } {
   const enabled = useFinePointer();
   const nx = useSpring(0, stageTilt);
@@ -31,5 +30,5 @@ export default function usePointerNorm(): {
     return () => window.removeEventListener("pointermove", onMove);
   }, [enabled, nx, ny]);
 
-  return { nx, ny, enabled };
+  return { nx, ny };
 }

@@ -10,7 +10,6 @@
   --paper: 6 5 9;
   --panel: 14 12 20;
   --line: 38 34 48;
-  --highlight: 255 255 255;
   --accent: 167 139 250;
   --accent2: 45 212 191;
   --accent3: 251 146 60;
@@ -104,20 +103,6 @@ body {
 }
 
 @layer components {
-  .stage-section {
-    position: relative;
-    margin-inline: auto;
-    width: 100%;
-    max-width: 72rem;
-    padding: 4.5rem 1.25rem;
-  }
-
-  @media (min-width: 768px) {
-    .stage-section {
-      padding: 6.5rem 2.5rem;
-    }
-  }
-
   .stage-kicker {
     display: inline-flex;
     align-items: center;
@@ -283,12 +268,6 @@ body {
 }
 
 @media (max-width: 767px) {
-  .stage-section {
-    padding: 3.25rem 1.15rem;
-    padding-left: max(1.15rem, env(safe-area-inset-left));
-    padding-right: max(1.15rem, env(safe-area-inset-right));
-  }
-
   .stage-title {
     font-size: clamp(2rem, 9vw, 2.85rem);
     letter-spacing: -0.045em;

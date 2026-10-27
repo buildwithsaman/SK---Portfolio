@@ -8,5 +8,3 @@ export const stageTilt = {
   mass: 0.35,
   restDelta: 0.001,
 } as const;
-
-export const STAGE_PERSPECTIVE = 1200;
