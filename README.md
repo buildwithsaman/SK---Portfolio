@@ -71,10 +71,6 @@ Custom domain: `public/CNAME` contains `buildwithsaman.dev` (copied into `dist/`
 
 Configure the repository Pages settings to use GitHub Actions as the source.
 
-## Brand / share assets (optional)
-
-`personal-share-kit/` holds private sharing materials (contact card, monogram, vCard). It is **not** part of the website build.
-
 ## Notes
 
 - CV download is served from `public/Saman_Khan_CV.pdf`
