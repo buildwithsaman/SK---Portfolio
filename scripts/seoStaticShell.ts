@@ -8,6 +8,7 @@ import {
   education,
   experiences,
   highlightLines,
+  practices,
   profile,
   skillGroups,
   udriveDomains,
@@ -82,7 +83,7 @@ export function buildSeoStaticShell(): string {
 <main id="seo-static-shell">
   <header>
     <p>Hello, I'm</p>
-    <h1>${esc(profile.name)} — ${esc(profile.title)}</h1>
+    <h1>${esc(profile.name)} (${esc(profile.legalName)}) — ${esc(profile.title)}</h1>
     <p>${esc(profile.heroLead)}</p>
     <p>${esc(profile.heroDescription)}</p>
     <p>${esc(profile.heroSupport)}</p>
@@ -103,8 +104,12 @@ export function buildSeoStaticShell(): string {
 
   <section id="highlights">
     <h2>What I do</h2>
-    <p>${esc(profile.summary[1])}</p>
-    <p>${esc(profile.summary[3])}</p>
+    ${practices
+      .map(
+        (item) =>
+          `<article><h3>${esc(item.title)}</h3><p>${esc(item.body)}</p></article>`,
+      )
+      .join("\n    ")}
     <h3>Career highlights</h3>
     <ul>${highlights}</ul>
   </section>
@@ -116,7 +121,7 @@ export function buildSeoStaticShell(): string {
 
   <section id="work">
     <h2>Production Applications &amp; Engineering Experience</h2>
-    <p>A selection of engineering contributions across Udrive's mobility technology ecosystem.</p>
+    <p>${esc(profile.workIntro)}</p>
     ${work}
   </section>
 
@@ -131,6 +136,7 @@ export function buildSeoStaticShell(): string {
     <p>${esc(profile.contactSupport)}</p>
     <ul>
       <li>Email: <a href="mailto:${esc(profile.email)}">${esc(profile.email)}</a></li>
+      <li>Phone: <a href="${esc(profile.phoneHref)}">${esc(profile.phone)}</a></li>
       <li>Location: ${esc(profile.locationFull)}</li>
       <li>LinkedIn: <a href="${esc(profile.linkedin)}">${esc(profile.linkedinLabel)}</a></li>
       <li>GitHub: <a href="${esc(profile.github)}">${esc(profile.githubLabel)}</a></li>

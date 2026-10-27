@@ -1,20 +1,5 @@
 import Reveal from "../ui/Reveal";
-import { profile, skillGroups } from "../../data/cv";
-
-const practices = [
-  {
-    title: "Frontend architecture",
-    kicker: "Production platforms",
-    body: profile.summary[1],
-    tools: skillGroups[0].items.slice(0, 4),
-  },
-  {
-    title: "Systems beyond the UI",
-    kicker: "Mobility, analytics, verification",
-    body: profile.summary[3],
-    tools: ["Python", "Apache Kafka", "AWS", "Apache Superset"],
-  },
-];
+import { practices } from "../../data/cv";
 
 export default function StagePractice() {
   return (

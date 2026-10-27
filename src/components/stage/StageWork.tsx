@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Reveal from "../ui/Reveal";
-import { udriveDomains, type ExperienceDomain } from "../../data/cv";
+import { profile, udriveDomains, type ExperienceDomain } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
 
 const figures: Record<string, { value: string; label: string }[]> = {
@@ -44,8 +44,7 @@ export default function StageWork() {
           My <span className="gradient-role">Work</span>
         </h2>
         <p className="mt-4 max-w-xl text-sm text-muted md:text-base">
-          Engineering contributions across Udrive&apos;s mobility technology
-          ecosystem.
+          {profile.workIntro}
         </p>
       </Reveal>
 

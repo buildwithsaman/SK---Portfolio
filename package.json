@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Portfolio for Saman Khan — Software Engineer | Frontend Development (Dubai)",
+  "description": "Portfolio for Saman Khan — Software Engineer/Developer (Dubai)",
   "scripts": {
     "dev": "vite",
     "build": "npm run typecheck && vite build",

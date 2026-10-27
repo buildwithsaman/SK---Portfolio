@@ -1,14 +1,5 @@
 import Reveal from "../ui/Reveal";
-import { skillGroups } from "../../data/cv";
-
-const featured = [
-  "React.js",
-  "Next.js",
-  "TypeScript",
-  "Python",
-  "AWS",
-  "D3.js",
-];
+import { featuredSkills, skillGroups } from "../../data/cv";
 
 export default function StageSkills() {
   return (
@@ -26,7 +17,7 @@ export default function StageSkills() {
 
       <Reveal delay={0.06}>
         <ul className="mt-12 flex flex-wrap gap-3 sm:gap-4">
-          {featured.map((item) => (
+          {featuredSkills.map((item) => (
             <li
               key={item}
               className="rounded-full border border-edge bg-white/[0.03] px-5 py-2.5 text-sm font-medium tracking-tight text-ink sm:text-base"

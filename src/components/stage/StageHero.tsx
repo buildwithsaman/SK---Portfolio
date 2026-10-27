@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { profile, skillGroups } from "../../data/cv";
+import { heroRoles, profile } from "../../data/cv";
 import { easeOut } from "../../lib/motion";
 import Magnetic from "../ui/Magnetic";
 import IdentityRig from "./IdentityRig";
 
-const roles = [
-  profile.title.split(" | ")[0],
-  profile.title.split(" | ")[1] ?? "Frontend Development",
-  skillGroups[0].items.slice(0, 3).join(" · "),
-];
+const roles = [...heroRoles];
 
 const longestRole = roles.reduce((a, b) => (a.length >= b.length ? a : b));
 

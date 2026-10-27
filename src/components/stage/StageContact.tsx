@@ -65,6 +65,15 @@ export default function StageContact() {
             Location
           </p>
           <p className="mt-2 text-sm text-ink">{profile.locationFull}</p>
+          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+            Phone
+          </p>
+          <a
+            href={profile.phoneHref}
+            className="mt-2 block text-sm text-ink transition-colors hover:text-accent2"
+          >
+            {profile.phone}
+          </a>
         </div>
 
         <div>

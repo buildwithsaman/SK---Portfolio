@@ -1,8 +1,11 @@
 export const profile = {
   name: "Saman Khan",
-  title: "Software Engineer | Frontend Development",
+  legalName: "Saman Shakil Khan",
+  title: "Software Engineer/Developer",
   location: "Dubai, UAE",
   locationFull: "Dubai, United Arab Emirates",
+  phone: "+971 506019290",
+  phoneHref: "tel:+971506019290",
   email: "samankhanhq@gmail.com",
   linkedin: "https://www.linkedin.com/in/saman-shakil-khan-62728b208/",
   linkedinLabel: "linkedin.com/in/saman-shakil-khan-62728b208",
@@ -11,57 +14,94 @@ export const profile = {
   resume: "./Saman_Khan_CV.pdf",
   resumeName: "Saman_Khan_CV.pdf",
   heroLead:
-    "Building scalable web applications, intuitive user experiences, and production-ready software.",
+    "Building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
   heroDescription:
-    "I'm a Dubai-based Software Engineer specializing in React, Next.js, and TypeScript, with 2+ years of experience developing production web platforms for mobility, fleet operations, subscriptions, analytics, and customer-facing services.",
+    "Frontend-focused Software Engineer with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
   heroSupport:
-    "From complex internal dashboards to multilingual customer websites, I turn business requirements into reliable, responsive, and maintainable software.",
-  aboutIntro: "Software Engineer based in Dubai, UAE",
+    "Primary frontend owner across large React/TypeScript admin systems and currently building Udrive's new Next.js website from Figma.",
+  aboutIntro: "Frontend-focused Software Engineer based in Dubai, UAE",
   summary: [
-    "I'm a frontend-focused Software Engineer with 2+ years of experience building and maintaining production applications using React, Next.js, TypeScript, and modern web technologies.",
-    "At Udrive, I take primary frontend ownership of internal operations platforms used for fleet management, reservations, customer verification, subscription management, and business analytics.",
-    "I'm also developing Udrive's new customer-facing website using Next.js App Router, translating Figma designs into responsive, multilingual web experiences with English and Arabic support.",
-    "My work extends beyond frontend development into Python-based backend services, Kafka event processing, REST API integration, AWS deployment, and workflow automation.",
-    "I focus on writing maintainable code, improving application performance, building reusable components, and delivering software that solves real operational problems.",
+    "Frontend-focused Software Engineer with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
+    "Primary frontend owner across large React/TypeScript admin systems and currently building Udrive's new Next.js website from Figma.",
+    "Experienced in responsive UI architecture, data-heavy dashboards, D3/Mapbox visualizations, performance optimization, AWS deployment, and API integration, with additional production backend experience in Python/Kafka-based KYC automation.",
+    "Delivered ~70% infrastructure cost reduction through analytics migration and improved debt recovery by 30% through invoice automation.",
   ],
   achievements: [
     {
       value: "~70%",
       label:
-        "reduction in infrastructure costs through migration to self-hosted Apache Superset analytics.",
+        "infrastructure cost reduction through migration to self-hosted Apache Superset analytics.",
     },
     {
       value: "30%",
-      label:
-        "improvement in debt recovery through automated invoice workflows.",
+      label: "improvement in debt recovery through invoice automation.",
     },
     {
       value: "6",
       label:
-        "analytics areas built or significantly enhanced for business and operational reporting.",
+        "analytics areas built or heavily evolved: Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics, and TARS.",
     },
     {
       value: "~20",
       label:
-        "website routes implemented with responsive layouts, multilingual routing, and reusable components.",
+        "customer-facing website routes with English/Arabic locale routing and RTL support.",
     },
   ],
+  workIntro:
+    "Engineering contributions across Udrive mobility operations, subscriptions, analytics, and customer-facing experiences.",
   contactIntro:
-    "I'm a Software Engineer based in Dubai, UAE, passionate about building scalable web applications, efficient software systems, and intuitive digital experiences.",
+    "Frontend-focused Software Engineer in Dubai, UAE, building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
   contactSupport:
     "Interested in collaborating, discussing engineering opportunities, or connecting professionally? Feel free to reach out.",
-  footerTagline: "Software Engineer | React, Next.js & TypeScript",
+  footerTagline: "Software Engineer/Developer",
   siteUrl: "https://buildwithsaman.dev",
 };
 
+export const heroRoles = [
+  "Software Engineer/Developer",
+  "Frontend-focused Software Engineer",
+  "React · Next.js · TypeScript",
+] as const;
+
 export const highlightLines = [
   "Frontend-focused Software Engineer",
-  "Building scalable web applications",
-  "Primary frontend ownership at Udrive",
+  "Building production web platforms",
+  "Primary frontend owner at Udrive",
   "React, Next.js, and TypeScript",
   "~70% infrastructure cost reduction",
   "30% improvement in debt recovery",
 ] as const;
+
+export const featuredSkills = [
+  "Next.js",
+  "React.js",
+  "TypeScript",
+  "Python",
+  "AWS",
+  "D3.js",
+];
+
+export type Practice = {
+  title: string;
+  kicker: string;
+  body: string;
+  tools: string[];
+};
+
+export const practices: Practice[] = [
+  {
+    title: "Frontend architecture",
+    kicker: "Production platforms",
+    body: "Primary frontend owner across large React/TypeScript admin systems and currently building Udrive's new Next.js website from Figma.",
+    tools: ["Next.js", "React.js", "TypeScript", "JavaScript"],
+  },
+  {
+    title: "Systems beyond the UI",
+    kicker: "KYC, analytics, automation",
+    body: "Production backend experience in Python/Kafka-based KYC automation, plus analytics migration and invoice automation across AWS.",
+    tools: ["Python", "Apache Kafka", "AWS", "Apache Superset"],
+  },
+];
 
 export type ExperienceDomain = {
   id: string;
@@ -76,40 +116,36 @@ export type ExperienceDomain = {
 export const udriveDomains: ExperienceDomain[] = [
   {
     id: "operations-analytics",
-    title: "Internal Operations & Analytics Platform",
+    title: "Internal Operations & Analytics",
     role: "Primary Frontend Owner",
     ownership:
-      "Developed and enhanced a large-scale internal operations platform supporting customer management, vehicle operations, reservations, invoicing, verification, analytics, and mobility services.",
+      "Primary frontend owner for a React + MUI internal operations platform spanning customers, verifications, reservations, invoices, vehicles, damage reports, credits, fines, claims, analytics, mobility operations, and admin tooling.",
     contributions: [
-      "Built and significantly improved six analytics areas: Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics, and TARS.",
-      "Developed responsive dashboards featuring interactive D3 visualizations, reusable filters, data tables, and CSV exports.",
-      "Built a near-real-time Mapbox driver monitoring interface using 10-second polling.",
-      "Implemented fleet and vehicle operations including lock/unlock, immobilization, location updates, and onboarding/offboarding workflows.",
-      "Created an interactive Banner Studio supporting draggable layers, image and text editing, templates, undo/redo, previews, and HTML/JSON import/export.",
-      "Maintained protected routes, JWT authentication flows, role-based UI access, and reusable responsive components.",
+      "Built or heavily evolved six analytics areas — Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics (D3), and TARS — with shared filters, responsive tables/charts, and CSV export workflows.",
+      "Built mobility operations modules for a near-real-time Mapbox driver map (10-second polling), rides operations, driver management, and fleet management, including create/edit/assignment workflows and reusable UI patterns.",
+      "Implemented vehicle operations including lock/unlock, immobilize/mobilize, onboarding/offboarding, location/state updates, and resilient loading, error, and toast feedback patterns.",
+      "Built an in-app Banner Studio with draggable/resizable layers, text/images/shapes, templates, undo/redo, preview, and HTML/JSON export/import for lightweight marketing content creation.",
+      "Maintained protected routing, JWT-based frontend auth flows, feature scopes/RBAC UI, release notes, and responsive layouts across desktop, tablet, and mobile.",
     ],
     focus:
-      "Frontend Architecture · Data Visualization · Operational Software · Fleet Management",
+      "React + MUI operations platform across customers, fleet, analytics, and mobility.",
     tech: ["React", "TypeScript", "Material UI", "D3.js", "Mapbox"],
   },
   {
     id: "subscription-crm",
-    title: "Subscription, CRM & Fleet Management Platform",
+    title: "Subscription, CRM & Fleet Operations",
     role: "Primary Frontend Developer",
     ownership:
-      "Built most of the frontend for a monthly vehicle subscription management platform integrating customer relationship management, fleet operations, subscriptions, billing, and business analytics.",
+      "Built most of the React frontend for the monthly subscription admin platform, covering the sales pipeline, customers/KYC, fleet operations, subscriptions, invoices, product catalog, analytics, and role-based administration.",
     contributions: [
-      "Developed a complete lead management workflow with Kanban boards, stage transitions, assignments, filtering, and deal tracking.",
-      "Integrated personalized WhatsApp outreach into CRM workflows.",
-      "Built customer management interfaces for KYC, payment history, account actions, and verification queues.",
-      "Developed fleet consoles with interactive maps, vehicle controls, reservations, damage reporting, and state management.",
-      "Implemented subscription vehicle assignments, invoicing, product configuration, and mileage-based pricing interfaces.",
-      "Built interactive sales funnel analytics and printable business reports.",
-      "Migrated the frontend from Create React App/CRACO to Vite to improve development speed and simplify configuration.",
-      "Managed frontend deployment using AWS EC2, Nginx, and HTTPS.",
+      "Built the Lead → Initial Contact → Qualified → Won/Lost deals workflow with Kanban pipeline, stage transitions, filters/search, assignee management, lost/archive actions, lead creation, and one-click personalized WhatsApp outreach.",
+      "Developed customer and fleet consoles with verification queues, payment/device/history views, account actions, MapLibre maps, hardware controls, reservations, damage reports, and vehicle state management.",
+      "Implemented subscription car assignment, invoice operations, product management for colors/pricing/mileage packages, and D3 lead/funnel analytics; also created a filterable, print-friendly Deals Report.",
+      "Migrated the frontend from CRA/CRACO to Vite for faster startup/HMR and simpler configuration while preserving the existing build output.",
+      "Handled frontend build/deployment on AWS EC2 with Nginx and HTTPS.",
     ],
     focus:
-      "CRM Systems · Subscription Software · Frontend Modernization · Business Operations",
+      "Monthly subscription admin: sales pipeline, KYC, fleet, billing, and analytics.",
     tech: [
       "React",
       "TypeScript",
@@ -122,37 +158,31 @@ export const udriveDomains: ExperienceDomain[] = [
   },
   {
     id: "website-apps",
-    title: "Udrive Customer-Facing Website",
+    title: "Customer-Facing Web Development",
     role: "Frontend Developer",
     ownership:
-      "Building a modern customer-facing mobility website from Figma designs using Next.js App Router, with a focus on responsive design, performance, multilingual accessibility, and reusable frontend architecture.",
+      "Building a new customer-facing website from scratch from Figma using Next.js App Router, TypeScript, and CSS Modules, translating designs into pixel-accurate responsive experiences across desktop, tablet, and mobile.",
     contributions: [
-      "Implemented approximately 20 routes covering rental services, fleet listings, mobility offerings, business services, support, articles, careers, and legal information.",
-      "Developed responsive interfaces for desktop, tablet, and mobile devices.",
-      "Implemented English and Arabic locale routing with right-to-left layout support.",
-      "Created reusable navigation, hero sections, pricing interfaces, galleries, FAQs, and call-to-action components.",
-      "Optimized images and animations using WebP, SVG, Lottie, Next.js image optimization, and AWS CloudFront.",
-      "Applied lazy loading, font optimization, and selective asset preloading to improve page delivery.",
+      "Implemented roughly 20 routes spanning home, rental offerings, fleet, mobility services, business, help content, articles, contact, careers, and legal content, with English/Arabic locale routing and RTL support.",
+      "Created reusable navigation, footer, hero, CTA, FAQ, pricing/rental, gallery, and content components to keep the design system consistent and maintainable across pages.",
+      "Optimized page delivery with AWS CloudFront-hosted WebP/SVG/Lottie assets, next/image responsive loading, lazy loading, next/font, critical asset preloading, and offscreen/play-once Lottie behavior.",
     ],
     focus:
-      "Next.js Development · Responsive Design · Internationalization · Web Performance",
+      "Next.js App Router website from Figma, with English/Arabic routing and RTL support.",
     tech: ["Next.js", "TypeScript", "CSS Modules", "AWS CloudFront", "Lottie"],
   },
   {
     id: "kyc-backend",
-    title: "Automated KYC & Identity Verification",
+    title: "KYC & Verification Automation",
     role: "Software Engineering Contributor",
     ownership:
-      "Contributed to a production identity verification pipeline automating customer document validation and approval workflows.",
+      "Contributed to a production Python/FastStream Kafka verification pipeline that orchestrates Taareef AI OCR, face/liveness/audio checks, AWS S3 documents, Postgres updates, and automated approval/rejection workflows.",
     contributions: [
-      "Developed and maintained validation logic for Emirates ID, driving licences, and passports.",
-      "Integrated document-processing workflows involving AI OCR, identity checks, face matching, and liveness verification.",
-      "Supported eligibility validation based on document expiry, age, and driving experience.",
-      "Worked with Kafka-based event processing, AWS S3 document storage, and PostgreSQL database updates.",
-      "Contributed to automated approval and rejection decisioning, including fraud-related validation signals.",
+      "Implemented and maintained validation and decisioning around Emirates ID, UAE/foreign driving licences, and passports.",
+      "Supported eligibility checks for age, document expiry, and driving experience, plus cross-document name matching, face/liveness checks, and fraud signals.",
     ],
     focus:
-      "Backend Integration · Event-Driven Systems · Identity Verification · Automation",
+      "Python/FastStream Kafka pipeline for document validation and automated KYC decisions.",
     tech: [
       "Python",
       "FastStream",
@@ -164,19 +194,17 @@ export const udriveDomains: ExperienceDomain[] = [
   },
   {
     id: "automation-tools",
-    title: "Analytics Infrastructure & Workflow Automation",
+    title: "Platform Automation & Observability",
     role: "Software Engineering Contributor",
     ownership:
-      "Improved business operations through analytics infrastructure modernization and automated financial workflows.",
+      "Improved business operations through invoice automation, analytics infrastructure modernization, and operational monitoring.",
     contributions: [
-      "Migrated analytics infrastructure to a self-hosted Apache Superset environment.",
-      "Integrated secure data access and authentication workflows.",
-      "Achieved approximately 70% infrastructure cost reduction through the analytics migration.",
-      "Delivered serverless invoice automation that improved debt recovery by 30%.",
-      "Contributed to Kafka-based operational monitoring and observability.",
+      "Delivered invoice automation using serverless functions, improving debt recovery by 30% while reducing manual operational overhead.",
+      "Migrated analytics to self-hosted Apache Superset with secure data pipelines/authentication, reducing infrastructure costs by ~70%.",
+      "Contributed to Kafka-based monitoring and operational visibility.",
     ],
     focus:
-      "Cloud Infrastructure · Analytics · Workflow Automation · Cost Optimization",
+      "Serverless invoice automation and self-hosted Apache Superset analytics.",
     tech: ["Apache Superset", "Python", "AWS", "Serverless", "Apache Kafka"],
   },
 ];
@@ -202,8 +230,8 @@ export const experiences: Experience[] = [
     period: "August 2024 – Present",
     periodStart: "2024-08",
     summary: [
-      "Developing and maintaining production web applications across fleet operations, mobility services, subscription management, business analytics, and customer-facing experiences.",
-      "Primary frontend owner for major React and TypeScript administrative platforms, with additional contributions to backend verification services, cloud infrastructure, and operational automation.",
+      "Frontend-focused Software Engineer building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
+      "Primary frontend owner across large React/TypeScript admin systems, currently building Udrive's new Next.js website from Figma, with additional production work in Python/Kafka KYC automation, analytics migration, and invoice automation.",
     ],
     domains: udriveDomains,
   },
@@ -215,11 +243,11 @@ export const experiences: Experience[] = [
     periodStart: "2024-02",
     periodEnd: "2024-06",
     summary: [
-      "Built and shipped a cross-platform React Native application using Expo for buying and selling used vehicles, including user profiles, vehicle listings, and bidding workflows.",
-      "Developed and maintained .NET REST APIs and supported rental and leasing data operations, business intelligence dashboards, and data-quality processes.",
+      "Built and shipped a cross-platform React Native (Expo) app for buying and selling used vehicles, with relational data models for profiles, listings, and bidding transactions.",
+      "Developed and maintained REST APIs using .NET; supported CARPRO rental/leasing data operations and INTELLiVIEW BI dashboards/data-quality workflows.",
     ],
     recognition:
-      "Certificate of Appreciation for successfully completing the Engineering & Technology Services Division internship.",
+      "Certificate of Appreciation for successful completion of the Engineering & Technology Services Division internship.",
   },
   {
     company: "Dubai Technologies",
@@ -229,7 +257,7 @@ export const experiences: Experience[] = [
     periodStart: "2023-07",
     periodEnd: "2023-08",
     summary: [
-      "Developed responsive desktop applications using Python, Tkinter, and PyQt. Collaborated with cross-functional teams to translate requirements into deployable software solutions.",
+      "Developed responsive desktop GUIs using Python (Tkinter, PyQt) and collaborated with cross-functional teams to translate requirements into deployable software solutions.",
     ],
   },
 ];
@@ -241,41 +269,33 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: "Frontend Engineering",
+    category: "Frontend",
     items: [
-      "React.js",
       "Next.js",
+      "React.js",
       "TypeScript",
       "JavaScript",
-      "Material UI",
+      "MUI",
       "CSS Modules",
       "Redux",
       "React Router",
-      "React Native (Expo)",
-      "Responsive Web Design",
-    ],
-  },
-  {
-    category: "Data Visualization & Mapping",
-    items: [
       "D3.js",
       "Mapbox",
       "MapLibre",
-      "Interactive Dashboards",
-      "Data Tables",
-      "Analytics Interfaces",
+      "Lottie",
+      "React Native (Expo)",
     ],
   },
   {
-    category: "Backend Development & Integration",
+    category: "Backend & Integration",
     items: [
       "Python",
-      "Node.js",
-      "Express.js",
-      ".NET",
       "FastStream",
+      "Node.js",
+      "Express",
+      ".NET",
       "REST APIs",
-      "Apache Kafka",
+      "Kafka consumers",
       "Pydantic",
       "asyncpg",
       "JWT",
@@ -283,7 +303,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    category: "Cloud, Infrastructure & DevOps",
+    category: "Cloud & DevOps",
     items: [
       "AWS EC2",
       "AWS S3",
@@ -298,18 +318,18 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    category: "Databases, Data & Monitoring",
+    category: "Data & Monitoring",
     items: [
-      "PostgreSQL",
-      "Microsoft SQL Server",
-      "Firebase",
-      "Apache Superset",
-      "Apache Airflow",
       "Apache Kafka",
+      "Apache Airflow",
+      "Apache Superset",
+      "PostgreSQL",
+      "MS SQL Server",
+      "Firebase",
     ],
   },
   {
-    category: "Development & Design Tools",
+    category: "Tools",
     items: [
       "Git",
       "GitHub",
@@ -318,7 +338,7 @@ export const skillGroups: SkillGroup[] = [
       "Figma",
       "Adobe Photoshop",
       "Adobe Illustrator",
-      "Adobe Premiere Pro",
+      "Premiere Pro",
     ],
   },
 ];
@@ -331,12 +351,12 @@ export type EducationItem = {
 
 export const education: EducationItem[] = [
   {
-    degree: "Bachelor of Technology in Computer Science Engineering",
+    degree: "B.Tech in Computer Science Engineering",
     place: "Manipal Academy of Higher Education, Dubai",
     period: "Graduated 2024",
   },
   {
-    degree: "Higher Secondary Education — CBSE, PCM",
+    degree: "Higher Secondary (CBSE, PCM)",
     place: "IES, Sharjah, UAE",
     period: "2018–2020",
   },
@@ -350,7 +370,7 @@ export const certifications = [
   },
   {
     name: "Object-Oriented Programming in Java",
-    org: "University of California San Diego, Coursera",
+    org: "UC San Diego, Coursera",
     year: "2021",
   },
   {
@@ -368,7 +388,7 @@ export const certifications = [
 export const volunteer = [
   {
     role: "Sponsorship Head",
-    org: "Technovanza, MAHE Dubai",
+    org: "Technovanza MAHE Dubai – School of Engineering & IT",
     year: "2023",
   },
   {

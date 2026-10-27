@@ -1,6 +1,6 @@
 # Saman Khan — Portfolio
 
-Personal portfolio for **Saman Khan**, Software Engineer | Frontend Development, based in Dubai, UAE.
+Personal portfolio for **Saman Khan** (Saman Shakil Khan), Software Engineer/Developer based in Dubai, UAE. Content is sourced from the CV.
 
 Live site: [https://buildwithsaman.dev](https://buildwithsaman.dev)
 
