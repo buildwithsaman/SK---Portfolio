@@ -22,12 +22,24 @@ const char = {
   },
 };
 
+function introAlreadyComplete(reduceMotion: boolean | null) {
+  if (reduceMotion) return true;
+  if (document.documentElement.getAttribute("data-skip-intro") === "true") {
+    return true;
+  }
+  const boot = document.getElementById("stage-boot");
+  if (!boot || boot.getAttribute("data-done") === "true") return true;
+  try {
+    return sessionStorage.getItem("sk-intro-seen") === "1";
+  } catch {
+    return false;
+  }
+}
+
 function SplitLine({ text, className }: { text: string; className?: string }) {
   return (
     <motion.span
       className={className}
-      initial="hidden"
-      animate="show"
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: 0.03, delayChildren: 0.08 } },
@@ -48,20 +60,37 @@ function SplitLine({ text, className }: { text: string; className?: string }) {
 
 export default function StageHero() {
   const reduceMotion = useReducedMotion();
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(() => introAlreadyComplete(reduceMotion));
   const [role, setRole] = useState(0);
 
   useEffect(() => {
-    const boot = document.getElementById("stage-boot");
-    if (!boot || boot.getAttribute("data-done") === "true" || reduceMotion) {
+    if (introAlreadyComplete(reduceMotion)) {
       setReady(true);
       return;
     }
+
+    const boot = document.getElementById("stage-boot");
     const onDone = () => setReady(true);
     window.addEventListener("stage-intro-done", onDone);
-    const fallback = window.setTimeout(() => setReady(true), 700);
+
+    const observer = new MutationObserver(() => {
+      if (introAlreadyComplete(reduceMotion)) setReady(true);
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-skip-intro"],
+    });
+    if (boot) {
+      observer.observe(boot, {
+        attributes: true,
+        attributeFilter: ["data-done"],
+      });
+    }
+
+    const fallback = window.setTimeout(() => setReady(true), 2400);
     return () => {
       window.removeEventListener("stage-intro-done", onDone);
+      observer.disconnect();
       window.clearTimeout(fallback);
     };
   }, [reduceMotion]);

@@ -8,10 +8,10 @@
     />
 
     <!-- Primary SEO -->
-    <title>Saman Khan | Software Engineer/Developer in Dubai</title>
+    <title>Saman Khan | Software Engineer & Frontend Developer in Dubai</title>
     <meta
       name="description"
-      content="Saman Shakil Khan is a frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
+      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
     />
     <meta name="author" content="Saman Khan" />
     <meta
@@ -36,7 +36,7 @@
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" sizes="any" />
-    <link rel="apple-touch-icon" href="/logo-mark.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="profile" />
@@ -45,11 +45,11 @@
     <meta property="og:url" content="https://buildwithsaman.dev/" />
     <meta
       property="og:title"
-      content="Saman Khan | Software Engineer/Developer in Dubai"
+      content="Saman Khan | Software Engineer & Frontend Developer in Dubai"
     />
     <meta
       property="og:description"
-      content="Saman Shakil Khan is a frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
+      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
     />
     <meta
       property="og:image"
@@ -61,7 +61,7 @@
     />
     <meta
       property="og:image:alt"
-      content="Saman Khan — Software Engineer/Developer in Dubai building production web platforms"
+      content="Saman Khan — Software Engineer and Frontend Developer in Dubai"
     />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -73,11 +73,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Saman Khan | Software Engineer/Developer in Dubai"
+      content="Saman Khan | Software Engineer & Frontend Developer in Dubai"
     />
     <meta
       name="twitter:description"
-      content="Saman Shakil Khan is a frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
+      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
     />
     <meta
       name="twitter:image"
@@ -85,7 +85,7 @@
     />
     <meta
       name="twitter:image:alt"
-      content="Saman Khan — Software Engineer/Developer in Dubai building production web platforms"
+      content="Saman Khan — Software Engineer and Frontend Developer in Dubai"
     />
 
     <script>
@@ -125,7 +125,7 @@
             "url": "https://buildwithsaman.dev/",
             "name": "Saman Khan",
             "alternateName": "Saman Shakil Khan",
-            "description": "Saman Shakil Khan is a frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
+            "description": "Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript.",
             "inLanguage": "en",
             "publisher": {
               "@id": "https://buildwithsaman.dev/#person"
@@ -136,12 +136,22 @@
             "@id": "https://buildwithsaman.dev/#person",
             "name": "Saman Khan",
             "alternateName": "Saman Shakil Khan",
+            "givenName": "Saman",
+            "familyName": "Khan",
             "jobTitle": "Software Engineer/Developer",
             "description": "Frontend-focused Software Engineer with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
             "url": "https://buildwithsaman.dev/",
             "image": "https://buildwithsaman.dev/og-image.png",
             "email": "mailto:samankhanhq@gmail.com",
             "telephone": "+971506019290",
+            "hasOccupation": {
+              "@type": "Occupation",
+              "name": "Software Engineer",
+              "occupationLocation": {
+                "@type": "City",
+                "name": "Dubai, United Arab Emirates"
+              }
+            },
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Dubai",
@@ -192,8 +202,9 @@
             "@type": "ProfilePage",
             "@id": "https://buildwithsaman.dev/#webpage",
             "url": "https://buildwithsaman.dev/",
-            "name": "Saman Khan | Software Engineer/Developer in Dubai",
-            "description": "Saman Shakil Khan is a frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences.",
+            "name": "Saman Khan | Software Engineer & Frontend Developer in Dubai",
+            "description": "Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript.",
+            "dateModified": "2026-10-28",
             "inLanguage": "en",
             "isPartOf": {
               "@id": "https://buildwithsaman.dev/#website"
@@ -216,39 +227,294 @@
     </script>
   </head>
   <body>
-    <!-- Brief first-paint cover; pointer-events none so it never blocks. -->
+    <!-- First-paint cinematic cover. Repeat visits / reduced-motion skip via inline script. -->
     <div id="stage-boot" class="loading" role="presentation" aria-hidden="true">
       <style>
         #stage-boot.loading {
           position: fixed;
           inset: 0;
-          background: rgb(6 5 9);
           z-index: 99999;
+          overflow: hidden;
+          background:
+            radial-gradient(
+              ellipse 70% 45% at 50% -5%,
+              rgb(88 40 180 / 0.22),
+              transparent 55%
+            ),
+            radial-gradient(
+              ellipse 35% 28% at 88% 18%,
+              rgb(45 212 191 / 0.08),
+              transparent 50%
+            ),
+            rgb(6 5 9);
           opacity: 1;
-          pointer-events: none;
+          pointer-events: auto;
           transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
         }
         #stage-boot.loading.is-exiting {
           opacity: 0;
+          pointer-events: none;
         }
-        #stage-boot[data-done="true"] {
+        #stage-boot.is-exiting .boot-marquee,
+        #stage-boot.is-exiting .boot-center,
+        #stage-boot.is-exiting .boot-welcome {
+          opacity: 0;
+          transition: none;
+        }
+        #stage-boot[data-done="true"],
+        html[data-skip-intro] #stage-boot {
           display: none !important;
         }
-        #stage-boot .loading-text {
+        #stage-boot .boot-marquee {
           position: absolute;
-          inset: 0;
-          margin: auto;
-          height: 3rem;
-          text-align: center;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          overflow: hidden;
+          transform: translateY(-50%);
+          mask-image: linear-gradient(
+            90deg,
+            transparent,
+            #000 8%,
+            #000 92%,
+            transparent
+          );
+        }
+        #stage-boot .boot-marquee-track {
+          display: flex;
+          width: max-content;
+          gap: 0.6em;
           font-family: "Space Grotesk", system-ui, sans-serif;
-          font-size: 1.25rem;
+          font-size: clamp(2.4rem, 9vw, 8rem);
           font-weight: 600;
-          letter-spacing: 0.32em;
+          letter-spacing: -0.045em;
+          line-height: 0.9;
+          text-transform: uppercase;
+          color: rgb(250 250 252);
+          animation: boot-marquee 22s linear infinite;
+        }
+        #stage-boot .boot-marquee-track span {
+          white-space: nowrap;
+          padding-right: 0.55em;
+        }
+        #stage-boot .boot-marquee-track span:nth-child(odd) {
+          color: rgb(250 250 252);
+        }
+        #stage-boot .boot-marquee-track span:nth-child(even) {
+          background-image: linear-gradient(
+            100deg,
+            rgb(45 212 191),
+            rgb(167 139 250),
+            rgb(251 146 60)
+          );
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+        #stage-boot .boot-center {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          display: flex;
+          min-width: 13.5rem;
+          transform: translate(-50%, -50%);
+          flex-direction: column;
+          align-items: center;
+          gap: 0.75rem;
+          border-radius: 9999px;
+          background: rgb(6 5 9 / 0.92);
+          box-shadow:
+            0 0 0 1px rgb(167 139 250 / 0.35),
+            0 0 40px rgb(88 40 180 / 0.28),
+            0 18px 50px rgb(0 0 0 / 0.45);
+          padding: 1.15rem 2.1rem 1.2rem;
+        }
+        #stage-boot .boot-mark {
+          font-family: "Space Grotesk", system-ui, sans-serif;
+          font-size: 0.95rem;
+          font-weight: 600;
+          letter-spacing: 0.46em;
           color: rgb(45 212 191);
         }
+        #stage-boot .boot-rule {
+          height: 2px;
+          width: 6.25rem;
+          overflow: hidden;
+          border-radius: 999px;
+          background: rgb(38 34 48);
+        }
+        #stage-boot .boot-rule i {
+          display: block;
+          height: 100%;
+          width: 40%;
+          background: linear-gradient(90deg, rgb(45 212 191), rgb(167 139 250));
+          animation: boot-sweep 1.1s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+        }
+        #stage-boot .boot-welcome {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.85rem;
+          opacity: 0;
+          pointer-events: none;
+          text-align: center;
+          transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #stage-boot.is-welcome .boot-marquee,
+        #stage-boot.is-welcome .boot-center {
+          opacity: 0;
+          transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #stage-boot.is-welcome .boot-welcome {
+          opacity: 1;
+        }
+        #stage-boot .boot-kicker {
+          font-family: "JetBrains Mono", ui-monospace, monospace;
+          font-size: 10px;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: rgb(45 212 191);
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        #stage-boot .boot-name {
+          font-family: "Space Grotesk", system-ui, sans-serif;
+          font-size: clamp(2.4rem, 10vw, 6.5rem);
+          font-weight: 600;
+          letter-spacing: -0.05em;
+          line-height: 0.88;
+          text-transform: uppercase;
+          color: rgb(250 250 252);
+        }
+        #stage-boot .boot-line {
+          display: block;
+          overflow: hidden;
+        }
+        #stage-boot .boot-line span {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(108%);
+        }
+        #stage-boot .boot-role {
+          font-family: "Space Grotesk", system-ui, sans-serif;
+          font-size: clamp(1rem, 3vw, 1.5rem);
+          font-weight: 600;
+          background-image: linear-gradient(
+            100deg,
+            rgb(45 212 191),
+            rgb(167 139 250)
+          );
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        #stage-boot.is-welcome .boot-kicker {
+          animation: boot-fade-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        #stage-boot.is-welcome .boot-line span {
+          animation: boot-letter 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: calc(var(--i) * 32ms);
+        }
+        #stage-boot.is-welcome .boot-line:nth-child(2) span {
+          animation-delay: calc(0.12s + var(--i) * 32ms);
+        }
+        #stage-boot.is-welcome .boot-role {
+          animation: boot-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s
+            forwards;
+        }
+        @keyframes boot-marquee {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+        @keyframes boot-sweep {
+          0% {
+            transform: translateX(-120%);
+          }
+          100% {
+            transform: translateX(280%);
+          }
+        }
+        @keyframes boot-letter {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes boot-fade-up {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #stage-boot .boot-marquee-track,
+          #stage-boot .boot-rule i,
+          #stage-boot.is-welcome .boot-kicker,
+          #stage-boot.is-welcome .boot-line span,
+          #stage-boot.is-welcome .boot-role {
+            animation: none;
+            opacity: 1;
+            transform: none;
+          }
+        }
       </style>
-      <div class="loading-text">SK</div>
+      <div class="boot-marquee">
+        <div class="boot-marquee-track">
+          <span>Software Engineer</span>
+          <span>Frontend Developer</span>
+          <span>Software Engineer</span>
+          <span>Frontend Developer</span>
+          <span>Software Engineer</span>
+          <span>Frontend Developer</span>
+          <span>Software Engineer</span>
+          <span>Frontend Developer</span>
+        </div>
+      </div>
+      <div class="boot-center">
+        <div class="boot-mark">SK</div>
+        <div class="boot-rule"><i></i></div>
+      </div>
+      <div class="boot-welcome">
+        <p class="boot-kicker">Welcome to my portfolio</p>
+        <p class="boot-name">
+          <span class="boot-line"
+            ><span style="--i: 0">S</span><span style="--i: 1">A</span
+            ><span style="--i: 2">M</span><span style="--i: 3">A</span
+            ><span style="--i: 4">N</span></span
+          >
+          <span class="boot-line"
+            ><span style="--i: 0">K</span><span style="--i: 1">H</span
+            ><span style="--i: 2">A</span><span style="--i: 3">N</span></span
+          >
+        </p>
+        <p class="boot-role">Software Engineer</p>
+      </div>
     </div>
+    <script>
+      (function () {
+        try {
+          var reduce = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+          var seen = sessionStorage.getItem("sk-intro-seen") === "1";
+          if (reduce || seen) {
+            document.documentElement.setAttribute("data-skip-intro", "true");
+            var boot = document.getElementById("stage-boot");
+            if (boot) boot.setAttribute("data-done", "true");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <!--
       Crawlable portfolio content is injected into #root at build time
       (see scripts/seoStaticShell.ts). createRoot() replaces it on the client.

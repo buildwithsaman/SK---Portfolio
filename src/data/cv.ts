@@ -1,6 +1,8 @@
 export const profile = {
   name: "Saman Khan",
   legalName: "Saman Shakil Khan",
+  givenName: "Saman",
+  familyName: "Khan",
   title: "Software Engineer/Developer",
   location: "Dubai, UAE",
   locationFull: "Dubai, United Arab Emirates",
@@ -55,6 +57,10 @@ export const profile = {
     "Interested in collaborating, discussing engineering opportunities, or connecting professionally? Feel free to reach out.",
   footerTagline: "Software Engineer/Developer",
   siteUrl: "https://buildwithsaman.dev",
+  seoTitle: "Saman Khan | Software Engineer & Frontend Developer in Dubai",
+  seoDescription:
+    "Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript.",
+  contentUpdated: "2026-10-28",
 };
 
 export const heroRoles = [

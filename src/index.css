@@ -74,7 +74,7 @@ body {
   position: fixed;
   left: max(1rem, env(safe-area-inset-left));
   top: -5rem;
-  z-index: 300;
+  z-index: 100000;
   border-radius: 9999px;
   background: rgb(var(--ink));
   color: rgb(var(--paper));
@@ -89,6 +89,8 @@ body {
 .skip-link:focus,
 .skip-link:focus-visible {
   top: max(0.75rem, env(safe-area-inset-top));
+  outline: 2px solid rgb(var(--accent2));
+  outline-offset: 3px;
 }
 
 ::-webkit-scrollbar {

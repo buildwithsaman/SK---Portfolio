@@ -13,6 +13,9 @@ import StageFooter from "./components/stage/StageFooter";
 
 function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
+  document.querySelectorAll("#root [inert]").forEach((node) => {
+    node.removeAttribute("inert");
+  });
   const main = document.getElementById("main-content");
   if (!main) return;
   main.focus({ preventScroll: true });
