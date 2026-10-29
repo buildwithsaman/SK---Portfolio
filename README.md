@@ -23,6 +23,8 @@ Node 22+.
 npm install
 npm run dev        # http://127.0.0.1:5173
 npm run typecheck
+npm run lint
+npm run format
 npm run build      # writes dist/
 npm run preview    # http://127.0.0.1:4180
 ```
@@ -158,6 +160,8 @@ In the repo: **Settings → Pages → GitHub Actions**. `vite.config.ts` uses `b
 | ------------------- | ---------------------------------------------------------------------------------------------------- |
 | `npm run dev`       | Vite on `127.0.0.1:5173`                                                                             |
 | `npm run typecheck` | `tsc --noEmit`                                                                                       |
+| `npm run lint`      | Prettier check, then TypeScript (`tsc --noEmit`)                                                     |
+| `npm run format`    | Prettier with `--ignore-unknown`, so `.env.example` and `.gitignore` do not fail                     |
 | `npm run build`     | Typecheck, then production build. Injects the SEO shell into `index.html`. Writes `dist/sitemap.xml` |
 | `npm run preview`   | Serve `dist/` on port `4180`                                                                         |
 

@@ -1,4 +1,4 @@
-import { profile } from "../src/data/cv";
+import { profile } from "../src/data/cv.ts";
 
 export function siteOrigin(): string {
   return profile.siteUrl.replace(/\/$/, "");

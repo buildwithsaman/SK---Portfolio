@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+package-lock.json
+.env
+.env.local
+.env.example
+.gitignore
+public/character
+public/*.pdf
+public/*.png
+*.webm
+*.mov
+*.webp

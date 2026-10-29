@@ -13,7 +13,7 @@ import {
   skillGroups,
   udriveDomains,
   volunteer,
-} from "../src/data/cv";
+} from "../src/data/cv.ts";
 
 function esc(value: string): string {
   return value

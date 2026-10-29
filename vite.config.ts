@@ -3,10 +3,10 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { applySeoHead, buildSitemapXml } from "./scripts/seoHead.ts";
+import { buildSeoStaticShell } from "./scripts/seoStaticShell.ts";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
-import { applySeoHead, buildSitemapXml } from "./scripts/seoHead";
-import { buildSeoStaticShell } from "./scripts/seoStaticShell";
 
 /**
  * GitHub Pages + custom domain:
