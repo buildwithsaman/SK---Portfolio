@@ -1,51 +1,101 @@
+import { useMemo } from "react";
+import { useReducedMotion } from "framer-motion";
+import FlexCarousel from "../ui/FlexCarousel";
 import Reveal from "../ui/Reveal";
-import { featuredSkills, skillGroups } from "../../data/cv";
+import { techStack } from "../../data/cv";
+
+function SkillGrid() {
+  return (
+    <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {techStack.map((item) => (
+        <a
+          key={item.id}
+          href={item.href}
+          target="_blank"
+          rel="noreferrer"
+          className="flex h-[9.75rem] flex-col justify-between rounded-2xl border border-edge/70 bg-[#080616] p-3.5 no-underline transition-colors hover:border-accent2/50 sm:h-[18rem] sm:rounded-3xl sm:p-5 lg:p-6"
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}skills/${item.id}.svg`}
+            alt=""
+            className="h-10 w-10 object-contain sm:h-14 sm:w-14 lg:h-16 lg:w-16"
+          />
+          <div>
+            <h3 className="text-sm font-semibold tracking-tight text-ink sm:text-xl">
+              {item.title}
+            </h3>
+            <p className="mt-1 text-xs text-muted sm:text-sm">
+              {item.subtitle}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
 
 export default function StageSkills() {
+  const reduceMotion = useReducedMotion();
+  const items = useMemo(
+    () =>
+      techStack.map((item) => ({
+        src: `${import.meta.env.BASE_URL}skills/${item.id}.svg`,
+        alt: item.alt,
+        title: item.title,
+        subtitle: item.subtitle,
+        href: item.href,
+      })),
+    [],
+  );
+
+  const heading = (
+    <Reveal>
+      <span className="stage-kicker">04 — Technical Skills</span>
+      <h2 id="skills-heading" className="stage-title max-w-2xl">
+        Tech <span className="gradient-role">stack</span>
+      </h2>
+    </Reveal>
+  );
+
+  if (reduceMotion) {
+    return (
+      <section
+        id="skills"
+        className="stage-shell overflow-x-clip py-10 lg:py-14"
+        aria-labelledby="skills-heading"
+      >
+        {heading}
+        <SkillGrid />
+      </section>
+    );
+  }
+
   return (
     <section
       id="skills"
-      className="mx-auto w-full max-w-[92rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-32 xl:px-16"
+      className="stage-shell overflow-x-clip py-10 lg:py-14"
       aria-labelledby="skills-heading"
     >
-      <Reveal>
-        <span className="stage-kicker">05 — Technical Skills</span>
-        <h2 id="skills-heading" className="stage-title max-w-2xl">
-          Tech <span className="gradient-role">stack</span>
-        </h2>
-      </Reveal>
+      {heading}
 
-      <Reveal delay={0.06}>
-        <ul className="mt-12 flex flex-wrap gap-3 sm:gap-4">
-          {featuredSkills.map((item) => (
-            <li
-              key={item}
-              className="rounded-full border border-edge bg-white/[0.03] px-5 py-2.5 text-sm font-medium tracking-tight text-ink sm:text-base"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </Reveal>
-
-      <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((group, index) => (
-          <Reveal key={group.category} delay={0.04 * index}>
-            <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent2">
-              {String(index + 1).padStart(2, "0")} — {group.category}
-            </h3>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <li
-                  key={item}
-                  className="text-sm text-muted after:ml-2 after:text-edge after:content-['/'] last:after:content-none"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        ))}
+      <div className="relative mt-6 h-[22rem] w-full sm:h-[28rem] lg:h-[35rem]">
+        <FlexCarousel
+          items={items}
+          preset="liquid"
+          intro="rise"
+          cardHeight={0.5}
+          gap={12}
+          squeeze={0.2}
+          focusOnClick={false}
+          captions={false}
+          fit="portrait"
+          radius={18}
+          ariaLabel="Tech stack"
+          onSelect={(_index, item) => {
+            if (!item.href) return;
+            window.open(item.href, "_blank", "noopener,noreferrer");
+          }}
+        />
       </div>
     </section>
   );

@@ -1,170 +1,112 @@
-import { useId, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useMemo, useState } from "react";
+import useMediaQuery from "../../hooks/useMediaQuery";
 import Reveal from "../ui/Reveal";
+import FlowingMenu from "../ui/FlowingMenu";
 import { profile, udriveDomains, type ExperienceDomain } from "../../data/cv";
-import { easeOut } from "../../lib/motion";
 
-const figures: Record<string, { value: string; label: string }[]> = {
-  "operations-analytics": [
-    { value: "6", label: "analytics areas" },
-    { value: "10s", label: "driver map polling" },
-  ],
-  "subscription-crm": [
-    { value: "CRM", label: "lead-to-fleet workflows" },
-    { value: "Vite", label: "CRA → Vite migration" },
-  ],
-  "website-apps": [
-    { value: "~20", label: "website routes" },
-    { value: "EN / AR", label: "RTL locales" },
-  ],
-  "kyc-backend": [
-    { value: "KYC", label: "document pipeline" },
-    { value: "Kafka", label: "event processing" },
-  ],
-  "automation-tools": [
-    { value: "~70%", label: "infra cost reduction" },
-    { value: "30%", label: "debt recovery" },
-  ],
+const galleryLabels: Record<string, string> = {
+  "operations-analytics": "Operations",
+  "subscription-crm": "CRM",
+  "website-apps": "Website",
+  "kyc-backend": "KYC",
+  "automation-tools": "Automation",
 };
 
-export default function StageWork() {
-  const [active, setActive] = useState<number | null>(0);
-  const reduceMotion = useReducedMotion();
-  const baseId = useId();
-
+function WorkDetail({
+  domain,
+  index,
+}: {
+  domain: ExperienceDomain;
+  index: number;
+}) {
   return (
-    <section
-      id="work"
-      className="mx-auto w-full max-w-[92rem] px-5 py-24 sm:px-8 lg:px-12 lg:py-32 xl:px-16"
-      aria-labelledby="work-heading"
-    >
-      <Reveal>
-        <span className="stage-kicker">04 — Selected Work</span>
-        <h2 id="work-heading" className="stage-title max-w-3xl">
-          My <span className="gradient-role">Work</span>
-        </h2>
-        <p className="mt-4 max-w-xl text-sm text-muted md:text-base">
-          {profile.workIntro}
-        </p>
-      </Reveal>
-
-      <ol className="mt-16 divide-y divide-edge/70 border-y border-edge/70">
-        {udriveDomains.map((item, index) => {
-          const open = active === index;
-          const panelId = `${baseId}-panel-${item.id}`;
-          const stats = figures[item.id] ?? [];
-          const flip = index % 2 === 1;
-
-          return (
-            <li key={item.id}>
-              <article
-                className={`grid gap-6 py-10 md:grid-cols-[8rem_1fr] md:items-start lg:grid-cols-[10rem_minmax(0,1fr)_14rem] ${
-                  flip
-                    ? "lg:[grid-template-columns:14rem_minmax(0,1fr)_10rem]"
-                    : ""
-                }`}
-              >
-                <p
-                  className={`chapter-num text-5xl md:text-6xl ${
-                    flip ? "lg:order-3 lg:text-right" : ""
-                  }`}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-
-                <div className={flip ? "lg:order-2" : ""}>
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    onClick={() => setActive(open ? null : index)}
-                    className="w-full text-left"
-                  >
-                    <h3 className="max-w-xl text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.18em] text-accent2">
-                      {item.role}
-                    </p>
-                  </button>
-
-                  <ul className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-                    {stats.map((stat) => (
-                      <li key={stat.label}>
-                        <span className="block text-2xl font-semibold tracking-tight text-ink">
-                          {stat.value}
-                        </span>
-                        <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                          {stat.label}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <p
-                  className={`hidden text-sm leading-relaxed text-muted lg:block ${
-                    flip ? "lg:order-1" : ""
-                  }`}
-                >
-                  {item.focus}
-                </p>
-              </article>
-
-              <AnimatePresence initial={false}>
-                {open && (
-                  <motion.div
-                    id={panelId}
-                    initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.45, ease: easeOut }}
-                    className="overflow-hidden"
-                  >
-                    <WorkDetail item={item} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </li>
-          );
-        })}
-      </ol>
-    </section>
+    <article className="px-[clamp(1rem,4vw,2.5rem)] pb-5 pt-3 text-left sm:pb-6 sm:pt-4">
+      <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-accent2 sm:tracking-[0.2em]">
+        {String(index + 1).padStart(2, "0")} ·{" "}
+        {galleryLabels[domain.id] ?? domain.role} · {domain.role}
+      </p>
+      <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+        {domain.title}
+      </h3>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+        {domain.ownership}
+      </p>
+      <ul className="mt-4 grid max-w-4xl gap-2 text-sm text-ink/85 sm:grid-cols-2">
+        {domain.contributions.map((line) => (
+          <li
+            key={line}
+            className="border-l border-accent2/40 pl-3 leading-relaxed"
+          >
+            {line}
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 break-words font-mono text-[10px] uppercase tracking-[0.08em] text-accent2/90 sm:tracking-[0.16em] sm:text-[11px]">
+        {domain.tech.join(" · ")}
+      </p>
+    </article>
   );
 }
 
-function WorkDetail({ item }: { item: ExperienceDomain }) {
+export default function StageWork() {
+  const compact = useMediaQuery("(max-width: 1023px)");
+  const [active, setActive] = useState(-1);
+
+  const items = useMemo(
+    () =>
+      udriveDomains.map((item, index) => ({
+        text: galleryLabels[item.id] ?? item.role,
+        marquee: galleryLabels[item.id] ?? item.role,
+        meta: item.role,
+        detail: <WorkDetail domain={item} index={index} />,
+      })),
+    [],
+  );
+
   return (
-    <div className="grid gap-8 pb-12 md:grid-cols-[8rem_1fr] lg:grid-cols-[10rem_1fr_14rem]">
-      <div className="hidden md:block" />
-      <div>
-        <p className="max-w-2xl text-sm leading-relaxed text-muted md:text-base">
-          {item.ownership}
-        </p>
-        <h4 className="mt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-accent2">
-          Key contributions
-        </h4>
-        <ul className="mt-3 max-w-2xl space-y-2.5">
-          {item.contributions.map((point) => (
-            <li
-              key={point.slice(0, 48)}
-              className="border-l border-edge pl-3 text-sm leading-relaxed text-muted"
-            >
-              {point}
-            </li>
-          ))}
-        </ul>
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {item.tech.map((tech) => (
-            <li
-              key={tech}
-              className="rounded-full border border-edge/80 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ink"
-            >
-              {tech}
-            </li>
-          ))}
-        </ul>
+    <section
+      className="overflow-x-clip py-10 lg:py-14"
+      aria-labelledby="work-heading"
+    >
+      <div id="work" className="h-0 scroll-mt-5" />
+      <div className="stage-shell">
+        <Reveal className="text-center">
+          <span className="stage-kicker">03 — Selected Work</span>
+          <h2
+            id="work-heading"
+            className="stage-title mx-auto mt-1.5 max-w-2xl"
+          >
+            My <span className="gradient-role">Work</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-muted sm:text-base">
+            {profile.workIntro}
+          </p>
+        </Reveal>
+
+        <div className="relative mt-5 w-full sm:mt-6">
+          <FlowingMenu
+            items={items}
+            speed={48}
+            direction="alternate"
+            stretch={0.6}
+            magnet={0.25}
+            followCursor={compact ? 0 : 0.4}
+            showIndex
+            dimInactive
+            align={compact ? "left" : "center"}
+            intro={!compact}
+            activeIndex={active}
+            onActiveIndexChange={setActive}
+            onItemClick={(_item, index) => setActive(index)}
+            textColor="#fafafc"
+            bgColor="transparent"
+            marqueeBgColor="#a8a2ff"
+            marqueeTextColor="#02010a"
+            borderColor="rgba(168, 162, 255, 0.22)"
+            ariaLabel="Production work at Udrive"
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

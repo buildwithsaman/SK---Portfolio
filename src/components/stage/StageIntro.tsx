@@ -1,14 +1,23 @@
 import { useEffect } from "react";
 import { useReducedMotion } from "framer-motion";
+import {
+  INTRO_FADE_MS,
+  INTRO_HOLD_100_MS,
+  INTRO_LOAD_MS,
+  INTRO_TOTAL_MS,
+  INTRO_WELCOME_MS,
+} from "../../lib/introTiming";
 
-const STORAGE_KEY = "sk-intro-seen";
-const MARQUEE_MS = 720;
-const WELCOME_MS = 900;
-const FADE_MS = 280;
+function pinToTop() {
+  window.scrollTo(0, 0);
+}
 
 function applyLandingHash() {
   const id = window.location.hash.replace(/^#/, "");
-  if (!id) return;
+  if (!id || id === "home" || id === "about") {
+    pinToTop();
+    return;
+  }
   requestAnimationFrame(() => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "auto",
@@ -21,24 +30,9 @@ function revealStage() {
   window.dispatchEvent(new Event("stage-intro-done"));
 }
 
-function markSeen() {
-  try {
-    sessionStorage.setItem(STORAGE_KEY, "1");
-  } catch {
-    /* private mode */
-  }
-}
-
 function shouldSkipIntro(reduceMotion: boolean | null) {
   if (reduceMotion) return true;
-  if (document.documentElement.getAttribute("data-skip-intro") === "true") {
-    return true;
-  }
-  try {
-    return sessionStorage.getItem(STORAGE_KEY) === "1";
-  } catch {
-    return false;
-  }
+  return document.documentElement.getAttribute("data-skip-intro") === "true";
 }
 
 function clearIntroInert() {
@@ -86,7 +80,6 @@ function dismissBoot() {
 }
 
 function finishIntro(immediate = false) {
-  markSeen();
   revealStage();
   const boot = document.getElementById("stage-boot");
   if (immediate || !boot) {
@@ -94,7 +87,18 @@ function finishIntro(immediate = false) {
     return;
   }
   boot.classList.add("is-exiting");
-  window.setTimeout(dismissBoot, FADE_MS);
+  window.setTimeout(dismissBoot, INTRO_FADE_MS);
+}
+
+type IntroPhase = "load" | "welcome" | "exiting" | "done";
+
+function phaseAt(elapsed: number): IntroPhase {
+  if (elapsed < INTRO_LOAD_MS + INTRO_HOLD_100_MS) return "load";
+  if (elapsed < INTRO_LOAD_MS + INTRO_HOLD_100_MS + INTRO_WELCOME_MS) {
+    return "welcome";
+  }
+  if (elapsed < INTRO_TOTAL_MS) return "exiting";
+  return "done";
 }
 
 /** Cinematic intro over #stage-boot, then fade into the hero. */
@@ -102,6 +106,10 @@ export default function StageIntro() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
     const boot = document.getElementById("stage-boot");
     if (!boot) {
       revealStage();
@@ -111,27 +119,45 @@ export default function StageIntro() {
 
     if (reduceMotion === null) return;
 
-    if (shouldSkipIntro(reduceMotion)) {
+    if (
+      shouldSkipIntro(reduceMotion) ||
+      boot.getAttribute("data-done") === "true"
+    ) {
       revealStage();
       dismissBoot();
       return;
     }
 
     let cancelled = false;
-    let welcomeTimer = 0;
-    let fadeTimer = 0;
+    let raf = 0;
+    let finished = false;
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    pinToTop();
     document.body.style.overflow = "hidden";
     setPageInert(true);
 
-    const skip = () => {
-      if (cancelled) return;
+    if (!boot.dataset.introT0) {
+      boot.dataset.introT0 = String(performance.now());
+    }
+    const startedAt = Number(boot.dataset.introT0);
+
+    const complete = (immediate: boolean) => {
+      if (finished) return;
+      finished = true;
       cancelled = true;
-      window.clearTimeout(welcomeTimer);
-      window.clearTimeout(fadeTimer);
+      window.cancelAnimationFrame(raf);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onPointer, true);
-      finishIntro(true);
+      finishIntro(immediate);
     };
+
+    const skip = () => {
+      if (cancelled) return;
+      complete(true);
+    };
+
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -141,34 +167,36 @@ export default function StageIntro() {
     const onPointer = (event: Event) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
-      if (target.closest(".skip-link") || target.closest("#stage-boot")) {
-        skip();
-      }
+      if (target.closest(".skip-link")) skip();
     };
 
     window.addEventListener("keydown", onKey);
     window.addEventListener("click", onPointer, true);
 
-    welcomeTimer = window.setTimeout(() => {
+    const tick = (now: number) => {
       if (cancelled) return;
-      boot.classList.add("is-welcome");
-      fadeTimer = window.setTimeout(() => {
-        if (cancelled) return;
-        cancelled = true;
-        window.removeEventListener("keydown", onKey);
-        window.removeEventListener("click", onPointer, true);
-        finishIntro(false);
-      }, WELCOME_MS);
-    }, MARQUEE_MS);
+      const elapsed = now - startedAt;
+      const phase = phaseAt(elapsed);
+
+      if (phase !== "load") {
+        boot.classList.add("is-welcome");
+      }
+
+      if (phase === "exiting" || phase === "done") {
+        complete(phase === "done");
+        return;
+      }
+
+      raf = window.requestAnimationFrame(tick);
+    };
+
+    raf = window.requestAnimationFrame(tick);
 
     return () => {
       cancelled = true;
-      window.clearTimeout(welcomeTimer);
-      window.clearTimeout(fadeTimer);
+      window.cancelAnimationFrame(raf);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onPointer, true);
-      document.body.style.overflow = "";
-      setPageInert(false);
     };
   }, [reduceMotion]);
 

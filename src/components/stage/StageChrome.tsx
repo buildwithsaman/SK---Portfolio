@@ -1,87 +1,157 @@
-import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { navLinks, profile, stageActs } from "../../data/cv";
-import { easeOut } from "../../lib/motion";
-import Magnetic from "../ui/Magnetic";
-import HoverLink from "../ui/HoverLink";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import { useReducedMotion } from "framer-motion";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Briefcase01Icon,
+  Home01Icon,
+  Layers01Icon,
+  Mail01Icon,
+  SourceCodeIcon,
+} from "@hugeicons/core-free-icons";
+import { navLinks } from "../../data/cv";
+import { introAlreadyComplete } from "../../lib/introTiming";
+import GooeyNav, { type GooeyNavItem } from "../ui/GooeyNav";
 
 /** Document-order sections mapped onto existing nav items. */
 const NAV_SECTIONS: { id: string; nav: string }[] = [
   { id: "home", nav: "home" },
-  { id: "about", nav: "about" },
-  { id: "highlights", nav: "about" },
+  { id: "highlights", nav: "home" },
   { id: "career", nav: "career" },
   { id: "work", nav: "work" },
   { id: "skills", nav: "skills" },
   { id: "contact", nav: "contact" },
 ];
 
+const TAB_ICONS: Record<string, ReactNode> = {
+  home: <HugeiconsIcon icon={Home01Icon} size={18} strokeWidth={1.8} />,
+  career: <HugeiconsIcon icon={Briefcase01Icon} size={18} strokeWidth={1.8} />,
+  work: <HugeiconsIcon icon={Layers01Icon} size={18} strokeWidth={1.8} />,
+  skills: <HugeiconsIcon icon={SourceCodeIcon} size={18} strokeWidth={1.8} />,
+  contact: <HugeiconsIcon icon={Mail01Icon} size={18} strokeWidth={1.8} />,
+};
+
 function sectionIdFromHash(hash: string): string | null {
   const id = hash.replace(/^#/, "");
-  if (stageActs.some((act) => act.id === id)) return id;
-  if (id === "highlights") return "about";
+  if (id === "about") return "home";
+  if (id === "highlights") return "highlights";
+  if (navLinks.some((link) => link.id === id)) return id;
   return null;
 }
 
 function scrollToSection(id: string, behavior: ScrollBehavior = "smooth") {
+  if (id === "home") {
+    window.scrollTo({ top: 0, left: 0, behavior });
+    return;
+  }
   document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
 }
 
+function spySection(): string {
+  const marker = window.innerHeight * 0.42;
+  let current = "home";
+  for (const section of NAV_SECTIONS) {
+    const el = document.getElementById(section.id);
+    if (!el) continue;
+    if (el.getBoundingClientRect().top <= marker) current = section.nav;
+  }
+  return current;
+}
+
+function sectionReached(id: string): boolean {
+  const el = document.getElementById(id);
+  if (!el) return false;
+  const top = el.getBoundingClientRect().top;
+  const marker = window.innerHeight * 0.42;
+  return top <= marker && top > -96;
+}
+
 export default function StageChrome() {
-  const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
-  const [pastHero, setPastHero] = useState(false);
+  const [hoverNav, setHoverNav] = useState(false);
   const reduceMotion = useReducedMotion();
-  const menuId = useId();
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const preferSmooth = !reduceMotion;
+  const lockRef = useRef<string | null>(null);
+  const lockTimer = useRef(0);
+
+  const releaseLock = useCallback(() => {
+    window.clearTimeout(lockTimer.current);
+    lockRef.current = null;
+  }, []);
+
+  const holdActive = useCallback(
+    (id: string) => {
+      lockRef.current = id;
+      setActive(id);
+      window.clearTimeout(lockTimer.current);
+      lockTimer.current = window.setTimeout(releaseLock, 1400);
+    },
+    [releaseLock],
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const sync = () => setHoverNav(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const measure = () => {
-      const marker = window.innerHeight * 0.42;
-      let current = "home";
-      for (const section of NAV_SECTIONS) {
-        const el = document.getElementById(section.id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= marker) current = section.nav;
+      const locked = lockRef.current;
+      if (locked) {
+        if (sectionReached(locked) || spySection() === locked) {
+          releaseLock();
+        } else {
+          return;
+        }
       }
-      setActive(current);
+      setActive(spySection());
     };
 
     measure();
     window.addEventListener("scroll", measure, { passive: true });
     window.addEventListener("resize", measure);
+    window.addEventListener("scrollend", releaseLock);
     return () => {
       window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
+      window.removeEventListener("scrollend", releaseLock);
+      window.clearTimeout(lockTimer.current);
     };
-  }, []);
+  }, [releaseLock]);
 
-  useEffect(() => {
-    const onScroll = () =>
-      setPastHero(window.scrollY > window.innerHeight * 0.55);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Direct hash URLs + browser back/forward (popstate + hashchange)
   useEffect(() => {
     const applyHash = (
       behavior: ScrollBehavior,
-      opts?: { homeIfEmpty?: boolean },
+      opts?: { homeIfEmpty?: boolean; lock?: boolean },
     ) => {
       const id = sectionIdFromHash(window.location.hash);
       requestAnimationFrame(() => {
-        if (id) scrollToSection(id, behavior);
-        else if (opts?.homeIfEmpty && !window.location.hash) {
+        const lock = opts?.lock !== false;
+        if (id) {
+          if (lock) holdActive(id === "highlights" ? "home" : id);
+          scrollToSection(id, behavior);
+        } else if (opts?.homeIfEmpty && !window.location.hash) {
+          if (lock) holdActive("home");
           scrollToSection("home", behavior);
         }
       });
     };
 
-    applyHash("auto");
+    const runLanding = () =>
+      applyHash("auto", { lock: false, homeIfEmpty: true });
+    if (introAlreadyComplete(reduceMotion)) {
+      runLanding();
+    } else {
+      window.addEventListener("stage-intro-done", runLanding, { once: true });
+    }
 
     const behavior = preferSmooth ? "smooth" : "auto";
     const onHashChange = () => applyHash(behavior);
@@ -90,253 +160,61 @@ export default function StageChrome() {
     window.addEventListener("hashchange", onHashChange);
     window.addEventListener("popstate", onPopState);
     return () => {
+      window.removeEventListener("stage-intro-done", runLanding);
       window.removeEventListener("hashchange", onHashChange);
       window.removeEventListener("popstate", onPopState);
     };
-  }, [preferSmooth]);
+  }, [preferSmooth, holdActive, reduceMotion]);
 
-  useEffect(() => {
-    const main = document.getElementById("main-content");
-    if (open) {
-      document.body.style.overflow = "hidden";
-      main?.setAttribute("aria-hidden", "true");
-      const focusable = menuRef.current?.querySelector<HTMLElement>(
-        "a[href], button:not([disabled])",
-      );
-      focusable?.focus();
-    } else {
-      document.body.style.overflow = "";
-      main?.removeAttribute("aria-hidden");
-    }
-    return () => {
-      document.body.style.overflow = "";
-      main?.removeAttribute("aria-hidden");
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        menuButtonRef.current?.focus();
-        return;
+  const goToSection = useCallback(
+    (id: string) => {
+      holdActive(id);
+      const nextHash = `#${id}`;
+      if (window.location.hash !== nextHash) {
+        window.history.pushState(null, "", nextHash);
       }
-      if (e.key !== "Tab" || !menuRef.current) return;
-      const focusable = [
-        ...menuRef.current.querySelectorAll<HTMLElement>(
-          "a[href], button:not([disabled])",
-        ),
-      ];
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+      scrollToSection(id, preferSmooth ? "smooth" : "auto");
+    },
+    [preferSmooth, holdActive],
+  );
 
-  const onNavClick = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
-      return;
-    }
-    event.preventDefault();
-    setOpen(false);
-    const nextHash = `#${id}`;
-    if (window.location.hash !== nextHash) {
-      window.history.pushState(null, "", nextHash);
-    }
-    scrollToSection(id, preferSmooth ? "smooth" : "auto");
-  };
+  const tabItems: GooeyNavItem[] = navLinks.map((link) => ({
+    label: link.label,
+    href: `#${link.id}`,
+    icon: TAB_ICONS[link.id],
+  }));
 
-  const linkClass = (id: string) =>
-    `px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] xl:px-3 ${
-      active === id ? "text-ink" : "text-muted"
-    }`;
+  const activeTab = Math.max(
+    0,
+    navLinks.findIndex((link) => link.id === active),
+  );
 
   return (
-    <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-        <div className="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:gap-3 sm:py-4 md:px-8">
-          <a
-            href="#home"
-            onClick={(e) => onNavClick(e, "home")}
-            className="relative font-mono text-sm tracking-[0.22em] text-ink transition-colors hover:text-accent2"
-            aria-label="SK home"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {pastHero ? (
-                <motion.span
-                  key="mark"
-                  initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.25, ease: easeOut }}
-                  className="inline-flex items-center gap-2"
-                >
-                  <img
-                    src="/logo-mark.svg"
-                    alt=""
-                    width={22}
-                    height={22}
-                    className="h-5 w-5 object-contain"
-                  />
-                  SK
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="sk"
-                  initial={reduceMotion ? false : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  SK
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </a>
-
-          <nav
-            className="hidden items-center gap-0.5 lg:flex"
-            aria-label="Primary"
-          >
-            {navLinks.map((link) => (
-              <HoverLink
-                key={link.id}
-                href={`#${link.id}`}
-                text={link.label}
-                current={active === link.id}
-                onClick={(e) => onNavClick(e, link.id)}
-                className={linkClass(link.id)}
-              />
-            ))}
-          </nav>
-
-          <div className="flex shrink-0 items-center gap-2">
-            <Magnetic strength={8}>
-              <a
-                href={profile.resume}
-                download={profile.resumeName}
-                className="inline-flex items-center gap-1.5 rounded-full border border-edge/80 bg-paper/60 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-ink backdrop-blur-md transition-colors hover:border-accent2/50 hover:text-accent2 sm:gap-2 sm:px-3.5"
-              >
-                <span className="sm:hidden">CV</span>
-                <span className="hidden sm:inline">Download CV</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            </Magnetic>
-            <button
-              ref={menuButtonRef}
-              type="button"
-              className="grid h-11 w-11 place-items-center rounded-full border border-edge/80 bg-paper/60 backdrop-blur-md lg:hidden"
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-              aria-controls={menuId}
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span aria-hidden="true" className="font-mono text-xs">
-                {open ? "✕" : "☰"}
-              </span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <nav
-        className="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2 xl:flex"
-        aria-label="Section progress"
-      >
-        {stageActs.map((act) => (
-          <a
-            key={act.id}
-            href={`#${act.id}`}
-            onClick={(e) => onNavClick(e, act.id)}
-            className="pointer-events-auto group flex min-h-6 items-center justify-end gap-2 py-1.5"
-            aria-current={active === act.id ? "true" : undefined}
-            aria-label={act.name}
-            title={act.name}
-          >
-            <span
-              className={`font-mono text-[9px] uppercase tracking-wider transition-opacity ${
-                active === act.id
-                  ? "text-accent2 opacity-0 group-hover:opacity-100"
-                  : "text-muted opacity-0 group-hover:opacity-70"
-              }`}
-            >
-              {act.name}
-            </span>
-            <span
-              className={`block h-1.5 rounded-full transition-all duration-300 ${
-                active === act.id
-                  ? "w-6 bg-accent2"
-                  : "w-2 bg-white/25 group-hover:bg-white/50"
-              }`}
-            />
-          </a>
-        ))}
-      </nav>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            ref={menuRef}
-            id={menuId}
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-paper px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-20 lg:hidden"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site menu"
-          >
-            <div className="flex min-h-0 flex-1 flex-col justify-center gap-1 overflow-y-auto">
-              {stageActs.map((act, i) => (
-                <motion.a
-                  key={act.id}
-                  href={`#${act.id}`}
-                  initial={reduceMotion ? false : { opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 * i, duration: 0.4, ease: easeOut }}
-                  onClick={(e) => onNavClick(e, act.id)}
-                  className="flex items-baseline gap-4 border-b border-edge/60 py-3 text-left sm:py-4"
-                  aria-current={active === act.id ? "page" : undefined}
-                >
-                  <span className="font-mono text-xs text-accent2">
-                    {act.label}
-                  </span>
-                  <span className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                    {act.name}
-                  </span>
-                </motion.a>
-              ))}
-            </div>
-            <div className="mt-4 flex shrink-0 flex-col gap-3">
-              <a
-                href={`mailto:${profile.email}`}
-                onClick={() => setOpen(false)}
-                className="cta-solid justify-center bg-gradient-to-r from-accent2 to-accent text-paper"
-              >
-                Contact Me
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[70] flex justify-center px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2 lg:bottom-auto lg:top-0 lg:pb-2 lg:pt-[max(0.7rem,env(safe-area-inset-top))]">
+      <div className="pointer-events-auto w-full max-w-[26.5rem] lg:max-w-[32rem]">
+        <GooeyNav
+          items={tabItems}
+          activeIndex={activeTab}
+          theme="dark"
+          size="sm"
+          frame
+          color="#a8a2ff"
+          activeTextColor="#02010a"
+          colors={["#0d00a4", "#22007c", "#a8a2ff"]}
+          particleCount={12}
+          spread={40}
+          animationTime={560}
+          timeVariance={240}
+          gooeyness={0.55}
+          wobble={0.45}
+          hoverEffect={hoverNav}
+          className="gooey-nav--app"
+          onChange={(_, item) => {
+            const id = item.href?.replace(/^#/, "") || "home";
+            goToSection(id);
+          }}
+        />
+      </div>
+    </div>
   );
 }

@@ -65,7 +65,7 @@ export default function IdentityRig({
     >
       {pointerOn && (
         <motion.div
-          className="pointer-events-none absolute h-56 w-56 rounded-full bg-[radial-gradient(circle,rgb(var(--accent2)/0.22),transparent_68%)]"
+          className="pointer-events-none absolute h-56 w-56 rounded-full bg-[radial-gradient(circle,rgb(var(--navy-electric)/0.14),transparent_68%)]"
           style={{ left: glowX, top: glowY, x: "-50%", y: "-50%" }}
         />
       )}
@@ -73,22 +73,14 @@ export default function IdentityRig({
       <svg viewBox="0 0 520 560" className="relative h-full w-full" fill="none">
         <defs>
           <linearGradient id={`${uid}-ring`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="rgb(45 212 191)" stopOpacity="0.9" />
-            <stop
-              offset="55%"
-              stopColor="rgb(167 139 250)"
-              stopOpacity="0.75"
-            />
-            <stop
-              offset="100%"
-              stopColor="rgb(45 212 191)"
-              stopOpacity="0.35"
-            />
+            <stop offset="0%" stopColor="rgb(13 0 164)" stopOpacity="0.9" />
+            <stop offset="55%" stopColor="rgb(34 0 124)" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="rgb(13 0 164)" stopOpacity="0.35" />
           </linearGradient>
           <radialGradient id={`${uid}-core`} cx="50%" cy="46%" r="50%">
-            <stop offset="0%" stopColor="rgb(45 212 191)" stopOpacity="0.28" />
-            <stop offset="55%" stopColor="rgb(88 40 180)" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="rgb(8 6 10)" stopOpacity="0" />
+            <stop offset="0%" stopColor="rgb(13 0 164)" stopOpacity="0.28" />
+            <stop offset="55%" stopColor="rgb(20 1 82)" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="rgb(2 1 10)" stopOpacity="0" />
           </radialGradient>
           <filter
             id={`${uid}-soft`}
@@ -107,12 +99,12 @@ export default function IdentityRig({
           width="448"
           height="464"
           rx="28"
-          stroke="rgb(38 34 48)"
+          stroke="rgb(20 1 82)"
           strokeWidth="1.2"
         />
         <path
           d="M36 92 V62 h30 M448 62 h30 v30 M478 468 v30 h-30 M66 498 H36 v-30"
-          stroke="rgb(45 212 191)"
+          stroke="rgb(13 0 164)"
           strokeWidth="1.6"
           strokeOpacity="0.85"
         />
@@ -130,7 +122,7 @@ export default function IdentityRig({
                 y1={Math.sin(a) * inner}
                 x2={Math.cos(a) * 176}
                 y2={Math.sin(a) * 176}
-                stroke="rgb(167 139 250)"
+                stroke="rgb(34 0 124)"
                 strokeOpacity={i % 9 === 0 ? 0.7 : 0.28}
                 strokeWidth={i % 9 === 0 ? 1.4 : 0.7}
               />
@@ -156,7 +148,7 @@ export default function IdentityRig({
               cy="0"
               rx="108"
               ry="148"
-              stroke="rgb(45 212 191)"
+              stroke="rgb(13 0 164)"
               strokeOpacity="0.35"
               strokeWidth="0.9"
               strokeDasharray="2 10"
@@ -178,7 +170,7 @@ export default function IdentityRig({
           stroke={`url(#${uid}-ring)`}
           strokeWidth="1.4"
         />
-        <circle cx="260" cy="280" r="5" fill="rgb(45 212 191)" />
+        <circle cx="260" cy="280" r="5" fill="rgb(13 0 164)" />
 
         <motion.g
           style={
@@ -189,14 +181,14 @@ export default function IdentityRig({
         >
           <path
             d={PATH}
-            stroke="rgb(167 139 250)"
+            stroke="rgb(34 0 124)"
             strokeOpacity="0.55"
             strokeWidth="1.1"
             filter={`url(#${uid}-soft)`}
           />
           <path
             d={PATH}
-            stroke="rgb(45 212 191)"
+            stroke="rgb(13 0 164)"
             strokeOpacity="0.8"
             strokeWidth="0.7"
           />
@@ -206,8 +198,8 @@ export default function IdentityRig({
                 cx={node.x}
                 cy={node.y}
                 r={i === 6 ? 5.5 : 3.4}
-                fill={i === 6 ? "rgb(45 212 191)" : "rgb(11 8 14)"}
-                stroke="rgb(45 212 191)"
+                fill={i === 6 ? "rgb(13 0 164)" : "rgb(2 1 10)"}
+                stroke="rgb(13 0 164)"
                 strokeWidth="1.1"
               />
             </g>
@@ -217,7 +209,7 @@ export default function IdentityRig({
         <motion.line
           x1="86"
           x2="434"
-          stroke="rgb(45 212 191)"
+          stroke="rgb(13 0 164)"
           strokeOpacity="0.35"
           strokeWidth="0.8"
           style={{ y: sweep }}
@@ -227,7 +219,7 @@ export default function IdentityRig({
           x="260"
           y="478"
           textAnchor="middle"
-          fill="rgb(148 148 158)"
+          fill="rgb(148 144 176)"
           fontFamily="ui-monospace, monospace"
           fontSize="11"
           letterSpacing="0.28em"
@@ -238,7 +230,7 @@ export default function IdentityRig({
           x="260"
           y="86"
           textAnchor="middle"
-          fill="rgb(45 212 191)"
+          fill="rgb(13 0 164)"
           fontFamily="ui-monospace, monospace"
           fontSize="10"
           letterSpacing="0.34em"

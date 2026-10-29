@@ -56,7 +56,7 @@ export function buildJsonLd(): string {
         telephone: profile.phoneHref.replace(/^tel:/, ""),
         hasOccupation: {
           "@type": "Occupation",
-          name: "Software Engineer",
+          name: profile.title,
           occupationLocation: {
             "@type": "City",
             name: profile.locationFull,
@@ -155,6 +155,18 @@ export function applySeoHead(html: string): string {
   next = setMetaContent(next, "property", "og:description", description);
   next = setMetaContent(next, "name", "twitter:title", title);
   next = setMetaContent(next, "name", "twitter:description", description);
+  next = setMetaContent(
+    next,
+    "property",
+    "og:image:alt",
+    `${escAttr(profile.name)}, ${escAttr(profile.title)} in Dubai`,
+  );
+  next = setMetaContent(
+    next,
+    "name",
+    "twitter:image:alt",
+    `${escAttr(profile.name)}, ${escAttr(profile.title)} in Dubai`,
+  );
   next = next.replace(
     /(<link\s+rel="canonical"\s+href=")[^"]*(")/,
     `$1${origin}/$2`,

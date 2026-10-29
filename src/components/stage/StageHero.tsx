@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { heroRoles, profile } from "../../data/cv";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { INTRO_TOTAL_MS, introAlreadyComplete } from "../../lib/introTiming";
 import { easeOut } from "../../lib/motion";
 import Magnetic from "../ui/Magnetic";
-import IdentityRig from "./IdentityRig";
+import StageFigure from "./StageFigure";
 
 const roles = [...heroRoles];
 
-const longestRole = roles.reduce((a, b) => (a.length >= b.length ? a : b));
-
 const roleTextClass =
-  "gradient-role text-[1.15rem] font-semibold leading-snug tracking-tight sm:text-3xl md:text-4xl";
+  "gradient-role text-[1.05rem] font-semibold leading-snug tracking-tight sm:text-2xl md:text-[2rem] min-[1800px]:text-4xl";
 
 const char = {
   hidden: { opacity: 0, y: 72, filter: "blur(8px)" },
@@ -21,20 +21,6 @@ const char = {
     transition: { duration: 0.85, ease: easeOut },
   },
 };
-
-function introAlreadyComplete(reduceMotion: boolean | null) {
-  if (reduceMotion) return true;
-  if (document.documentElement.getAttribute("data-skip-intro") === "true") {
-    return true;
-  }
-  const boot = document.getElementById("stage-boot");
-  if (!boot || boot.getAttribute("data-done") === "true") return true;
-  try {
-    return sessionStorage.getItem("sk-intro-seen") === "1";
-  } catch {
-    return false;
-  }
-}
 
 function SplitLine({ text, className }: { text: string; className?: string }) {
   return (
@@ -60,6 +46,8 @@ function SplitLine({ text, className }: { text: string; className?: string }) {
 
 export default function StageHero() {
   const reduceMotion = useReducedMotion();
+  const mobile = useMediaQuery("(max-width: 767px)");
+  const staticHero = Boolean(reduceMotion || mobile);
   const [ready, setReady] = useState(() => introAlreadyComplete(reduceMotion));
   const [role, setRole] = useState(0);
 
@@ -87,7 +75,10 @@ export default function StageHero() {
       });
     }
 
-    const fallback = window.setTimeout(() => setReady(true), 2400);
+    const fallback = window.setTimeout(
+      () => setReady(true),
+      INTRO_TOTAL_MS + 1200,
+    );
     return () => {
       window.removeEventListener("stage-intro-done", onDone);
       observer.disconnect();
@@ -96,32 +87,33 @@ export default function StageHero() {
   }, [reduceMotion]);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (staticHero || !ready) return;
+    setRole(0);
     const id = window.setInterval(() => {
       setRole((current) => (current + 1) % roles.length);
     }, 3200);
     return () => window.clearInterval(id);
-  }, [reduceMotion]);
+  }, [staticHero, ready]);
 
-  const showMotion = !reduceMotion && ready;
+  const showMotion = !staticHero && ready;
 
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)]"
+      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)] max-md:min-h-0 max-md:items-start max-md:pb-[max(6.75rem,calc(env(safe-area-inset-bottom)+5.5rem))] lg:pt-[max(6.25rem,env(safe-area-inset-top)+5rem)]"
     >
       <div className="stage-noise pointer-events-none absolute inset-[-8%] z-0" />
 
       <motion.div
-        className="relative z-[3] mx-auto grid w-full max-w-[92rem] items-center gap-8 px-5 pb-16 sm:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.7fr)] lg:gap-6 lg:px-12 lg:pb-10 xl:px-16"
-        initial={reduceMotion ? false : "hidden"}
-        animate={showMotion ? "show" : reduceMotion ? undefined : "hidden"}
+        className="stage-shell relative z-[3] grid items-center gap-8 pb-16 max-md:pb-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.7fr)] lg:gap-6 lg:pb-10 2xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
+        initial={staticHero ? false : "hidden"}
+        animate={showMotion ? "show" : staticHero ? undefined : "hidden"}
         variants={{
           hidden: {},
           show: { transition: { staggerChildren: 0.08 } },
         }}
       >
-        <div className="relative z-[4] max-w-3xl">
+        <div className="relative z-[4] max-w-3xl 2xl:max-w-4xl min-[1800px]:max-w-5xl">
           <motion.p
             className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent2 sm:text-[11px]"
             variants={{
@@ -138,13 +130,13 @@ export default function StageHero() {
 
           <h1 className="mt-4">
             <span className="sr-only">
-              {profile.name} — {profile.title}
+              {profile.name}, {profile.title}
             </span>
             <span
               aria-hidden="true"
-              className="display-name block text-[clamp(3.4rem,12vw,9.25rem)] text-ink"
+              className="display-name block text-[clamp(3.4rem,8vw,13rem)] text-ink"
             >
-              {reduceMotion ? (
+              {staticHero ? (
                 <>
                   <span className="block">Saman</span>
                   <span className="block">Khan</span>
@@ -158,21 +150,28 @@ export default function StageHero() {
             </span>
           </h1>
 
-          <div className="relative mt-5 sm:mt-7">
-            <p className={`${roleTextClass} invisible select-none`} aria-hidden>
-              {longestRole}
-            </p>
-            {reduceMotion ? (
+          <div className="relative mt-5 overflow-hidden sm:mt-7">
+            <div className="grid" aria-hidden="true">
+              {roles.map((line) => (
+                <p
+                  key={line}
+                  className={`${roleTextClass} invisible col-start-1 row-start-1 select-none`}
+                >
+                  {line}
+                </p>
+              ))}
+            </div>
+            {staticHero || !showMotion ? (
               <p className={`absolute inset-0 ${roleTextClass}`}>{roles[0]}</p>
             ) : (
-              <AnimatePresence initial={false} mode="sync">
+              <AnimatePresence initial={false} mode="wait">
                 <motion.p
                   key={roles[role]}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.4, ease: easeOut }}
-                  className={`pointer-events-none absolute inset-0 ${roleTextClass}`}
+                  exit={{ opacity: 0, y: -14 }}
+                  transition={{ duration: 0.32, ease: easeOut }}
+                  className={`absolute inset-0 ${roleTextClass}`}
                 >
                   {roles[role]}
                 </motion.p>
@@ -195,6 +194,20 @@ export default function StageHero() {
           </motion.p>
 
           <motion.p
+            className="mt-3 max-w-md text-sm leading-relaxed text-muted/80"
+            variants={{
+              hidden: { opacity: 0, y: 14 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.65, ease: easeOut },
+              },
+            }}
+          >
+            {profile.heroSupport}
+          </motion.p>
+
+          <motion.p
             className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted"
             variants={{
               hidden: { opacity: 0 },
@@ -205,7 +218,7 @@ export default function StageHero() {
           </motion.p>
 
           <motion.div
-            className="mt-8"
+            className="mt-6 flex flex-wrap gap-3 sm:mt-8"
             variants={{
               hidden: { opacity: 0, y: 16 },
               show: {
@@ -220,16 +233,27 @@ export default function StageHero() {
                 Explore My Work
               </a>
             </Magnetic>
+            <Magnetic>
+              <a
+                href={profile.resume}
+                download={profile.resumeName}
+                className="cta-ghost"
+              >
+                Download CV ↗
+              </a>
+            </Magnetic>
           </motion.div>
         </div>
 
-        <div
-          className={`flex justify-center max-sm:pointer-events-none max-sm:absolute max-sm:-right-[46%] max-sm:top-0 max-sm:z-0 max-sm:origin-top-right max-sm:scale-[0.68] max-sm:opacity-[0.16] max-[360px]:-right-[54%] max-[360px]:opacity-[0.12] sm:relative sm:z-[1] sm:scale-100 sm:opacity-100 ${
-            reduceMotion ? "xl:justify-end" : "xl:hidden"
-          }`}
-        >
-          <IdentityRig compact />
-        </div>
+        {mobile ? null : (
+          <div
+            className={`flex justify-center ${
+              reduceMotion ? "xl:justify-end" : "xl:hidden"
+            }`}
+          >
+            <StageFigure compact />
+          </div>
+        )}
       </motion.div>
     </section>
   );

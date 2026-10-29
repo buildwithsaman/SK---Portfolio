@@ -8,10 +8,10 @@
     />
 
     <!-- Primary SEO -->
-    <title>Saman Khan | Software Engineer & Frontend Developer in Dubai</title>
+    <title>Saman Khan | Software Engineer in Dubai</title>
     <meta
       name="description"
-      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
+      content="Frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
     />
     <meta name="author" content="Saman Khan" />
     <meta
@@ -24,7 +24,7 @@
 
     <!-- Identity / locale -->
     <meta name="application-name" content="Saman Khan" />
-    <meta name="theme-color" content="#08060a" />
+    <meta name="theme-color" content="#010005" />
     <meta name="color-scheme" content="dark" />
     <meta name="format-detection" content="telephone=no" />
     <link rel="me" href="https://github.com/buildwithsaman" />
@@ -45,11 +45,11 @@
     <meta property="og:url" content="https://buildwithsaman.dev/" />
     <meta
       property="og:title"
-      content="Saman Khan | Software Engineer & Frontend Developer in Dubai"
+      content="Saman Khan | Software Engineer in Dubai"
     />
     <meta
       property="og:description"
-      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
+      content="Frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
     />
     <meta
       property="og:image"
@@ -61,7 +61,7 @@
     />
     <meta
       property="og:image:alt"
-      content="Saman Khan — Software Engineer and Frontend Developer in Dubai"
+      content="Saman Khan, Software Engineer / Developer in Dubai"
     />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
@@ -73,11 +73,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Saman Khan | Software Engineer & Frontend Developer in Dubai"
+      content="Saman Khan | Software Engineer in Dubai"
     />
     <meta
       name="twitter:description"
-      content="Saman Khan is a Software Engineer and Frontend Developer in Dubai with 2+ years of experience building production web platforms with React, Next.js, and TypeScript."
+      content="Frontend-focused Software Engineer in Dubai with 2+ years of experience building production web platforms for mobility operations, subscriptions, analytics, and customer-facing experiences."
     />
     <meta
       name="twitter:image"
@@ -85,12 +85,13 @@
     />
     <meta
       name="twitter:image:alt"
-      content="Saman Khan — Software Engineer and Frontend Developer in Dubai"
+      content="Saman Khan, Software Engineer / Developer in Dubai"
     />
 
     <script>
       (function () {
         document.documentElement.style.colorScheme = "dark";
+        document.documentElement.style.backgroundColor = "#010005";
       })();
     </script>
 
@@ -100,17 +101,17 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
       rel="stylesheet"
       media="print"
       onload="this.media = 'all'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
         rel="stylesheet"
       />
     </noscript>
@@ -227,7 +228,7 @@
     </script>
   </head>
   <body>
-    <!-- First-paint cinematic cover. Repeat visits / reduced-motion skip via inline script. -->
+    <!-- First-paint cinematic cover. Reduced-motion skip via inline script. -->
     <div id="stage-boot" class="loading" role="presentation" aria-hidden="true">
       <style>
         #stage-boot.loading {
@@ -237,27 +238,32 @@
           overflow: hidden;
           background:
             radial-gradient(
-              ellipse 70% 45% at 50% -5%,
-              rgb(88 40 180 / 0.22),
-              transparent 55%
+              ellipse 58% 38% at 50% -8%,
+              rgba(13, 0, 164, 0.22),
+              transparent 52%
             ),
             radial-gradient(
-              ellipse 35% 28% at 88% 18%,
-              rgb(45 212 191 / 0.08),
-              transparent 50%
+              ellipse 30% 24% at 90% 10%,
+              rgba(34, 0, 124, 0.16),
+              transparent 48%
             ),
-            rgb(6 5 9);
+            radial-gradient(
+              ellipse 26% 22% at 8% 86%,
+              rgba(20, 1, 82, 0.18),
+              transparent 44%
+            ),
+            #010005;
           opacity: 1;
           pointer-events: auto;
-          transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1);
         }
         #stage-boot.loading.is-exiting {
           opacity: 0;
           pointer-events: none;
         }
         #stage-boot.is-exiting .boot-marquee,
-        #stage-boot.is-exiting .boot-center,
-        #stage-boot.is-exiting .boot-welcome {
+        #stage-boot.is-exiting .boot-welcome,
+        #stage-boot.is-exiting .boot-hint {
           opacity: 0;
           transition: none;
         }
@@ -290,7 +296,7 @@
           letter-spacing: -0.045em;
           line-height: 0.9;
           text-transform: uppercase;
-          color: rgb(250 250 252);
+          color: #fafafc;
           animation: boot-marquee 22s linear infinite;
         }
         #stage-boot .boot-marquee-track span {
@@ -298,58 +304,26 @@
           padding-right: 0.55em;
         }
         #stage-boot .boot-marquee-track span:nth-child(odd) {
-          color: rgb(250 250 252);
+          color: #fafafc;
         }
         #stage-boot .boot-marquee-track span:nth-child(even) {
-          background-image: linear-gradient(
-            100deg,
-            rgb(45 212 191),
-            rgb(167 139 250),
-            rgb(251 146 60)
-          );
+          background-image: linear-gradient(100deg, #a8a2ff, #948cd6, #7c6cc4);
           background-clip: text;
           -webkit-background-clip: text;
           color: transparent;
         }
-        #stage-boot .boot-center {
+        #stage-boot .boot-hint {
           position: absolute;
+          bottom: 1.6rem;
           left: 50%;
-          top: 50%;
-          z-index: 1;
-          display: flex;
-          min-width: 13.5rem;
-          transform: translate(-50%, -50%);
-          flex-direction: column;
-          align-items: center;
-          gap: 0.75rem;
-          border-radius: 9999px;
-          background: rgb(6 5 9 / 0.92);
-          box-shadow:
-            0 0 0 1px rgb(167 139 250 / 0.35),
-            0 0 40px rgb(88 40 180 / 0.28),
-            0 18px 50px rgb(0 0 0 / 0.45);
-          padding: 1.15rem 2.1rem 1.2rem;
-        }
-        #stage-boot .boot-mark {
-          font-family: "Space Grotesk", system-ui, sans-serif;
-          font-size: 0.95rem;
-          font-weight: 600;
-          letter-spacing: 0.46em;
-          color: rgb(45 212 191);
-        }
-        #stage-boot .boot-rule {
-          height: 2px;
-          width: 6.25rem;
-          overflow: hidden;
-          border-radius: 999px;
-          background: rgb(38 34 48);
-        }
-        #stage-boot .boot-rule i {
-          display: block;
-          height: 100%;
-          width: 40%;
-          background: linear-gradient(90deg, rgb(45 212 191), rgb(167 139 250));
-          animation: boot-sweep 1.1s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+          z-index: 2;
+          margin: 0;
+          transform: translateX(-50%);
+          font-family: "JetBrains Mono", ui-monospace, monospace;
+          font-size: 10px;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          color: rgba(168, 162, 255, 0.55);
         }
         #stage-boot .boot-welcome {
           position: absolute;
@@ -364,8 +338,7 @@
           text-align: center;
           transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        #stage-boot.is-welcome .boot-marquee,
-        #stage-boot.is-welcome .boot-center {
+        #stage-boot.is-welcome .boot-marquee {
           opacity: 0;
           transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -377,7 +350,7 @@
           font-size: 10px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-          color: rgb(45 212 191);
+          color: #a8a2ff;
           opacity: 0;
           transform: translateY(8px);
         }
@@ -388,7 +361,7 @@
           letter-spacing: -0.05em;
           line-height: 0.88;
           text-transform: uppercase;
-          color: rgb(250 250 252);
+          color: #fafafc;
         }
         #stage-boot .boot-line {
           display: block;
@@ -403,11 +376,7 @@
           font-family: "Space Grotesk", system-ui, sans-serif;
           font-size: clamp(1rem, 3vw, 1.5rem);
           font-weight: 600;
-          background-image: linear-gradient(
-            100deg,
-            rgb(45 212 191),
-            rgb(167 139 250)
-          );
+          background-image: linear-gradient(100deg, #a8a2ff, #948cd6, #7c6cc4);
           background-clip: text;
           -webkit-background-clip: text;
           color: transparent;
@@ -415,17 +384,17 @@
           transform: translateY(10px);
         }
         #stage-boot.is-welcome .boot-kicker {
-          animation: boot-fade-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation: boot-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         #stage-boot.is-welcome .boot-line span {
-          animation: boot-letter 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-          animation-delay: calc(var(--i) * 32ms);
+          animation: boot-letter 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: calc(var(--i) * 48ms);
         }
         #stage-boot.is-welcome .boot-line:nth-child(2) span {
-          animation-delay: calc(0.12s + var(--i) * 32ms);
+          animation-delay: calc(0.18s + var(--i) * 48ms);
         }
         #stage-boot.is-welcome .boot-role {
-          animation: boot-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.34s
+          animation: boot-fade-up 0.62s cubic-bezier(0.22, 1, 0.36, 1) 0.52s
             forwards;
         }
         @keyframes boot-marquee {
@@ -434,14 +403,6 @@
           }
           to {
             transform: translateX(-50%);
-          }
-        }
-        @keyframes boot-sweep {
-          0% {
-            transform: translateX(-120%);
-          }
-          100% {
-            transform: translateX(280%);
           }
         }
         @keyframes boot-letter {
@@ -458,7 +419,6 @@
         }
         @media (prefers-reduced-motion: reduce) {
           #stage-boot .boot-marquee-track,
-          #stage-boot .boot-rule i,
           #stage-boot.is-welcome .boot-kicker,
           #stage-boot.is-welcome .boot-line span,
           #stage-boot.is-welcome .boot-role {
@@ -480,10 +440,7 @@
           <span>Frontend Developer</span>
         </div>
       </div>
-      <div class="boot-center">
-        <div class="boot-mark">SK</div>
-        <div class="boot-rule"><i></i></div>
-      </div>
+      <p class="boot-hint">Esc to skip</p>
       <div class="boot-welcome">
         <p class="boot-kicker">Welcome to my portfolio</p>
         <p class="boot-name">
@@ -506,8 +463,7 @@
           var reduce = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
           ).matches;
-          var seen = sessionStorage.getItem("sk-intro-seen") === "1";
-          if (reduce || seen) {
+          if (reduce) {
             document.documentElement.setAttribute("data-skip-intro", "true");
             var boot = document.getElementById("stage-boot");
             if (boot) boot.setAttribute("data-done", "true");

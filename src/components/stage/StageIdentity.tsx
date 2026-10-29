@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -7,67 +7,74 @@ import {
   useTransform,
 } from "framer-motion";
 import { scrollSpring } from "../../lib/scrollMotion";
-import IdentityRig from "./IdentityRig";
+import StageFigure from "./StageFigure";
 import StageHero from "./StageHero";
-import StageAbout from "./StageAbout";
+
+function useWideDesktop() {
+  const [wide, setWide] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(min-width: 1280px)").matches
+      : false,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1280px)");
+    const update = () => setWide(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  return wide;
+}
 
 export default function StageIdentity() {
-  const ref = useRef<HTMLDivElement>(null);
+  const identityRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+  const wide = useWideDesktop();
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: identityRef,
     offset: ["start start", "end start"],
   });
 
-  const x = useSpring(
-    useTransform(
-      scrollYProgress,
-      [0, 0.12, 0.22, 0.85],
-      ["0vw", "-14vw", "-48vw", "-50vw"],
-    ),
-    scrollSpring,
-  );
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
   const y = useSpring(
-    useTransform(scrollYProgress, [0, 0.22, 0.85], ["0vh", "4vh", "10vh"]),
-    scrollSpring,
-  );
-  const scale = useSpring(
-    useTransform(scrollYProgress, [0, 0.12, 0.22, 0.85], [1, 0.78, 0.46, 0.4]),
+    useTransform(heroProgress, [0, 0.38], ["0vh", "1.5vh"]),
     scrollSpring,
   );
   const opacity = useSpring(
-    useTransform(
-      scrollYProgress,
-      [0, 0.12, 0.22, 0.75, 0.95],
-      [1, 0.94, 0.55, 0.3, 0.12],
-    ),
+    useTransform(heroProgress, [0, 0.08, 0.22, 0.36], [1, 1, 0.32, 0]),
     scrollSpring,
   );
 
   return (
-    <div ref={ref} className="relative">
-      <div
-        className={`pointer-events-none sticky top-0 z-[2] h-[100svh] ${
-          reduceMotion ? "hidden" : "hidden xl:block"
-        }`}
-      >
-        <motion.div
-          className="flex h-full items-center justify-end pr-[3%] xl:pr-[7%]"
-          style={
-            reduceMotion
-              ? undefined
-              : { x, y, scale, opacity, transformOrigin: "center center" }
-          }
-        >
-          <IdentityRig progress={scrollYProgress} />
-        </motion.div>
-      </div>
+    <div ref={identityRef} className="relative">
+      {wide && !reduceMotion ? (
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-[100svh] overflow-hidden">
+          <div className="stage-shell flex h-full items-start justify-end pt-[max(4.9rem,env(safe-area-inset-top)+3.35rem)] lg:pt-[max(6.4rem,env(safe-area-inset-top)+5.15rem)]">
+            <div className="character-wide-shift">
+              <motion.div
+                className="will-change-transform"
+                style={{
+                  y,
+                  opacity,
+                  transformOrigin: "50% 16%",
+                }}
+              >
+                <StageFigure progress={scrollYProgress} />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
-      <div
-        className={`relative z-[3] ${reduceMotion ? "" : "xl:-mt-[100svh]"}`}
-      >
+      <div ref={heroRef} className="relative z-[3]">
         <StageHero />
-        <StageAbout />
       </div>
     </div>
   );

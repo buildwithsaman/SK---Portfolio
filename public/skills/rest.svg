@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#02010a"/>
+  <circle cx="450" cy="500" r="320" fill="#0d00a4" fill-opacity="0.12"/>
+  <g transform="translate(450 500) scale(11) translate(-12 -12)"><path d="M4 8a4 4 0 0 1 4-4h8a4 4 0 0 1 0 8H8a4 4 0 0 0 0 8h8" fill="#0d00a4"/></g>
+  <text x="450" y="980" text-anchor="middle" fill="#fafafc" font-family="ui-sans-serif, system-ui, sans-serif" font-size="44" font-weight="600">REST APIs</text>
+</svg>

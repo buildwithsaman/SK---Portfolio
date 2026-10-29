@@ -31,7 +31,7 @@ export function buildSeoStaticShell(): string {
   const edu = education
     .map(
       (e) =>
-        `<li><strong>${esc(e.degree)}</strong> — ${esc(e.place)} (${esc(e.period)})</li>`,
+        `<li><strong>${esc(e.degree)}</strong>, ${esc(e.place)} (${esc(e.period)})</li>`,
     )
     .join("");
   const jobs = experiences
@@ -70,10 +70,10 @@ export function buildSeoStaticShell(): string {
     )
     .join("\n");
   const certs = certifications
-    .map((c) => `<li>${esc(c.name)} — ${esc(c.org)} (${esc(c.year)})</li>`)
+    .map((c) => `<li>${esc(c.name)}, ${esc(c.org)} (${esc(c.year)})</li>`)
     .join("");
   const vols = volunteer
-    .map((v) => `<li>${esc(v.role)} — ${esc(v.org)} (${esc(v.year)})</li>`)
+    .map((v) => `<li>${esc(v.role)}, ${esc(v.org)} (${esc(v.year)})</li>`)
     .join("");
   const highlights = highlightLines
     .map((line) => `<li>${esc(line)}</li>`)
@@ -83,24 +83,16 @@ export function buildSeoStaticShell(): string {
 <main id="seo-static-shell">
   <header>
     <p>Hello, I'm</p>
-    <h1>${esc(profile.name)} (${esc(profile.legalName)}) — ${esc(profile.title)}</h1>
+    <h1>${esc(profile.name)} (${esc(profile.legalName)}), ${esc(profile.title)}</h1>
     <p>${esc(profile.heroLead)}</p>
     <p>${esc(profile.heroDescription)}</p>
     <p>${esc(profile.heroSupport)}</p>
     <p>
       <a href="#work">Explore My Work</a>
+      <a href="${esc(profile.resume)}" download="${esc(profile.resumeName)}">Download CV</a>
     </p>
-  </header>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>${esc(profile.aboutIntro)}</p>
     ${summary}
-    <h3>Selected Achievements</h3>
-    <ul>${achievements}</ul>
-    <h3>Education</h3>
-    <ul>${edu}</ul>
-  </section>
+  </header>
 
   <section id="highlights">
     <h2>What I do</h2>
@@ -110,6 +102,7 @@ export function buildSeoStaticShell(): string {
           `<article><h3>${esc(item.title)}</h3><p>${esc(item.body)}</p></article>`,
       )
       .join("\n    ")}
+    <ul>${achievements}</ul>
     <h3>Career highlights</h3>
     <ul>${highlights}</ul>
   </section>
@@ -131,9 +124,8 @@ export function buildSeoStaticShell(): string {
   </section>
 
   <section id="contact">
-    <h2>Let's Build Something Meaningful</h2>
+    <h2>${esc(profile.contactHeading)}</h2>
     <p>${esc(profile.contactIntro)}</p>
-    <p>${esc(profile.contactSupport)}</p>
     <ul>
       <li>Email: <a href="mailto:${esc(profile.email)}">${esc(profile.email)}</a></li>
       <li>Phone: <a href="${esc(profile.phoneHref)}">${esc(profile.phone)}</a></li>
@@ -141,6 +133,8 @@ export function buildSeoStaticShell(): string {
       <li>LinkedIn: <a href="${esc(profile.linkedin)}">${esc(profile.linkedinLabel)}</a></li>
       <li>GitHub: <a href="${esc(profile.github)}">${esc(profile.githubLabel)}</a></li>
     </ul>
+    <h3>Education</h3>
+    <ul>${edu}</ul>
     <h3>Certifications &amp; Professional Development</h3>
     <ul>${certs}</ul>
     <h3>Volunteering</h3>

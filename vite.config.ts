@@ -1,7 +1,10 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+
+const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 import { applySeoHead, buildSitemapXml } from "./scripts/seoHead";
 import { buildSeoStaticShell } from "./scripts/seoStaticShell";
 
@@ -30,6 +33,11 @@ function seoStaticShellPlugin() {
 
 export default defineConfig({
   plugins: [react(), seoStaticShellPlugin()],
+  resolve: {
+    alias: {
+      "@": resolve(projectRoot, "src"),
+    },
+  },
   base: "./",
   server: {
     host: "127.0.0.1",

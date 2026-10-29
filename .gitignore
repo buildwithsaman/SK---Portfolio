@@ -1,11 +1,14 @@
 node_modules
 dist
 dist-ssr
+.cursor/
 # Legacy Next.js artifacts (this project is Vite)
 .next
 out
 app
 *.tsbuildinfo
+.env
+.env.local
 *.local
 .DS_Store
 .vscode/*
