@@ -5,7 +5,7 @@ export default function StageCareer() {
   return (
     <section
       id="career"
-      className="overflow-x-clip py-10 lg:py-8"
+      className="overflow-x-clip py-12 lg:py-8"
       aria-labelledby="career-heading"
     >
       <div className="stage-shell">

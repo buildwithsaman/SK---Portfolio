@@ -49,7 +49,13 @@ function scrollToSection(id: string, behavior: ScrollBehavior = "smooth") {
     window.scrollTo({ top: 0, left: 0, behavior });
     return;
   }
-  document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (behavior === "auto") {
+    el.scrollIntoView(true);
+    return;
+  }
+  el.scrollIntoView({ behavior, block: "start" });
 }
 
 function spySection(): string {
@@ -75,7 +81,7 @@ export default function StageChrome() {
   const [active, setActive] = useState("home");
   const [hoverNav, setHoverNav] = useState(false);
   const reduceMotion = useReducedMotion();
-  const preferSmooth = !reduceMotion;
+  const preferSmooth = Boolean(!reduceMotion && hoverNav);
   const lockRef = useRef<string | null>(null);
   const lockTimer = useRef(0);
 
@@ -190,7 +196,7 @@ export default function StageChrome() {
   );
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[70] flex justify-center px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2 lg:bottom-auto lg:top-0 lg:pb-2 lg:pt-[max(0.7rem,env(safe-area-inset-top))]">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[70] isolate flex justify-center px-3 pb-[max(0.7rem,env(safe-area-inset-bottom))] pt-2 [transform:translateZ(0)] lg:bottom-auto lg:top-0 lg:pb-2 lg:pt-[max(0.7rem,env(safe-area-inset-top))]">
       <div className="pointer-events-auto w-full max-w-[26.5rem] lg:max-w-[32rem]">
         <GooeyNav
           items={tabItems}

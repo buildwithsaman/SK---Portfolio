@@ -168,7 +168,16 @@ export default function StageIntro() {
     const onPointer = (event: Event) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
-      if (target.closest(".skip-link") || target.closest("#boot-skip")) skip();
+      if (target.closest(".skip-link") || target.closest("#boot-skip")) {
+        skip();
+        return;
+      }
+      if (
+        window.matchMedia("(max-width: 1023px)").matches &&
+        target.closest("#stage-boot")
+      ) {
+        skip();
+      }
     };
 
     window.addEventListener("keydown", onKey);

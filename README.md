@@ -9,7 +9,7 @@ If you want something like this for yourself, start here. Copy the structure, th
 ## What you get
 
 - Full-viewport intro in the same dark navy and periwinkle as the rest of the page, then a Hero with a transparent looping character (or an SVG fallback)
-- Tab bar at the top from `lg`. Below `lg`, a conversational mobile portfolio replaces the long page.
+- Tab bar at the top from `lg`, and along the bottom below `lg`. Ask me opens the stored Q&A on every viewport.
 - What I Do (impact stats), Career (role cards with copy), Work (hovering menu with copy expanding under the active row), Skills (scroll-driven cards), Contact
 - Page copy in `src/data/cv.ts`. Mobile Q&A replies in `src/lib/assistant.ts`.
 - Build-time SEO shell so crawlers see real HTML before React mounts
@@ -85,26 +85,19 @@ Tailwind maps those names in `tailwind.config.js`.
 
 ## How the page is built
 
-`src/App.tsx` is the map. From `lg` (1024px) up it is the cinematic page. Below `lg` it is a conversational mobile UI (`src/components/mobile/`) that answers from stored replies in `src/lib/assistant.ts`.
+`src/App.tsx` is the map. Every viewport gets the cinematic page. Ask me (`SiteChat` in `src/components/mobile/SiteChat.tsx`) opens the stored Q&A over it. Phones never see the crawlable SEO résumé; `#seo-static-shell` is `display: none` in `index.html`.
 
-**Desktop (`lg` and up)**
-
-1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips. On a touch `lg` device, a Continue control skips. Reduced-motion skips immediately.
-2. Nav (`StageChrome`: `GooeyNav` tab bar at the top from `lg`)
-3. Hero (`StageIdentity` → `StageHero` + character in the right column. Reduced-motion users get the poster and a static role.)
+1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips on desktop. Tap the cover to skip below `lg`. On a touch `lg` device, a Continue control skips. Reduced-motion skips immediately.
+2. Nav (`StageChrome`: `GooeyNav` tab bar at the top from `lg`, along the bottom below `lg`)
+3. Hero (`StageIdentity` → `StageHero`. From `xl` (1280px) the Hero is a two-column composition: intro and CTAs on the left (~54%), looping character on a violet glow stage on the right (~46%), capped around 1520px. Suggestion chips under the character open the same Ask me panel (`openSiteChat` in `src/lib/siteChat.ts`) as the corner control. From `lg` to `xl` the previous two-column layout stays. Below `lg` the Hero is copy only. Reduced-motion users get the poster and a static role.)
 4. What I Do (`StagePractice` → `profile.achievements`)
 5. Career (`StageCareer` → open layout like Contact: giant heading, current-role intro, then one column per role)
-6. Work (`StageWork` → `FlowingMenu` rows from `udriveDomains`. Rows start closed. Labels are one word. Hovering a row expands title, ownership, contributions, and tech under that row’s marquee. No work stills in this section.)
+6. Work (`StageWork` → `FlowingMenu` rows from `udriveDomains`. Rows start closed. Labels are one word. Hovering or tapping a row expands title, ownership, contributions, and tech under that row’s marquee. No work stills in this section.)
 7. Skills (`StageSkills` → a liquid `FlexCarousel` of tech cards. Drag, swipe, wheel, or keys move the row; click the centered card to open its docs. Reduced-motion users get a static card grid.)
 8. Contact (`StageContact` → open layout with the large name, title, CTAs, and email / social / education columns) + footer. The Hero intro is the only bio on the page.
+9. Ask me. The same stored Q&A opens from the corner control, and from `xl` also from the Hero chips under the character. Esc or Close dismisses it. On `xl` and up, hide the corner control while the Hero invite (`#hero-ask`) is on screen, and show it again once that invite scrolls away. Below `lg`, sit the control above the bottom tab bar.
 
-**Mobile (below `lg`)**
-
-Phones never see the crawlable SEO résumé; `#seo-static-shell` is `display: none` in `index.html`. They open the same dark loading marquee as desktop (`#stage-boot`) for `MOBILE_LOAD_MS` (2s) in `src/lib/introTiming.ts`, then fade into the Memoji chat. Keep `index.html` and that constant in sync. Tap the cover to skip. Reduced-motion skips immediately. Do not dismiss the boot the instant React mounts, or the résumé dump flashes and the character page is skipped.
-
-`MobilePortfolio` then shows the looping Memoji, a greeting, suggestion chips (`WELCOME_CHIPS` in `src/lib/assistant.ts`), and a glass prompt. The hero Memoji uses an ellipse veil so the studio fades into the paper. Do not clip it to a circle or add a halo plate. Chat avatars stay circular. The prompt is a pill; do not draw a rectangular focus ring on the textarea when someone taps to type.
-
-Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one, or sending an exact question or alias, shows that stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`.
+Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one, or sending an exact question or alias, shows that stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`. The prompt is a pill; do not draw a rectangular focus ring on the textarea when someone taps to type. Chat avatars stay circular.
 
 `components/stage/` is page layout. `components/ui/` is reusable motion pieces. Swap a section by changing that one stage file and the data it reads.
 
@@ -112,7 +105,7 @@ Hashes used by the nav: `#home`, `#career`, `#work`, `#skills`, `#contact`. What
 
 ## Character
 
-The Hero figure is a silent looping Memoji (poster plus video). `CHARACTER_ENABLED = false` in `src/lib/character.ts` restores the SVG IdentityRig (DXB FIELD).
+The Hero figure is a silent looping Memoji (poster plus video) from `lg` up. From `xl` it sits in the right column with a soft violet glow; do not wrap it in a card, and do not upscale past the native 640×480 clip. Below `lg` the portfolio page does not play that loop. `CHARACTER_ENABLED = false` in `src/lib/character.ts` restores the SVG IdentityRig (DXB FIELD).
 
 ```
 public/character/memoji-poster.webp
@@ -120,7 +113,7 @@ public/character/memoji.mp4         # silent H.264 High (Chrome, Firefox, Androi
 public/character/memoji-hevc.mp4    # silent HEVC hvc1 in MP4 (Safari / iOS, GPU decode)
 ```
 
-Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Put HEVC in an `.mp4` with `hvc1`, not a `.mov`. GitHub Pages serves `.mov` as `video/quicktime`, and iOS Safari often will not play that in a `<video>` tag. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome, with the same ellipse fade and no circular plate. Mark the clip `autoPlay muted playsInline` and do not `visibility: hidden` it while it starts, or iOS will keep the poster.
+Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Put HEVC in an `.mp4` with `hvc1`, not a `.mov`. GitHub Pages serves `.mov` as `video/quicktime`, and iOS Safari often will not play that in a `<video>` tag. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. The Hero column plays the loop from `lg` up. Ask me uses the same poster plus clip in the chat panel on every viewport. Mark the clip `autoPlay muted playsInline` and do not `visibility: hidden` it while it starts, or iOS will keep the poster.
 
 ## Optional React Bits Pro
 

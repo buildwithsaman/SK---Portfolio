@@ -1,5 +1,5 @@
 import { type MouseEvent } from "react";
-import MobilePortfolio from "./components/mobile/MobilePortfolio";
+import SiteChat from "./components/mobile/SiteChat";
 import StageCareer from "./components/stage/StageCareer";
 import StageChrome from "./components/stage/StageChrome";
 import StageContact from "./components/stage/StageContact";
@@ -11,7 +11,6 @@ import StageSkills from "./components/stage/StageSkills";
 import StageWork from "./components/stage/StageWork";
 import SocialRail from "./components/stage/SocialRail";
 import StageCursor from "./components/ui/StageCursor";
-import useMediaQuery from "./hooks/useMediaQuery";
 
 function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
@@ -24,7 +23,7 @@ function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   main.scrollIntoView({ behavior: "auto", block: "start" });
 }
 
-function DesktopPortfolio() {
+export default function App() {
   return (
     <div className="relative isolate min-h-screen">
       <a href="#main-content" className="skip-link" onClick={skipToMain}>
@@ -43,13 +42,7 @@ function DesktopPortfolio() {
         <StageContact />
       </main>
       <StageFooter />
+      <SiteChat />
     </div>
   );
-}
-
-export default function App() {
-  const desktop = useMediaQuery("(min-width: 1024px)");
-
-  if (!desktop) return <MobilePortfolio />;
-  return <DesktopPortfolio />;
 }

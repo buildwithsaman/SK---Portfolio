@@ -106,16 +106,24 @@ export default function CharacterStage({
 
   const assets = getCharacterAssets();
   const sizeClass = compact
-    ? "h-[7.75rem] sm:h-[14rem] lg:h-[16.5rem] xl:h-[min(22rem,calc(100svh-12rem))] 2xl:h-[min(24rem,calc(100svh-10rem))]"
-    : "h-[min(24rem,calc(100svh-10rem))] min-[1800px]:h-[min(28rem,calc(100svh-8rem))]";
-  const fitClass = "object-contain object-center";
+    ? "h-[8.75rem] w-[8.75rem] sm:h-[11rem] sm:w-[11rem]"
+    : "h-auto w-full max-w-full";
+  const fitClass = compact
+    ? "object-cover object-[center_42%]"
+    : "object-contain object-center";
+  const stageSize = compact
+    ? { aspectRatio: `${assets.width} / ${assets.height}` }
+    : {
+        aspectRatio: `${assets.width} / ${assets.height}`,
+        width: `min(100%, ${assets.width}px, calc((100svh - 6.5rem) * ${assets.width} / ${assets.height}))`,
+      };
 
   return (
     <div
       ref={rootRef}
       aria-hidden="true"
-      className={`character-veil ${sizeClass} w-auto max-w-full`}
-      style={{ aspectRatio: `${assets.width} / ${assets.height}` }}
+      className={`character-veil ${sizeClass}`}
+      style={stageSize}
     >
       {ready ? (
         <video

@@ -13,7 +13,7 @@ export default function StageContact() {
   return (
     <section
       id="contact"
-      className="overflow-x-clip py-10 lg:py-8"
+      className="overflow-x-clip py-12 lg:py-8"
       aria-labelledby="contact-heading"
     >
       <div className="stage-shell">

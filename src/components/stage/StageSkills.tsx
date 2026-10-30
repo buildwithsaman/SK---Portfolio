@@ -61,7 +61,7 @@ export default function StageSkills() {
     return (
       <section
         id="skills"
-        className="stage-shell overflow-x-clip py-10 lg:py-8"
+        className="stage-shell overflow-x-clip py-12 lg:py-8"
         aria-labelledby="skills-heading"
       >
         {heading}
@@ -73,7 +73,7 @@ export default function StageSkills() {
   return (
     <section
       id="skills"
-      className="stage-shell overflow-x-clip py-10 lg:py-8"
+      className="stage-shell overflow-x-clip py-12 lg:py-8"
       aria-labelledby="skills-heading"
     >
       {heading}

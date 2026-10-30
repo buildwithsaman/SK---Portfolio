@@ -15,10 +15,12 @@ export default function PromptBar({
   onSubmit,
   onSelect,
   disabled = false,
+  fieldId = "mobile-ask",
 }: {
   onSubmit: (value: string) => void;
   onSelect: (item: AssistantSuggestion) => void;
   disabled?: boolean;
+  fieldId?: string;
 }) {
   const listId = useId();
   const fieldRef = useRef<HTMLTextAreaElement>(null);
@@ -123,11 +125,11 @@ export default function PromptBar({
           ))}
         </ul>
       ) : null}
-      <label htmlFor="mobile-ask" className="sr-only">
+      <label htmlFor={fieldId} className="sr-only">
         Ask about Saman Khan
       </label>
       <textarea
-        id="mobile-ask"
+        id={fieldId}
         ref={fieldRef}
         rows={1}
         value={value}

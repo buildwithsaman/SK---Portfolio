@@ -65,7 +65,7 @@ export default function StageWork() {
 
   return (
     <section
-      className="overflow-x-clip py-10 lg:py-8"
+      className="overflow-x-clip py-12 lg:py-8"
       aria-labelledby="work-heading"
     >
       <div id="work" className="h-0 scroll-mt-5" />
