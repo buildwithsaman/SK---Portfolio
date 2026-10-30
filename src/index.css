@@ -266,14 +266,14 @@ body {
 .character-veil {
   position: relative;
   -webkit-mask-image: radial-gradient(
-    ellipse 58% 70% at 50% 48%,
-    #000 44%,
-    transparent 76%
+    ellipse 52% 64% at 50% 47%,
+    #000 40%,
+    transparent 70%
   );
   mask-image: radial-gradient(
-    ellipse 58% 70% at 50% 48%,
-    #000 44%,
-    transparent 76%
+    ellipse 52% 64% at 50% 47%,
+    #000 40%,
+    transparent 70%
   );
 }
 
