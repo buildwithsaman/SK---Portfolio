@@ -7,6 +7,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { scrollSpring } from "../../lib/scrollMotion";
+import { CHARACTER_ENABLED } from "../../lib/character";
 import StageFigure from "./StageFigure";
 import StageHero from "./StageHero";
 
@@ -54,9 +55,9 @@ export default function StageIdentity() {
 
   return (
     <div ref={identityRef} className="relative">
-      {wide && !reduceMotion ? (
+      {wide && !reduceMotion && !CHARACTER_ENABLED ? (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-[100svh] overflow-hidden">
-          <div className="stage-shell flex h-full items-start justify-end pt-[max(4.9rem,env(safe-area-inset-top)+3.35rem)] lg:pt-[max(6.4rem,env(safe-area-inset-top)+5.15rem)]">
+          <div className="stage-shell flex h-full items-center justify-end pt-[max(4.9rem,env(safe-area-inset-top)+3.35rem)] lg:pt-[max(6.4rem,env(safe-area-inset-top)+5.15rem)]">
             <div className="character-wide-shift">
               <motion.div
                 className="will-change-transform"

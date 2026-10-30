@@ -271,6 +271,11 @@
         html[data-skip-intro] #stage-boot {
           display: none !important;
         }
+        @media (max-width: 1023px) {
+          #stage-boot {
+            display: none !important;
+          }
+        }
         #stage-boot .boot-marquee {
           position: absolute;
           top: 50%;
@@ -463,7 +468,8 @@
           var reduce = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
           ).matches;
-          if (reduce) {
+          var compact = window.matchMedia("(max-width: 1023px)").matches;
+          if (reduce || compact) {
             document.documentElement.setAttribute("data-skip-intro", "true");
             var boot = document.getElementById("stage-boot");
             if (boot) boot.setAttribute("data-done", "true");

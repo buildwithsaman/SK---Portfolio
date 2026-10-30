@@ -55,7 +55,7 @@ export default function StageCursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[200] hidden lg:block mix-blend-screen"
+      className="pointer-events-none fixed left-0 top-0 z-[200] hidden lg:block mix-blend-difference"
       style={{
         x,
         y,

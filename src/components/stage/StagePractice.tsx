@@ -5,7 +5,7 @@ export default function StagePractice() {
   return (
     <section
       id="highlights"
-      className="py-10 lg:py-14"
+      className="py-10 lg:py-8"
       aria-labelledby="practice-heading"
     >
       <div className="stage-shell">
@@ -16,8 +16,8 @@ export default function StagePractice() {
           </h2>
         </Reveal>
 
-        <Reveal className="mt-6 sm:mt-8">
-          <ul className="grid gap-5 sm:grid-cols-3 sm:gap-6">
+        <Reveal className="mt-6 sm:mt-8 lg:mt-5">
+          <ul className="grid gap-5 sm:grid-cols-3 sm:gap-6 lg:gap-8">
             {profile.achievements.map((item) => (
               <li key={item.value}>
                 <p className="font-sans text-3xl font-semibold tracking-tight text-ink sm:text-4xl">

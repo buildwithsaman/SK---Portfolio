@@ -9,7 +9,7 @@ If you want something like this for yourself, start here. Copy the structure, th
 ## What you get
 
 - Full-viewport intro in the same dark navy and periwinkle as the rest of the page, then a Hero with a transparent looping character (or an SVG fallback)
-- Tab bar at the bottom on phones, at the top from `lg`
+- Tab bar at the top from `lg`. Below `lg`, a conversational mobile portfolio replaces the long page.
 - What I Do (impact stats), Career (role cards with copy), Work (hovering menu with copy expanding under the active row), Skills (scroll-driven cards), Contact
 - One content file for all copy: `src/data/cv.ts`
 - Build-time SEO shell so crawlers see real HTML before React mounts
@@ -85,16 +85,22 @@ Tailwind maps those names in `tailwind.config.js`.
 
 ## How the page is built
 
-`src/App.tsx` is the map:
+`src/App.tsx` is the map. From `lg` (1024px) up it is the cinematic page. Below `lg` it is a conversational mobile UI (`src/components/mobile/`) that answers from `src/data/cv.ts` and `src/lib/assistant.ts`.
+
+**Desktop (`lg` and up)**
 
 1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`.
-2. Nav (`StageChrome`: `GooeyNav` tab bar. Bottom on phones, top from `lg`, a bit wider from `lg`)
-3. Hero (`StageIdentity` → `StageHero` + character on desktop, with Explore My Work and Download CV. Phones skip the figure and Hero motion.)
+2. Nav (`StageChrome`: `GooeyNav` tab bar at the top from `lg`)
+3. Hero (`StageIdentity` → `StageHero` + character in the right column. Reduced-motion users get the poster and a static role.)
 4. What I Do (`StagePractice` → `profile.achievements`)
 5. Career (`StageCareer` → open layout like Contact: giant heading, current-role intro, then one column per role)
 6. Work (`StageWork` → `FlowingMenu` rows from `udriveDomains`. Rows start closed. Labels are one word. Hovering a row expands title, ownership, contributions, and tech under that row’s marquee. No work stills in this section.)
-7. Skills (`StageSkills` → a liquid `FlexCarousel` of tech cards on every screen. Drag, swipe, wheel, or keys move the row; click or tap the centered card to open its docs. Reduced-motion users get a static card grid.)
-8. Contact (`StageContact` → open layout with the large name, intro, CTAs, and email / social / education columns) + footer
+7. Skills (`StageSkills` → a liquid `FlexCarousel` of tech cards. Drag, swipe, wheel, or keys move the row; click the centered card to open its docs. Reduced-motion users get a static card grid.)
+8. Contact (`StageContact` → open layout with the large name, title, CTAs, and email / social / education columns) + footer. The Hero intro is the only bio on the page.
+
+**Mobile (below `lg`)**
+
+The cinematic intro is skipped. `MobilePortfolio` shows the Memoji, a greeting, suggestion chips, and a prompt. Answers are local intent matching over `cv.ts`, not a live model. Download CV uses `public/Saman_Khan_CV.pdf`.
 
 `components/stage/` is page layout. `components/ui/` is reusable motion pieces. Swap a section by changing that one stage file and the data it reads.
 
@@ -102,17 +108,15 @@ Hashes used by the nav: `#home`, `#career`, `#work`, `#skills`, `#contact`. What
 
 ## Character
 
-The Hero figure is a poster plus a looping alpha video. `CHARACTER_ENABLED = false` in `src/lib/character.ts` restores the SVG IdentityRig (DXB FIELD).
+The Hero figure is a silent looping Memoji (poster plus video). `CHARACTER_ENABLED = false` in `src/lib/character.ts` restores the SVG IdentityRig (DXB FIELD).
 
 ```
-public/character/standing-idle-poster.webp
-public/character/standing-idle-alpha.webm   # VP9 + alpha (Chrome, Firefox, Android)
-public/character/standing-idle-alpha.mov    # HEVC + alpha (Safari)
+public/character/memoji-poster.webp
+public/character/memoji.mp4    # silent H.264 High (Chrome, Firefox, Android, GPU decode)
+public/character/memoji.mov    # silent HEVC hvc1 (Safari / iOS, GPU decode)
 ```
 
-Safari is the only place HEVC alpha is reliable. Everyone else should get the WebM. Reduced-motion users see the poster only. Phones hide the figure and skip Hero motion (name, rotating roles, character). From `md` up, tablets keep the compact poster. Desktop (`xl`) plays the loop.
-
-Keep the character off-repo while you author it. Copy the three exported files into `public/character/`.
+Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome.
 
 ## Optional React Bits Pro
 

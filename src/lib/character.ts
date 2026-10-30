@@ -5,19 +5,32 @@ export const CHARACTER_ENABLED: boolean = true;
 
 export function getCharacterAssets() {
   return {
-    poster: `${base}character/standing-idle-poster.webp`,
-    webm: `${base}character/standing-idle-alpha.webm`,
-    hevc: `${base}character/standing-idle-alpha.mov`,
-    width: 1364,
-    height: 2048,
+    poster: `${base}character/memoji-poster.webp`,
+    avc: `${base}character/memoji.mp4`,
+    hevc: `${base}character/memoji.mov`,
+    width: 640,
+    height: 480,
   } as const;
 }
 
+/** Keep the element on the hardware video path: muted, inline, native loop. */
+export function armMemojiVideo(video: HTMLVideoElement) {
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.loop = true;
+  video.volume = 0;
+  video.playbackRate = 1;
+  video.setAttribute("playsinline", "true");
+  video.setAttribute("webkit-playsinline", "true");
+  video.disablePictureInPicture = true;
+}
+
 /**
- * Chrome/Edge on macOS can decode HEVC (`hvc1`) but drop the alpha layer.
- * Only Apple WebKit plays HEVC-with-alpha; everyone else gets VP9 WebM.
+ * Silent Memoji loop. Opaque 8-bit 4:2:0 so the browser can hardware-decode
+ * on the GPU: HEVC on Apple WebKit, H.264 everywhere else. No VP9 alpha.
  */
-export function pickTransparentVideoSource(): string | null {
+export function pickCharacterVideoSource(): string | null {
   if (typeof document === "undefined") return null;
 
   const assets = getCharacterAssets();
@@ -34,8 +47,12 @@ export function pickTransparentVideoSource(): string | null {
     return assets.hevc;
   }
 
-  if (video.canPlayType('video/webm; codecs="vp9"')) {
-    return assets.webm;
+  if (video.canPlayType('video/mp4; codecs="avc1.640028"')) {
+    return assets.avc;
+  }
+
+  if (video.canPlayType("video/mp4")) {
+    return assets.avc;
   }
 
   return null;

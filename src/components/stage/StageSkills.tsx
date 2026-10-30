@@ -61,7 +61,7 @@ export default function StageSkills() {
     return (
       <section
         id="skills"
-        className="stage-shell overflow-x-clip py-10 lg:py-14"
+        className="stage-shell overflow-x-clip py-10 lg:py-8"
         aria-labelledby="skills-heading"
       >
         {heading}
@@ -73,12 +73,12 @@ export default function StageSkills() {
   return (
     <section
       id="skills"
-      className="stage-shell overflow-x-clip py-10 lg:py-14"
+      className="stage-shell overflow-x-clip py-10 lg:py-8"
       aria-labelledby="skills-heading"
     >
       {heading}
 
-      <div className="relative mt-6 h-[22rem] w-full sm:h-[28rem] lg:h-[35rem]">
+      <div className="relative mt-6 h-[22rem] w-full sm:h-[28rem] lg:mt-4 lg:h-[32rem]">
         <FlexCarousel
           items={items}
           preset="liquid"

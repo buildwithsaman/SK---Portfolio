@@ -5,7 +5,7 @@ export default function StageCareer() {
   return (
     <section
       id="career"
-      className="overflow-x-clip py-10 lg:py-14"
+      className="overflow-x-clip py-10 lg:py-8"
       aria-labelledby="career-heading"
     >
       <div className="stage-shell">
@@ -16,7 +16,7 @@ export default function StageCareer() {
           </h2>
           <p
             aria-hidden="true"
-            className="display-name mt-3 text-[clamp(2.85rem,14vw,8rem)] text-ink"
+            className="display-name mt-3 text-[clamp(2.85rem,14vw,8rem)] text-ink lg:mt-2"
           >
             My career
           </p>
@@ -26,7 +26,7 @@ export default function StageCareer() {
         </Reveal>
 
         <Reveal
-          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-10"
+          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-8 lg:mt-7 lg:pt-6"
           delay={0.1}
         >
           {experiences.map((item) => (

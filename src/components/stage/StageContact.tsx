@@ -13,7 +13,7 @@ export default function StageContact() {
   return (
     <section
       id="contact"
-      className="overflow-x-clip py-10 lg:py-14"
+      className="overflow-x-clip py-10 lg:py-8"
       aria-labelledby="contact-heading"
     >
       <div className="stage-shell">
@@ -24,25 +24,25 @@ export default function StageContact() {
           </h2>
           <p
             aria-hidden="true"
-            className="display-name mt-3 text-[clamp(2.85rem,14vw,8rem)] text-ink"
+            className="display-name mt-3 text-[clamp(2.85rem,14vw,8rem)] text-ink lg:mt-2"
           >
             {profile.name}
           </p>
           <p className="gradient-role mt-3 text-lg font-semibold sm:text-xl md:text-2xl">
             {profile.title}
           </p>
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-            {profile.contactIntro}
-          </p>
         </Reveal>
 
-        <Reveal className="mt-6 flex flex-wrap gap-3" delay={0.06}>
-          <Magnetic>
+        <Reveal
+          className="mt-6 flex flex-wrap gap-3 max-md:flex-col max-md:items-stretch"
+          delay={0.06}
+        >
+          <Magnetic className="max-md:w-full">
             <a href={`mailto:${profile.email}`} className="cta-solid">
               Contact Me →
             </a>
           </Magnetic>
-          <Magnetic>
+          <Magnetic className="max-md:w-full">
             <a
               href={profile.resume}
               download={profile.resumeName}
@@ -54,7 +54,7 @@ export default function StageContact() {
         </Reveal>
 
         <Reveal
-          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-10"
+          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-8 lg:mt-7 lg:pt-6"
           delay={0.1}
         >
           <div>

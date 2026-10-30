@@ -31,13 +31,13 @@
 
 @media (min-width: 1024px) {
   :root {
-    --stage-gutter: 3rem;
+    --stage-gutter: 2.5rem;
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --stage-gutter: 4rem;
+    --stage-gutter: 3rem;
   }
 }
 
@@ -50,21 +50,21 @@
 @media (min-width: 1800px) {
   :root {
     --stage-max: min(120rem, calc(100vw - 6rem));
-    --stage-gutter: 5rem;
+    --stage-gutter: 3.5rem;
   }
 }
 
 @media (min-width: 2400px) {
   :root {
     --stage-max: min(140rem, calc(100vw - 8rem));
-    --stage-gutter: 5.5rem;
+    --stage-gutter: 4rem;
   }
 }
 
 @media (min-width: 3000px) {
   :root {
     --stage-max: min(160rem, calc(100vw - 10rem));
-    --stage-gutter: 6rem;
+    --stage-gutter: 4.5rem;
   }
 }
 
@@ -199,6 +199,12 @@ body {
     color: rgb(var(--ink));
   }
 
+  @media (min-width: 1024px) {
+    .stage-title {
+      margin-top: 0.45rem;
+    }
+  }
+
   .display-name {
     font-weight: 600;
     letter-spacing: -0.045em;
@@ -258,38 +264,21 @@ body {
 }
 
 .character-veil {
-  transform: translateZ(0);
-  isolation: isolate;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 68%,
-    rgb(0 0 0 / 0.82) 78%,
-    rgb(0 0 0 / 0.42) 88%,
-    rgb(0 0 0 / 0.12) 94%,
-    transparent 100%
+  position: relative;
+  -webkit-mask-image: radial-gradient(
+    ellipse 58% 70% at 50% 48%,
+    #000 44%,
+    transparent 76%
   );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 68%,
-    rgb(0 0 0 / 0.82) 78%,
-    rgb(0 0 0 / 0.42) 88%,
-    rgb(0 0 0 / 0.12) 94%,
-    transparent 100%
+  mask-image: radial-gradient(
+    ellipse 58% 70% at 50% 48%,
+    #000 44%,
+    transparent 76%
   );
 }
 
-.character-frame {
+.character-frame--gpu {
   transform: translateZ(0);
-  backface-visibility: hidden;
-  image-rendering: auto;
 }
 
 .stage-noise {
@@ -341,5 +330,12 @@ body {
 
   .display-name {
     line-height: 0.9;
+  }
+
+  .cta-solid,
+  .cta-ghost {
+    width: 100%;
+    min-height: 2.75rem;
+    justify-content: center;
   }
 }

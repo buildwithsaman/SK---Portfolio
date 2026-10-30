@@ -47,7 +47,7 @@ function SplitLine({ text, className }: { text: string; className?: string }) {
 export default function StageHero() {
   const reduceMotion = useReducedMotion();
   const mobile = useMediaQuery("(max-width: 767px)");
-  const staticHero = Boolean(reduceMotion || mobile);
+  const plainType = Boolean(reduceMotion || mobile);
   const [ready, setReady] = useState(() => introAlreadyComplete(reduceMotion));
   const [role, setRole] = useState(0);
 
@@ -87,70 +87,81 @@ export default function StageHero() {
   }, [reduceMotion]);
 
   useEffect(() => {
-    if (staticHero || !ready) return;
+    if (reduceMotion || !ready) return;
     setRole(0);
     const id = window.setInterval(() => {
       setRole((current) => (current + 1) % roles.length);
     }, 3200);
     return () => window.clearInterval(id);
-  }, [staticHero, ready]);
+  }, [reduceMotion, ready]);
 
-  const showMotion = !staticHero && ready;
+  const showMotion = !plainType && ready;
+  const liveRoles = Boolean(!reduceMotion && ready);
 
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)] max-md:min-h-0 max-md:items-start max-md:pb-[max(6.75rem,calc(env(safe-area-inset-bottom)+5.5rem))] lg:pt-[max(6.25rem,env(safe-area-inset-top)+5rem)]"
+      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)] max-md:items-start max-md:pb-[max(6.75rem,calc(env(safe-area-inset-bottom)+5.5rem))] lg:pt-[max(5.25rem,env(safe-area-inset-top)+3.75rem)]"
     >
       <div className="stage-noise pointer-events-none absolute inset-[-8%] z-0" />
 
       <motion.div
-        className="stage-shell relative z-[3] grid items-center gap-8 pb-16 max-md:pb-4 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.7fr)] lg:gap-6 lg:pb-10 2xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
-        initial={staticHero ? false : "hidden"}
-        animate={showMotion ? "show" : staticHero ? undefined : "hidden"}
+        className="stage-shell relative z-[3] grid items-center gap-8 pb-16 max-md:pb-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10 lg:pb-4 2xl:gap-14"
+        initial={plainType ? false : "hidden"}
+        animate={showMotion ? "show" : plainType ? undefined : "hidden"}
         variants={{
           hidden: {},
           show: { transition: { staggerChildren: 0.08 } },
         }}
       >
         <div className="relative z-[4] max-w-3xl 2xl:max-w-4xl min-[1800px]:max-w-5xl">
-          <motion.p
-            className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent2 sm:text-[11px]"
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.6, ease: easeOut },
-              },
-            }}
-          >
-            Hello, I&apos;m
-          </motion.p>
+          <div className="flex items-end gap-3 md:block">
+            <div className="min-w-0 flex-1">
+              <motion.p
+                className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent2 sm:text-[11px]"
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.6, ease: easeOut },
+                  },
+                }}
+              >
+                Hello, I&apos;m
+              </motion.p>
 
-          <h1 className="mt-4">
-            <span className="sr-only">
-              {profile.name}, {profile.title}
-            </span>
-            <span
-              aria-hidden="true"
-              className="display-name block text-[clamp(3.4rem,8vw,13rem)] text-ink"
-            >
-              {staticHero ? (
-                <>
-                  <span className="block">Saman</span>
-                  <span className="block">Khan</span>
-                </>
-              ) : (
-                <>
-                  <SplitLine text="SAMAN" className="block" />
-                  <SplitLine text="KHAN" className="block" />
-                </>
-              )}
-            </span>
-          </h1>
+              <h1 className="mt-4 lg:mt-3">
+                <span className="sr-only">
+                  {profile.name}, {profile.title}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="display-name block text-[clamp(2.55rem,12vw,13rem)] text-ink md:text-[clamp(3.4rem,8vw,13rem)]"
+                >
+                  {plainType ? (
+                    <>
+                      <span className="block">Saman</span>
+                      <span className="block">Khan</span>
+                    </>
+                  ) : (
+                    <>
+                      <SplitLine text="SAMAN" className="block" />
+                      <SplitLine text="KHAN" className="block" />
+                    </>
+                  )}
+                </span>
+              </h1>
+            </div>
 
-          <div className="relative mt-5 overflow-hidden sm:mt-7">
+            {mobile ? (
+              <div className="mb-1 shrink-0">
+                <StageFigure compact />
+              </div>
+            ) : null}
+          </div>
+
+          <div className="relative mt-5 overflow-hidden sm:mt-7 lg:mt-5">
             <div className="grid" aria-hidden="true">
               {roles.map((line) => (
                 <p
@@ -161,7 +172,7 @@ export default function StageHero() {
                 </p>
               ))}
             </div>
-            {staticHero || !showMotion ? (
+            {!liveRoles ? (
               <p className={`absolute inset-0 ${roleTextClass}`}>{roles[0]}</p>
             ) : (
               <AnimatePresence initial={false} mode="wait">
@@ -180,7 +191,7 @@ export default function StageHero() {
           </div>
 
           <motion.p
-            className="mt-6 max-w-md text-sm leading-relaxed text-muted sm:text-base"
+            className="mt-6 max-w-md text-sm leading-relaxed text-muted sm:text-base lg:mt-4"
             variants={{
               hidden: { opacity: 0, y: 18 },
               show: {
@@ -218,7 +229,7 @@ export default function StageHero() {
           </motion.p>
 
           <motion.div
-            className="mt-6 flex flex-wrap gap-3 sm:mt-8"
+            className="mt-6 flex flex-wrap gap-3 max-md:flex-col max-md:items-stretch sm:mt-8 lg:mt-6"
             variants={{
               hidden: { opacity: 0, y: 16 },
               show: {
@@ -228,12 +239,12 @@ export default function StageHero() {
               },
             }}
           >
-            <Magnetic>
+            <Magnetic className="max-md:w-full">
               <a href="#work" className="cta-solid">
                 Explore My Work
               </a>
             </Magnetic>
-            <Magnetic>
+            <Magnetic className="max-md:w-full">
               <a
                 href={profile.resume}
                 download={profile.resumeName}
@@ -246,11 +257,7 @@ export default function StageHero() {
         </div>
 
         {mobile ? null : (
-          <div
-            className={`flex justify-center ${
-              reduceMotion ? "xl:justify-end" : "xl:hidden"
-            }`}
-          >
+          <div className="flex justify-center">
             <StageFigure compact />
           </div>
         )}

@@ -197,6 +197,10 @@ export default function StageIntro() {
       window.cancelAnimationFrame(raf);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onPointer, true);
+      if (!finished) {
+        document.body.style.overflow = "";
+        setPageInert(false);
+      }
     };
   }, [reduceMotion]);
 

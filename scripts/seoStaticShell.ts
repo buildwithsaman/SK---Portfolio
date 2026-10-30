@@ -125,7 +125,6 @@ export function buildSeoStaticShell(): string {
 
   <section id="contact">
     <h2>${esc(profile.contactHeading)}</h2>
-    <p>${esc(profile.contactIntro)}</p>
     <ul>
       <li>Email: <a href="mailto:${esc(profile.email)}">${esc(profile.email)}</a></li>
       <li>Phone: <a href="${esc(profile.phoneHref)}">${esc(profile.phone)}</a></li>

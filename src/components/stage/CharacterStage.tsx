@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import {
+  armMemojiVideo,
   getCharacterAssets,
-  pickTransparentVideoSource,
+  pickCharacterVideoSource,
 } from "../../lib/character";
 
 /** Wait until the overlay is gone — not merely fading — before loading video. */
@@ -27,9 +28,9 @@ export default function CharacterStage({
   const [introDone, setIntroDone] = useState(() => bootDismissed(reduceMotion));
   const [inView, setInView] = useState(false);
   const [source, setSource] = useState<string | null>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
-  const live = !compact && !reduceMotion;
+  const live = !reduceMotion;
 
   useEffect(() => {
     if (bootDismissed(reduceMotion)) {
@@ -68,7 +69,7 @@ export default function CharacterStage({
 
   useEffect(() => {
     if (!live || !introDone || !inView || source) return;
-    setSource(pickTransparentVideoSource());
+    setSource(pickCharacterVideoSource());
   }, [live, introDone, inView, source]);
 
   const attachVideo = live && introDone && inView && Boolean(source);
@@ -77,39 +78,31 @@ export default function CharacterStage({
     const video = videoRef.current;
     if (!video || !source) return;
 
-    const onReady = () => setCanPlayVideo(true);
+    armMemojiVideo(video);
+
+    const playThrough = () => {
+      const run = video.play();
+      if (run) run.catch(() => setPlaying(false));
+    };
+
+    const onPlaying = () => setPlaying(true);
     const onError = () => {
-      setCanPlayVideo(false);
+      setPlaying(false);
       setSource(null);
     };
-    const onPlaying = () => {
-      video.playbackRate = 0.88;
-    };
-    video.addEventListener("canplay", onReady);
-    video.addEventListener("playing", onPlaying);
-    video.addEventListener("error", onError);
-
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.playbackRate = 0.88;
-
-    if (attachVideo) {
-      video.play().catch(() => {
-        setCanPlayVideo(false);
-      });
-    } else {
-      video.pause();
-    }
-
     const onVisibility = () => {
       if (document.hidden) video.pause();
-      else if (attachVideo) video.play().catch(() => {});
+      else if (attachVideo) playThrough();
     };
+
+    video.addEventListener("playing", onPlaying);
+    video.addEventListener("error", onError);
     document.addEventListener("visibilitychange", onVisibility);
 
+    if (attachVideo) playThrough();
+    else video.pause();
+
     return () => {
-      video.removeEventListener("canplay", onReady);
       video.removeEventListener("playing", onPlaying);
       video.removeEventListener("error", onError);
       document.removeEventListener("visibilitychange", onVisibility);
@@ -118,15 +111,15 @@ export default function CharacterStage({
 
   const assets = getCharacterAssets();
   const sizeClass = compact
-    ? "h-[16.5rem] sm:h-[22rem] lg:h-[28rem] 2xl:h-[32rem]"
-    : "h-[min(56rem,calc(100svh-4.9rem))] min-[1800px]:h-[min(64rem,calc(100svh-3.2rem))] min-[2400px]:h-[min(72rem,calc(100svh-3.2rem))]";
+    ? "h-[7.75rem] sm:h-[14rem] lg:h-[16.5rem] xl:h-[min(22rem,calc(100svh-12rem))] 2xl:h-[min(24rem,calc(100svh-10rem))]"
+    : "h-[min(24rem,calc(100svh-10rem))] min-[1800px]:h-[min(28rem,calc(100svh-8rem))]";
   const fitClass = "object-contain object-center";
 
   return (
     <div
       ref={rootRef}
       aria-hidden="true"
-      className={`character-veil relative ${sizeClass} w-auto max-w-full`}
+      className={`character-veil ${sizeClass} w-auto max-w-full`}
       style={{ aspectRatio: `${assets.width} / ${assets.height}` }}
     >
       <img
@@ -135,10 +128,12 @@ export default function CharacterStage({
         width={assets.width}
         height={assets.height}
         decoding="async"
-        loading={compact ? "lazy" : "eager"}
+        loading="eager"
         fetchPriority="low"
         draggable={false}
-        className={`character-frame pointer-events-none absolute inset-0 h-full w-full ${fitClass}`}
+        className={`character-frame pointer-events-none absolute inset-0 h-full w-full ${fitClass} ${
+          playing ? "hidden" : ""
+        }`}
       />
       {source ? (
         <video
@@ -152,8 +147,8 @@ export default function CharacterStage({
           height={assets.height}
           disablePictureInPicture
           disableRemotePlayback
-          className={`character-frame pointer-events-none absolute inset-0 h-full w-full bg-transparent ${fitClass} transition-opacity duration-500 ${
-            canPlayVideo ? "opacity-100" : "opacity-0"
+          className={`character-frame character-frame--gpu pointer-events-none absolute inset-0 h-full w-full bg-transparent ${fitClass} ${
+            playing ? "" : "invisible"
           }`}
         />
       ) : null}

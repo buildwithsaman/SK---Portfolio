@@ -65,7 +65,7 @@ export default function StageWork() {
 
   return (
     <section
-      className="overflow-x-clip py-10 lg:py-14"
+      className="overflow-x-clip py-10 lg:py-8"
       aria-labelledby="work-heading"
     >
       <div id="work" className="h-0 scroll-mt-5" />
@@ -83,7 +83,7 @@ export default function StageWork() {
           </p>
         </Reveal>
 
-        <div className="relative mt-5 w-full sm:mt-6">
+        <div className="relative mt-5 w-full sm:mt-6 lg:mt-4">
           <FlowingMenu
             items={items}
             speed={48}
@@ -97,7 +97,11 @@ export default function StageWork() {
             intro={!compact}
             activeIndex={active}
             onActiveIndexChange={setActive}
-            onItemClick={(_item, index) => setActive(index)}
+            onItemClick={(_item, index) =>
+              setActive((current) =>
+                compact && current === index ? -1 : index,
+              )
+            }
             textColor="#fafafc"
             bgColor="transparent"
             marqueeBgColor="#a8a2ff"
