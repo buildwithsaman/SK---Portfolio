@@ -7,11 +7,14 @@ export function getCharacterAssets() {
   return {
     poster: `${base}character/memoji-poster.webp`,
     avc: `${base}character/memoji.mp4`,
-    hevc: `${base}character/memoji.mov`,
+    hevc: `${base}character/memoji-hevc.mp4`,
     width: 640,
     height: 480,
   } as const;
 }
+
+export const HEVC_TYPE = 'video/mp4; codecs="hvc1"';
+export const AVC_TYPE = 'video/mp4; codecs="avc1.640028"';
 
 /** Keep the element on the hardware video path: muted, inline, native loop. */
 export function armMemojiVideo(video: HTMLVideoElement) {
@@ -23,37 +26,13 @@ export function armMemojiVideo(video: HTMLVideoElement) {
   video.playbackRate = 1;
   video.setAttribute("playsinline", "true");
   video.setAttribute("webkit-playsinline", "true");
+  video.setAttribute("muted", "");
   video.disablePictureInPicture = true;
 }
 
-/**
- * Silent Memoji loop. Opaque 8-bit 4:2:0 so the browser can hardware-decode
- * on the GPU: HEVC on Apple WebKit, H.264 everywhere else. No VP9 alpha.
- */
-export function pickCharacterVideoSource(): string | null {
-  if (typeof document === "undefined") return null;
-
-  const assets = getCharacterAssets();
-  const video = document.createElement("video");
-  const ua = navigator.userAgent;
-  const iOS = /iPhone|iPad|iPod/i.test(ua);
-  const iPadOS =
-    navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
-  const safariDesktop =
-    /Safari/i.test(ua) && !/Chrome|Chromium|Android|Edg/i.test(ua);
-  const appleWebKit = iOS || iPadOS || safariDesktop;
-
-  if (appleWebKit && video.canPlayType('video/mp4; codecs="hvc1"')) {
-    return assets.hevc;
-  }
-
-  if (video.canPlayType('video/mp4; codecs="avc1.640028"')) {
-    return assets.avc;
-  }
-
-  if (video.canPlayType("video/mp4")) {
-    return assets.avc;
-  }
-
-  return null;
+/** iOS will not autoplay a hidden video, and play() can lose the first gesture. */
+export function playMemoji(video: HTMLVideoElement) {
+  armMemojiVideo(video);
+  const run = video.play();
+  if (run) void run.catch(() => {});
 }

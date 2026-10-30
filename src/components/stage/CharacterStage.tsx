@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import {
+  AVC_TYPE,
+  HEVC_TYPE,
   armMemojiVideo,
   getCharacterAssets,
-  pickCharacterVideoSource,
+  playMemoji,
 } from "../../lib/character";
 
 /** Wait until the overlay is gone — not merely fading — before loading video. */
@@ -27,10 +29,11 @@ export default function CharacterStage({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [introDone, setIntroDone] = useState(() => bootDismissed(reduceMotion));
   const [inView, setInView] = useState(false);
-  const [source, setSource] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
 
   const live = !reduceMotion;
+  const ready = Boolean(live && introDone);
+  const attachVideo = Boolean(ready && inView);
 
   useEffect(() => {
     if (bootDismissed(reduceMotion)) {
@@ -68,46 +71,38 @@ export default function CharacterStage({
   }, []);
 
   useEffect(() => {
-    if (!live || !introDone || !inView || source) return;
-    setSource(pickCharacterVideoSource());
-  }, [live, introDone, inView, source]);
-
-  const attachVideo = live && introDone && inView && Boolean(source);
-
-  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !source) return;
+    if (!video || !ready) return;
 
     armMemojiVideo(video);
 
     const playThrough = () => {
-      const run = video.play();
-      if (run) run.catch(() => setPlaying(false));
+      if (!attachVideo) {
+        video.pause();
+        return;
+      }
+      playMemoji(video);
     };
-
     const onPlaying = () => setPlaying(true);
-    const onError = () => {
-      setPlaying(false);
-      setSource(null);
-    };
     const onVisibility = () => {
       if (document.hidden) video.pause();
-      else if (attachVideo) playThrough();
+      else playThrough();
     };
 
     video.addEventListener("playing", onPlaying);
-    video.addEventListener("error", onError);
+    video.addEventListener("canplay", playThrough);
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("touchstart", playThrough, { passive: true });
 
-    if (attachVideo) playThrough();
-    else video.pause();
+    playThrough();
 
     return () => {
       video.removeEventListener("playing", onPlaying);
-      video.removeEventListener("error", onError);
+      video.removeEventListener("canplay", playThrough);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("touchstart", playThrough);
     };
-  }, [attachVideo, source]);
+  }, [attachVideo, ready]);
 
   const assets = getCharacterAssets();
   const sizeClass = compact
@@ -122,6 +117,24 @@ export default function CharacterStage({
       className={`character-veil ${sizeClass} w-auto max-w-full`}
       style={{ aspectRatio: `${assets.width} / ${assets.height}` }}
     >
+      {ready ? (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          width={assets.width}
+          height={assets.height}
+          disablePictureInPicture
+          disableRemotePlayback
+          className={`character-frame character-frame--gpu pointer-events-none absolute inset-0 h-full w-full bg-transparent ${fitClass}`}
+        >
+          <source src={assets.hevc} type={HEVC_TYPE} />
+          <source src={assets.avc} type={AVC_TYPE} />
+        </video>
+      ) : null}
       <img
         src={assets.poster}
         alt=""
@@ -131,27 +144,10 @@ export default function CharacterStage({
         loading="eager"
         fetchPriority="low"
         draggable={false}
-        className={`character-frame pointer-events-none absolute inset-0 h-full w-full ${fitClass} ${
+        className={`character-frame pointer-events-none absolute inset-0 z-[1] h-full w-full ${fitClass} ${
           playing ? "hidden" : ""
         }`}
       />
-      {source ? (
-        <video
-          ref={videoRef}
-          src={source}
-          muted
-          loop
-          playsInline
-          preload="auto"
-          width={assets.width}
-          height={assets.height}
-          disablePictureInPicture
-          disableRemotePlayback
-          className={`character-frame character-frame--gpu pointer-events-none absolute inset-0 h-full w-full bg-transparent ${fitClass} ${
-            playing ? "" : "invisible"
-          }`}
-        />
-      ) : null}
     </div>
   );
 }

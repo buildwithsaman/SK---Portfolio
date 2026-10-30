@@ -267,12 +267,34 @@
           opacity: 0;
           transition: none;
         }
-        #stage-boot[data-done="true"],
-        html[data-skip-intro] #stage-boot {
+        body {
+          margin: 0;
+          background: #010005;
+        }
+        /* Crawlable HTML stays in the document. Humans never see this dump. */
+        #seo-static-shell {
+          position: absolute !important;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+        #stage-boot[data-done="true"] {
           display: none !important;
         }
+        @media (min-width: 1024px) {
+          html[data-skip-intro] #stage-boot {
+            display: none !important;
+          }
+        }
         @media (max-width: 1023px) {
-          #stage-boot {
+          #stage-boot .boot-marquee,
+          #stage-boot .boot-welcome,
+          #stage-boot .boot-hint {
             display: none !important;
           }
         }
@@ -471,6 +493,10 @@
           var compact = window.matchMedia("(max-width: 1023px)").matches;
           if (reduce || compact) {
             document.documentElement.setAttribute("data-skip-intro", "true");
+          }
+          // On phones keep the dark cover until React mounts. Hiding it here
+          // would flash the SEO résumé HTML before the chat UI exists.
+          if (reduce && !compact) {
             var boot = document.getElementById("stage-boot");
             if (boot) boot.setAttribute("data-done", "true");
           }
@@ -482,6 +508,22 @@
       (see scripts/seoStaticShell.ts). createRoot() replaces it on the client.
     -->
     <div id="root"></div>
+    <noscript>
+      <style>
+        #stage-boot {
+          display: none !important;
+        }
+        #seo-static-shell {
+          position: static !important;
+          width: auto;
+          height: auto;
+          margin: 0;
+          overflow: visible;
+          clip: auto;
+          white-space: normal;
+        }
+      </style>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

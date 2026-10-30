@@ -11,7 +11,7 @@ If you want something like this for yourself, start here. Copy the structure, th
 - Full-viewport intro in the same dark navy and periwinkle as the rest of the page, then a Hero with a transparent looping character (or an SVG fallback)
 - Tab bar at the top from `lg`. Below `lg`, a conversational mobile portfolio replaces the long page.
 - What I Do (impact stats), Career (role cards with copy), Work (hovering menu with copy expanding under the active row), Skills (scroll-driven cards), Contact
-- One content file for all copy: `src/data/cv.ts`
+- Page copy in `src/data/cv.ts`. Mobile Q&A replies in `src/lib/assistant.ts`.
 - Build-time SEO shell so crawlers see real HTML before React mounts
 - GitHub Pages deploy on push to `main`
 
@@ -35,7 +35,7 @@ Do this in order. Leave the components alone until the site says your name.
 
 ### 1. Identity and copy
 
-Edit **`src/data/cv.ts`**. That file drives the UI and the SEO shell.
+Edit **`src/data/cv.ts`**. That file drives the cinematic UI and the SEO shell. Mobile question replies live in `src/lib/assistant.ts`. Keep those answers aligned with the CV, and do not invent facts for unmatched questions.
 
 Replace:
 
@@ -66,7 +66,7 @@ Keep copy in `cv.ts`. Do not paste biography into JSX. Website copy should not u
 1. Set `profile.siteUrl` and `profile.contentUpdated` in `cv.ts`
 2. Set `public/CNAME` to your domain, or remove it
 3. Titles, description, canonical, Open Graph, Twitter, and JSON-LD come from `index.html` plus `scripts/seoHead.ts`
-4. The crawlable body is built in `scripts/seoStaticShell.ts` from the same `cv.ts` data
+4. The crawlable body is built in `scripts/seoStaticShell.ts` from the same `cv.ts` data. It is visually hidden in `index.html` so phones do not flash the full résumé before React mounts.
 
 After a content change, run `npm run build` so `dist/sitemap.xml` matches.
 
@@ -85,7 +85,7 @@ Tailwind maps those names in `tailwind.config.js`.
 
 ## How the page is built
 
-`src/App.tsx` is the map. From `lg` (1024px) up it is the cinematic page. Below `lg` it is a conversational mobile UI (`src/components/mobile/`) that answers from `src/data/cv.ts` and `src/lib/assistant.ts`.
+`src/App.tsx` is the map. From `lg` (1024px) up it is the cinematic page. Below `lg` it is a conversational mobile UI (`src/components/mobile/`) that answers from stored replies in `src/lib/assistant.ts`.
 
 **Desktop (`lg` and up)**
 
@@ -100,7 +100,7 @@ Tailwind maps those names in `tailwind.config.js`.
 
 **Mobile (below `lg`)**
 
-The cinematic intro is skipped. `MobilePortfolio` shows the Memoji, a greeting, suggestion chips, and a prompt. Answers are local intent matching over `cv.ts`, not a live model. Download CV uses `public/Saman_Khan_CV.pdf`.
+The cinematic intro is skipped. Keep `#stage-boot` as a blank paper cover below `lg` until React mounts, otherwise the crawlable SEO shell in `#root` flashes the full résumé. `MobilePortfolio` then shows the Memoji, a greeting, suggestion chips, and a prompt. Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one shows that exact stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`.
 
 `components/stage/` is page layout. `components/ui/` is reusable motion pieces. Swap a section by changing that one stage file and the data it reads.
 
@@ -112,11 +112,11 @@ The Hero figure is a silent looping Memoji (poster plus video). `CHARACTER_ENABL
 
 ```
 public/character/memoji-poster.webp
-public/character/memoji.mp4    # silent H.264 High (Chrome, Firefox, Android, GPU decode)
-public/character/memoji.mov    # silent HEVC hvc1 (Safari / iOS, GPU decode)
+public/character/memoji.mp4         # silent H.264 High (Chrome, Firefox, Android, GPU decode)
+public/character/memoji-hevc.mp4    # silent HEVC hvc1 in MP4 (Safari / iOS, GPU decode)
 ```
 
-Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome.
+Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Put HEVC in an `.mp4` with `hvc1`, not a `.mov`. GitHub Pages serves `.mov` as `video/quicktime`, and iOS Safari often will not play that in a `<video>` tag. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome. Mark the clip `autoPlay muted playsInline` and do not `visibility: hidden` it while it starts, or iOS will keep the poster.
 
 ## Optional React Bits Pro
 
@@ -171,7 +171,7 @@ In the repo: **Settings → Pages → GitHub Actions**. `vite.config.ts` uses `b
 
 ## Conventions
 
-- One content source: `src/data/cv.ts`
+- Page copy: `src/data/cv.ts`. Mobile Q&A replies: `src/lib/assistant.ts`
 - Do not invent CV facts
 - Do not use `--` in on-site copy
 - Do not commit `.env.local` or secrets

@@ -50,10 +50,10 @@ export default function MobilePortfolio() {
     };
   }, []);
 
-  const ask = useCallback((raw: string) => {
+  const ask = useCallback((raw: string, topicId?: string) => {
     const text = raw.trim();
     if (!text) return;
-    const reply = answerAssistant(text);
+    const reply = answerAssistant(text, topicId);
     setMessages((current) => [
       ...current,
       { id: nextId(), role: "user", text },
@@ -111,7 +111,10 @@ export default function MobilePortfolio() {
 
       <footer className="mobile-dock">
         <SuggestionChips items={chips} onPick={ask} />
-        <PromptBar onSubmit={ask} />
+        <PromptBar
+          onSubmit={ask}
+          onSelect={(item) => ask(item.question, item.id)}
+        />
       </footer>
 
       <section className="sr-only" aria-label="Professional profile">

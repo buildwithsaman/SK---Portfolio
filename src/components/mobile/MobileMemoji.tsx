@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import {
-  armMemojiVideo,
+  AVC_TYPE,
+  HEVC_TYPE,
   getCharacterAssets,
-  pickCharacterVideoSource,
+  playMemoji,
 } from "../../lib/character";
 
 export default function MobileMemoji({
@@ -13,38 +14,39 @@ export default function MobileMemoji({
 }) {
   const reduceMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [source, setSource] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const assets = getCharacterAssets();
   const live = !reduceMotion && size === "hero";
 
   useEffect(() => {
-    if (!live) return;
-    setSource(pickCharacterVideoSource());
-  }, [live]);
-
-  useEffect(() => {
     const video = videoRef.current;
-    if (!video || !source) return;
-
-    armMemojiVideo(video);
+    if (!video || !live) return;
 
     const playThrough = () => {
-      const run = video.play();
-      if (run) run.catch(() => setPlaying(false));
+      if (document.hidden) {
+        video.pause();
+        return;
+      }
+      playMemoji(video);
     };
-
     const onPlaying = () => setPlaying(true);
-    video.addEventListener("playing", onPlaying);
 
-    if (video.readyState >= 2) playThrough();
-    else video.addEventListener("canplay", playThrough, { once: true });
+    video.addEventListener("playing", onPlaying);
+    video.addEventListener("canplay", playThrough);
+    document.addEventListener("visibilitychange", playThrough);
+    window.addEventListener("touchstart", playThrough, { passive: true });
+    window.addEventListener("pointerdown", playThrough);
+
+    playThrough();
 
     return () => {
       video.removeEventListener("playing", onPlaying);
       video.removeEventListener("canplay", playThrough);
+      document.removeEventListener("visibilitychange", playThrough);
+      window.removeEventListener("touchstart", playThrough);
+      window.removeEventListener("pointerdown", playThrough);
     };
-  }, [source]);
+  }, [live]);
 
   const box =
     size === "avatar"
@@ -65,18 +67,20 @@ export default function MobileMemoji({
         draggable={false}
         className={playing ? "hidden" : ""}
       />
-      {source ? (
+      {live ? (
         <video
           ref={videoRef}
-          src={source}
+          autoPlay
           muted
           loop
           playsInline
           preload="auto"
           disablePictureInPicture
           disableRemotePlayback
-          className={playing ? "" : "invisible"}
-        />
+        >
+          <source src={assets.hevc} type={HEVC_TYPE} />
+          <source src={assets.avc} type={AVC_TYPE} />
+        </video>
       ) : null}
     </div>
   );
