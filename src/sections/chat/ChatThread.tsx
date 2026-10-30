@@ -15,9 +15,13 @@ export default function ChatThread({ messages }: { messages: ChatLine[] }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const node = endRef.current;
-    if (!node) return;
-    node.scrollIntoView({ block: "end", behavior: "smooth" });
+    const thread = scrollerRef.current;
+    const frame = thread?.closest(".site-chat__body");
+    if (frame instanceof HTMLElement) {
+      frame.scrollTop = frame.scrollHeight;
+      return;
+    }
+    endRef.current?.scrollIntoView({ block: "nearest" });
   }, [messages]);
 
   return (

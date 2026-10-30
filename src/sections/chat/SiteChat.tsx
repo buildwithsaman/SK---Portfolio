@@ -72,6 +72,44 @@ export default function SiteChat() {
   }, []);
 
   useEffect(() => {
+    if (!open) return;
+
+    const root = document.documentElement;
+    const mobile = window.matchMedia("(max-width: 1023px)");
+
+    const syncViewport = () => {
+      if (!mobile.matches) {
+        root.style.removeProperty("--chat-vv-top");
+        root.style.removeProperty("--chat-vv-height");
+        document.body.style.overflow = "";
+        return;
+      }
+
+      const vv = window.visualViewport;
+      root.style.setProperty("--chat-vv-top", `${vv?.offsetTop ?? 0}px`);
+      root.style.setProperty(
+        "--chat-vv-height",
+        `${vv?.height ?? window.innerHeight}px`,
+      );
+      document.body.style.overflow = "hidden";
+    };
+
+    syncViewport();
+    const vv = window.visualViewport;
+    vv?.addEventListener("resize", syncViewport);
+    vv?.addEventListener("scroll", syncViewport);
+    mobile.addEventListener("change", syncViewport);
+    return () => {
+      vv?.removeEventListener("resize", syncViewport);
+      vv?.removeEventListener("scroll", syncViewport);
+      mobile.removeEventListener("change", syncViewport);
+      root.style.removeProperty("--chat-vv-top");
+      root.style.removeProperty("--chat-vv-height");
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  useEffect(() => {
     if (open) {
       wasOpen.current = true;
       const onKey = (event: KeyboardEvent) => {
@@ -93,9 +131,13 @@ export default function SiteChat() {
 
   return (
     <div
-      className={
-        heroAskVisible ? "site-chat site-chat--hero-covered" : "site-chat"
-      }
+      className={[
+        "site-chat",
+        open ? "site-chat--open" : "",
+        heroAskVisible ? "site-chat--hero-covered" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       {open ? (
         <aside

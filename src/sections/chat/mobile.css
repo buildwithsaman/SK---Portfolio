@@ -188,6 +188,7 @@
   padding: 0.15rem 0.1rem 0.7rem;
   list-style: none;
   scrollbar-width: none;
+  overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -197,6 +198,37 @@
 
 .mobile-chips::-webkit-scrollbar {
   display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mobile-chips {
+    cursor: grab;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--accent2) / 0.4) transparent;
+  }
+
+  .mobile-chips.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  .mobile-chips.is-dragging .mobile-chip {
+    pointer-events: none;
+  }
+
+  .mobile-chips::-webkit-scrollbar {
+    display: block;
+    height: 6px;
+  }
+
+  .mobile-chips::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .mobile-chips::-webkit-scrollbar-thumb {
+    background: rgb(var(--accent2) / 0.38);
+    border-radius: 999px;
+  }
 }
 
 .mobile-chip {
@@ -362,6 +394,27 @@
     right: max(0.85rem, env(safe-area-inset-right));
     bottom: max(5.15rem, calc(env(safe-area-inset-bottom) + 4.2rem));
   }
+
+  .site-chat--open {
+    display: flex;
+    top: var(--chat-vv-top, 0px);
+    right: 0;
+    bottom: auto;
+    left: 0;
+    height: var(--chat-vv-height, 100dvh);
+  }
+
+  .site-chat--open .site-chat__panel {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .site-chat--open .site-chat__bar {
+    padding-top: max(0.85rem, env(safe-area-inset-top));
+  }
 }
 
 @media (min-width: 1280px) {
@@ -466,13 +519,6 @@
 
 .site-chat .mobile-welcome {
   padding-top: 0.75rem;
-}
-
-@media (max-width: 1023px) {
-  .site-chat__panel {
-    width: min(26.5rem, calc(100vw - 1.7rem));
-    height: min(40rem, calc(100dvh - 7.75rem));
-  }
 }
 
 @keyframes mobile-msg-in {
