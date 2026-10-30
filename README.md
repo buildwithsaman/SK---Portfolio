@@ -174,5 +174,4 @@ In the repo: **Settings → Pages → GitHub Actions**. `vite.config.ts` uses `b
 - One content source: `src/data/cv.ts`
 - Do not invent CV facts
 - Do not use `--` in on-site copy
-- `.cursor/` is local and gitignored
 - Do not commit `.env.local` or secrets
