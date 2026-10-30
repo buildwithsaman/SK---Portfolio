@@ -43,27 +43,27 @@
 
 @media (min-width: 1536px) {
   :root {
-    --stage-max: min(104rem, calc(100vw - 5rem));
+    --stage-max: min(112rem, calc(100vw - 4.5rem));
   }
 }
 
 @media (min-width: 1800px) {
   :root {
-    --stage-max: min(120rem, calc(100vw - 6rem));
+    --stage-max: min(132rem, calc(100vw - 5.5rem));
     --stage-gutter: 3.5rem;
   }
 }
 
 @media (min-width: 2400px) {
   :root {
-    --stage-max: min(140rem, calc(100vw - 8rem));
+    --stage-max: min(152rem, calc(100vw - 7rem));
     --stage-gutter: 4rem;
   }
 }
 
 @media (min-width: 3000px) {
   :root {
-    --stage-max: min(160rem, calc(100vw - 10rem));
+    --stage-max: min(176rem, calc(100vw - 8rem));
     --stage-gutter: 4.5rem;
   }
 }
@@ -75,7 +75,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 1.25rem;
-  scroll-padding-bottom: 7.5rem;
+  scroll-padding-bottom: 6.5rem;
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }

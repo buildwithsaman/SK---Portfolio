@@ -9,10 +9,40 @@ import {
 } from "../../lib/introTiming";
 
 function pinToTop() {
+  const root = document.documentElement;
+  const previous = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
   window.scrollTo(0, 0);
+  root.scrollTop = 0;
+  document.body.scrollTop = 0;
+  root.style.scrollBehavior = previous;
+}
+
+function skipWantsHero() {
+  return document.documentElement.getAttribute("data-intro-at-hero") === "true";
+}
+
+function markSkipToHero() {
+  document.documentElement.setAttribute("data-intro-at-hero", "true");
+  const url = `${window.location.pathname}${window.location.search}` || "/";
+  if (window.location.hash) {
+    history.replaceState(null, "", url);
+  }
+  pinToTop();
+}
+
+function landAtHero() {
+  markSkipToHero();
+  requestAnimationFrame(pinToTop);
+  window.setTimeout(pinToTop, 50);
+  window.setTimeout(pinToTop, 200);
 }
 
 function applyLandingHash() {
+  if (skipWantsHero()) {
+    landAtHero();
+    return;
+  }
   const id = window.location.hash.replace(/^#/, "");
   if (!id || id === "home" || id === "about") {
     pinToTop();
@@ -26,8 +56,12 @@ function applyLandingHash() {
   });
 }
 
-function revealStage() {
-  window.dispatchEvent(new Event("stage-intro-done"));
+function revealStage(skipped = false) {
+  window.dispatchEvent(
+    new CustomEvent("stage-intro-done", {
+      detail: { skipped: skipped || skipWantsHero() },
+    }),
+  );
 }
 
 function shouldSkipIntro(reduceMotion: boolean | null) {
@@ -71,23 +105,30 @@ function setPageInert(active: boolean) {
   }
 }
 
-function dismissBoot() {
+function dismissBoot(atHero = false) {
   const boot = document.getElementById("stage-boot");
   boot?.setAttribute("data-done", "true");
   document.body.style.overflow = "";
   setPageInert(false);
+  if (atHero || skipWantsHero()) {
+    landAtHero();
+    return;
+  }
   applyLandingHash();
 }
 
 function finishIntro(immediate = false) {
-  revealStage();
   const boot = document.getElementById("stage-boot");
-  if (immediate || !boot) {
-    dismissBoot();
+  const atHero = immediate || skipWantsHero();
+  if (atHero || !boot) {
+    dismissBoot(atHero);
+    revealStage(atHero);
+    requestAnimationFrame(pinToTop);
     return;
   }
+  revealStage(false);
   boot.classList.add("is-exiting");
-  window.setTimeout(dismissBoot, INTRO_FADE_MS);
+  window.setTimeout(() => dismissBoot(false), INTRO_FADE_MS);
 }
 
 type IntroPhase = "load" | "welcome" | "exiting" | "done";
@@ -112,8 +153,8 @@ export default function StageIntro() {
 
     const boot = document.getElementById("stage-boot");
     if (!boot) {
-      revealStage();
-      dismissBoot();
+      dismissBoot(false);
+      revealStage(false);
       return;
     }
 
@@ -123,8 +164,9 @@ export default function StageIntro() {
       shouldSkipIntro(reduceMotion) ||
       boot.getAttribute("data-done") === "true"
     ) {
-      revealStage();
-      dismissBoot();
+      const atHero = skipWantsHero();
+      dismissBoot(atHero);
+      revealStage(atHero);
       return;
     }
 
@@ -155,7 +197,11 @@ export default function StageIntro() {
     };
 
     const skip = () => {
-      if (cancelled) return;
+      markSkipToHero();
+      if (finished) {
+        dismissBoot(true);
+        return;
+      }
       complete(true);
     };
 

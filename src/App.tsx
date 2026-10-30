@@ -1,16 +1,18 @@
 import { type MouseEvent } from "react";
-import SiteChat from "./components/mobile/SiteChat";
-import StageCareer from "./components/stage/StageCareer";
-import StageChrome from "./components/stage/StageChrome";
-import StageContact from "./components/stage/StageContact";
-import StageFooter from "./components/stage/StageFooter";
-import StageIdentity from "./components/stage/StageIdentity";
-import StageIntro from "./components/stage/StageIntro";
-import StagePractice from "./components/stage/StagePractice";
-import StageSkills from "./components/stage/StageSkills";
-import StageWork from "./components/stage/StageWork";
-import SocialRail from "./components/stage/SocialRail";
 import StageCursor from "./components/ui/StageCursor";
+import SiteChat from "./sections/chat";
+import StageCareer from "./sections/career";
+import StageContact from "./sections/contact";
+import StageIdentity from "./sections/hero";
+import StagePractice from "./sections/highlights";
+import {
+  SocialRail,
+  StageChrome,
+  StageFooter,
+  StageIntro,
+} from "./sections/layout";
+import StageSkills from "./sections/skills";
+import StageWork from "./sections/work";
 
 function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
@@ -20,7 +22,11 @@ function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   const main = document.getElementById("main-content");
   if (!main) return;
   main.focus({ preventScroll: true });
-  main.scrollIntoView({ behavior: "auto", block: "start" });
+  const root = document.documentElement;
+  const previous = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  window.scrollTo(0, 0);
+  root.style.scrollBehavior = previous;
 }
 
 export default function App() {

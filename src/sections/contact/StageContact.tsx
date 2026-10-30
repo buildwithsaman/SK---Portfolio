@@ -1,5 +1,5 @@
-import Reveal from "../ui/Reveal";
-import Magnetic from "../ui/Magnetic";
+import Reveal from "../../components/ui/Reveal";
+import Magnetic from "../../components/ui/Magnetic";
 import { education, profile } from "../../data/cv";
 
 const socials = [
@@ -13,7 +13,7 @@ export default function StageContact() {
   return (
     <section
       id="contact"
-      className="overflow-x-clip py-12 lg:py-8"
+      className="overflow-x-clip py-10 lg:py-28"
       aria-labelledby="contact-heading"
     >
       <div className="stage-shell">

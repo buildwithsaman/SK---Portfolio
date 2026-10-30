@@ -5,7 +5,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import { INTRO_TOTAL_MS, introAlreadyComplete } from "../../lib/introTiming";
 import { easeOut } from "../../lib/motion";
 import { openSiteChat } from "../../lib/siteChat";
-import Magnetic from "../ui/Magnetic";
+import Magnetic from "../../components/ui/Magnetic";
 import StageFigure from "./StageFigure";
 
 const roles = [...heroRoles];
@@ -35,7 +35,7 @@ const HERO_CHIPS = [
 ] as const;
 
 const roleTextClass =
-  "gradient-role text-[1.05rem] font-semibold leading-snug tracking-tight sm:text-2xl md:text-[2rem] min-[1800px]:text-4xl";
+  "gradient-role text-[1.2rem] font-semibold leading-snug tracking-tight sm:text-2xl md:text-[2rem] min-[1800px]:text-4xl";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -191,12 +191,12 @@ export default function StageHero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)] max-lg:min-h-0 max-lg:items-start max-lg:pt-[max(1.75rem,env(safe-area-inset-top)+1rem)] max-lg:pb-[max(6.75rem,calc(env(safe-area-inset-bottom)+5.5rem))] lg:pt-[max(5.25rem,env(safe-area-inset-top)+3.75rem)]"
+      className="relative flex min-h-[100svh] min-h-[100dvh] items-center overflow-x-clip pt-[max(4.75rem,env(safe-area-inset-top)+3.25rem)] max-lg:min-h-0 max-lg:items-start max-lg:pt-[max(2.75rem,env(safe-area-inset-top)+1.75rem)] max-lg:pb-10 lg:pt-[max(5.25rem,env(safe-area-inset-top)+3.75rem)] xl:flex-col xl:items-stretch"
     >
       <div className="stage-noise pointer-events-none absolute inset-[-8%] z-0" />
 
       <motion.div
-        className="stage-shell relative z-[3] grid items-center gap-8 pb-16 max-lg:gap-3 max-lg:pb-0 lg:grid-cols-[minmax(18rem,0.88fr)_minmax(16rem,1.12fr)] lg:gap-6 lg:pb-4 xl:max-w-[95rem] xl:grid-cols-[minmax(0,0.54fr)_minmax(0,0.46fr)] xl:gap-10 xl:pb-16 2xl:gap-12"
+        className="stage-shell relative z-[3] grid items-center gap-8 pb-16 max-lg:gap-3 max-lg:pb-0 lg:grid-cols-[minmax(18rem,0.88fr)_minmax(16rem,1.12fr)] lg:gap-6 lg:pb-4 xl:min-h-[calc(100svh-8.5rem)] xl:flex-1 xl:grid-cols-[minmax(0,0.54fr)_minmax(0,0.46fr)] xl:gap-10 xl:pb-24 2xl:gap-12 min-[1800px]:gap-16"
         initial={plainType ? false : "hidden"}
         animate={showMotion ? "show" : plainType ? undefined : "hidden"}
         variants={{
@@ -219,13 +219,13 @@ export default function StageHero() {
               Hello, I&apos;m
             </motion.p>
 
-            <h1 className="mt-2 max-md:mt-3.5 lg:mt-3 xl:mt-3">
+            <h1 className="mt-2 max-md:mt-2.5 lg:mt-3 xl:mt-3">
               <span className="sr-only">
                 {profile.name}, {profile.title}
               </span>
               <span
                 aria-hidden="true"
-                className="display-name block text-[clamp(2.55rem,12vw,13rem)] text-ink md:text-[clamp(3.4rem,8vw,13rem)] xl:text-[clamp(5rem,8vw,9rem)] xl:leading-[0.9]"
+                className="display-name block text-[clamp(2.55rem,12vw,13rem)] text-ink max-md:leading-[0.9] md:text-[clamp(3.4rem,8vw,13rem)] xl:text-[clamp(5.75rem,9.5vw,13rem)] xl:leading-[0.9]"
               >
                 {plainType ? (
                   <>
@@ -242,7 +242,7 @@ export default function StageHero() {
             </h1>
           </div>
 
-          <div className="relative mt-5 min-h-[2.5rem] overflow-hidden sm:mt-5 lg:mt-5 xl:hidden">
+          <div className="relative mt-4 overflow-hidden max-md:mt-4 sm:mt-5 lg:mt-5 xl:hidden">
             <div className="grid" aria-hidden="true">
               {roles.map((line) => (
                 <p
@@ -272,28 +272,28 @@ export default function StageHero() {
           </div>
 
           <motion.p
-            className={`${roleTextClass} mt-4 hidden xl:block xl:text-[1.5rem] xl:leading-snug min-[1800px]:text-[1.75rem]`}
+            className={`${roleTextClass} mt-4 hidden xl:block xl:text-[1.5rem] xl:leading-snug min-[1800px]:text-[2rem] min-[2400px]:text-[2.35rem]`}
             variants={fadeUp}
           >
             {DESKTOP_HEADLINE}
           </motion.p>
 
           <motion.p
-            className="mt-4 max-w-md text-sm leading-relaxed text-muted max-md:mt-6 sm:text-base lg:mt-4 xl:mt-5 xl:max-w-[30.5rem] xl:text-[1.0625rem] xl:leading-[1.65] xl:text-[rgb(var(--ink)/0.78)]"
+            className="mt-4 max-w-md text-sm leading-relaxed text-muted max-md:mt-5 max-md:leading-[1.7] sm:text-base lg:mt-4 xl:mt-5 xl:max-w-[30.5rem] xl:text-[1.0625rem] xl:leading-[1.65] xl:text-[rgb(var(--ink)/0.78)] 2xl:max-w-[36rem] min-[1800px]:max-w-[42rem] min-[1800px]:text-[1.125rem]"
             variants={fadeUp}
           >
             {desktop ? DESKTOP_LEAD : profile.heroLead}
           </motion.p>
 
           <motion.p
-            className="mt-3 max-w-md text-sm leading-relaxed text-muted/80 max-md:mt-4 xl:mt-3.5 xl:max-w-[30.5rem] xl:text-[0.9375rem] xl:leading-[1.65] xl:text-[rgb(var(--ink)/0.64)]"
+            className="mt-3 max-w-md text-sm leading-relaxed text-muted/80 max-md:mt-3.5 max-md:leading-[1.7] xl:mt-3.5 xl:max-w-[30.5rem] xl:text-[0.9375rem] xl:leading-[1.65] xl:text-[rgb(var(--ink)/0.64)] 2xl:max-w-[36rem] min-[1800px]:max-w-[42rem] min-[1800px]:text-[1.05rem]"
             variants={fadeUp}
           >
             {desktop ? DESKTOP_SUPPORT : profile.heroSupport}
           </motion.p>
 
           <motion.p
-            className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted max-md:mt-4 xl:hidden"
+            className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted max-md:mt-5 xl:hidden"
             variants={{
               hidden: { opacity: 0 },
               show: { opacity: 1, transition: { duration: 0.6, delay: 0.2 } },
@@ -303,7 +303,7 @@ export default function StageHero() {
           </motion.p>
 
           <motion.div
-            className="mt-4 flex flex-wrap gap-3 max-md:mt-7 max-md:flex-col max-md:items-stretch max-md:gap-4 lg:mt-6 xl:mt-7"
+            className="mt-4 flex flex-wrap gap-3 max-md:mt-6 max-md:flex-col max-md:items-stretch max-md:gap-3 lg:mt-6 xl:mt-7"
             variants={fadeUp}
           >
             <Magnetic className="max-md:w-full">
@@ -344,7 +344,7 @@ export default function StageHero() {
 
         {belowLg ? null : (
           <motion.div
-            className="relative flex min-h-0 flex-col items-center justify-center lg:min-h-[min(38rem,calc(100svh-8rem))] xl:min-h-0"
+            className="relative flex min-h-0 flex-col items-center justify-center lg:min-h-[min(38rem,calc(100svh-8rem))] xl:min-h-[min(36rem,calc(100svh-10rem))]"
             variants={{
               hidden: {},
               show: { transition: { staggerChildren: 0.12 } },
@@ -382,7 +382,7 @@ export default function StageHero() {
 
       {desktop ? (
         <div className="pointer-events-none absolute inset-x-0 bottom-5 z-[4] hidden xl:block">
-          <div className="stage-shell flex max-w-[95rem] items-end justify-between gap-6 pl-[4.75rem] pr-2">
+          <div className="stage-shell flex items-end justify-between gap-6 pl-[4.75rem] pr-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[rgb(var(--ink)/0.38)]">
               React / Next.js / TypeScript / Python
             </p>

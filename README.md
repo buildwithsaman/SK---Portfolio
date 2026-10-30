@@ -85,21 +85,33 @@ Tailwind maps those names in `tailwind.config.js`.
 
 ## How the page is built
 
-`src/App.tsx` is the map. Every viewport gets the cinematic page. Ask me (`SiteChat` in `src/components/mobile/SiteChat.tsx`) opens the stored Q&A over it. Phones never see the crawlable SEO résumé; `#seo-static-shell` is `display: none` in `index.html`.
+`src/App.tsx` is the map. Every viewport gets the cinematic page. Ask me (`src/sections/chat`) opens the stored Q&A over it. Phones never see the crawlable SEO résumé; `#seo-static-shell` is `display: none` in `index.html`.
 
-1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips on desktop. Tap the cover to skip below `lg`. On a touch `lg` device, a Continue control skips. Reduced-motion skips immediately.
-2. Nav (`StageChrome`: `GooeyNav` tab bar at the top from `lg`, along the bottom below `lg`)
-3. Hero (`StageIdentity` → `StageHero`. From `xl` (1280px) the Hero is a two-column composition: intro and CTAs on the left (~54%), looping character on a violet glow stage on the right (~46%), capped around 1520px. Suggestion chips under the character open the same Ask me panel (`openSiteChat` in `src/lib/siteChat.ts`) as the corner control. From `lg` to `xl` the previous two-column layout stays. Below `lg` the Hero is copy only. Reduced-motion users get the poster and a static role.)
-4. What I Do (`StagePractice` → `profile.achievements`)
-5. Career (`StageCareer` → open layout like Contact: giant heading, current-role intro, then one column per role)
-6. Work (`StageWork` → `FlowingMenu` rows from `udriveDomains`. Rows start closed. Labels are one word. Hovering or tapping a row expands title, ownership, contributions, and tech under that row’s marquee. No work stills in this section.)
-7. Skills (`StageSkills` → a liquid `FlexCarousel` of tech cards. Drag, swipe, wheel, or keys move the row; click the centered card to open its docs. Reduced-motion users get a static card grid.)
-8. Contact (`StageContact` → open layout with the large name, title, CTAs, and email / social / education columns) + footer. The Hero intro is the only bio on the page.
-9. Ask me. The same stored Q&A opens from the corner control, and from `xl` also from the Hero chips under the character. Esc or Close dismisses it. On `xl` and up, hide the corner control while the Hero invite (`#hero-ask`) is on screen, and show it again once that invite scrolls away. Below `lg`, sit the control above the bottom tab bar.
+Page sections live in `src/sections/`. Each folder has an `index.ts` barrel. Swap a section by changing that folder and the data it reads.
+
+```
+src/sections/layout/       intro, nav, social rail, footer
+src/sections/hero/         identity, hero copy, Memoji / IdentityRig
+src/sections/highlights/   What I Do
+src/sections/career/       Career
+src/sections/work/         Work
+src/sections/skills/       Skills
+src/sections/contact/      Contact
+src/sections/chat/         Ask me overlay
+src/components/ui/         reusable motion pieces (GooeyNav, FlowingMenu, FlexCarousel, Magnetic, Reveal)
+```
+
+1. Intro splash (`src/sections/layout/StageIntro.tsx` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips on desktop. Tap the cover to skip below `lg`. On a touch `lg` device, a Continue control skips. Skip always opens the Hero at the top of the page, even if the URL still has another section hash. Reduced-motion skips immediately.
+2. Nav (`src/sections/layout/StageChrome.tsx`: `GooeyNav` tab bar at the top from `lg`, along the bottom below `lg`)
+3. Hero (`src/sections/hero`: `StageIdentity` → `StageHero`. From `xl` (1280px) the Hero is a two-column composition: intro and CTAs on the left (~54%), looping character on a violet glow stage on the right (~46%). Width follows `--stage-max` so the Hero and later sections keep expanding on 1536px, 1800px, 2400px, and 3000px screens. Suggestion chips under the character open the same Ask me panel (`openSiteChat` in `src/lib/siteChat.ts`) as the corner control. From `lg` to `xl` the previous two-column layout stays. Below `lg` the Hero is copy only. Reduced-motion users get the poster and a static role.)
+4. What I Do (`src/sections/highlights` → `profile.achievements`)
+5. Career (`src/sections/career` → open layout like Contact: giant heading, current-role intro, then one column per role)
+6. Work (`src/sections/work` → `FlowingMenu` rows from `udriveDomains`. Rows start closed. Labels are one word. Hovering or tapping a row expands title, ownership, contributions, and tech under that row’s marquee. No work stills in this section.)
+7. Skills (`src/sections/skills` → a liquid `FlexCarousel` of tech cards. Drag, swipe, wheel, or keys move the row; click the centered card to open its docs. Reduced-motion users get a static card grid.)
+8. Contact (`src/sections/contact` → open layout with the large name, title, CTAs, and email / social / education columns) + footer in `src/sections/layout`. The Hero intro is the only bio on the page.
+9. Ask me (`src/sections/chat`). The same stored Q&A opens from the corner control, and from `xl` also from the Hero chips under the character. Esc or Close dismisses it. On `xl` and up, hide the corner control while the Hero invite (`#hero-ask`) is on screen, and show it again once that invite scrolls away. Below `lg`, sit the control above the bottom tab bar.
 
 Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one, or sending an exact question or alias, shows that stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`. The prompt is a pill; do not draw a rectangular focus ring on the textarea when someone taps to type. Chat avatars stay circular.
-
-`components/stage/` is page layout. `components/ui/` is reusable motion pieces. Swap a section by changing that one stage file and the data it reads.
 
 Hashes used by the nav: `#home`, `#career`, `#work`, `#skills`, `#contact`. What I Do is `#highlights` and counts as Home in the tab bar. Clicking a tab always scrolls to that section, even if it is already active, so Home from What I Do returns you to the hero.
 

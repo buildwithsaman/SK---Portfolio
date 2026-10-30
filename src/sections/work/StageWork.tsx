@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import useMediaQuery from "../../hooks/useMediaQuery";
-import Reveal from "../ui/Reveal";
-import FlowingMenu from "../ui/FlowingMenu";
+import Reveal from "../../components/ui/Reveal";
+import FlowingMenu from "../../components/ui/FlowingMenu";
 import { profile, udriveDomains, type ExperienceDomain } from "../../data/cv";
 
 const galleryLabels: Record<string, string> = {
@@ -65,7 +65,7 @@ export default function StageWork() {
 
   return (
     <section
-      className="overflow-x-clip py-12 lg:py-8"
+      className="overflow-x-clip py-10 lg:py-28"
       aria-labelledby="work-heading"
     >
       <div id="work" className="h-0 scroll-mt-5" />

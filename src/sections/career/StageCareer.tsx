@@ -1,11 +1,11 @@
-import Reveal from "../ui/Reveal";
+import Reveal from "../../components/ui/Reveal";
 import { experiences, profile } from "../../data/cv";
 
 export default function StageCareer() {
   return (
     <section
       id="career"
-      className="overflow-x-clip py-12 lg:py-8"
+      className="overflow-x-clip py-10 lg:py-28"
       aria-labelledby="career-heading"
     >
       <div className="stage-shell">
@@ -26,7 +26,7 @@ export default function StageCareer() {
         </Reveal>
 
         <Reveal
-          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-8 lg:mt-7 lg:pt-6"
+          className="mt-10 grid gap-8 border-t border-edge/70 pt-8 md:grid-cols-3 md:gap-8 lg:mt-12 lg:pt-10"
           delay={0.1}
         >
           {experiences.map((item) => (

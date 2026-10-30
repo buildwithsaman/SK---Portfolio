@@ -16,7 +16,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { navLinks } from "../../data/cv";
 import { introAlreadyComplete } from "../../lib/introTiming";
-import GooeyNav, { type GooeyNavItem } from "../ui/GooeyNav";
+import GooeyNav, { type GooeyNavItem } from "../../components/ui/GooeyNav";
 
 /** Document-order sections mapped onto existing nav items. */
 const NAV_SECTIONS: { id: string; nav: string }[] = [
@@ -136,9 +136,11 @@ export default function StageChrome() {
   useEffect(() => {
     const applyHash = (
       behavior: ScrollBehavior,
-      opts?: { homeIfEmpty?: boolean; lock?: boolean },
+      opts?: { homeIfEmpty?: boolean; lock?: boolean; forceHome?: boolean },
     ) => {
-      const id = sectionIdFromHash(window.location.hash);
+      const id = opts?.forceHome
+        ? "home"
+        : sectionIdFromHash(window.location.hash);
       requestAnimationFrame(() => {
         const lock = opts?.lock !== false;
         if (id) {
@@ -151,8 +153,17 @@ export default function StageChrome() {
       });
     };
 
-    const runLanding = () =>
-      applyHash("auto", { lock: false, homeIfEmpty: true });
+    const runLanding = (event?: Event) => {
+      const skipped =
+        document.documentElement.getAttribute("data-intro-at-hero") ===
+          "true" ||
+        (event instanceof CustomEvent && Boolean(event.detail?.skipped));
+      applyHash("auto", {
+        lock: false,
+        homeIfEmpty: true,
+        forceHome: skipped,
+      });
+    };
     if (introAlreadyComplete(reduceMotion)) {
       runLanding();
     } else {

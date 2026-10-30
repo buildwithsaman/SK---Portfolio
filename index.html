@@ -522,22 +522,43 @@
           var compact = window.matchMedia("(max-width: 1023px)").matches;
           var boot = document.getElementById("stage-boot");
           var skip = document.getElementById("boot-skip");
-          function dismissBoot() {
+          if ("scrollRestoration" in history) {
+            history.scrollRestoration = "manual";
+          }
+          window.scrollTo(0, 0);
+          function dismissBoot(atHero) {
             document.documentElement.setAttribute("data-skip-intro", "true");
             if (boot) boot.setAttribute("data-done", "true");
             document.body.style.overflow = "";
             document.querySelectorAll("[inert]").forEach(function (node) {
               node.removeAttribute("inert");
             });
+            if (atHero) {
+              document.documentElement.setAttribute(
+                "data-intro-at-hero",
+                "true",
+              );
+              if (location.hash) {
+                history.replaceState(
+                  null,
+                  "",
+                  location.pathname + location.search,
+                );
+              }
+              window.scrollTo(0, 0);
+            }
           }
-          if (reduce && !compact) dismissBoot();
-          if (skip) skip.addEventListener("click", dismissBoot);
+          if (reduce && !compact) dismissBoot(false);
+          if (skip)
+            skip.addEventListener("click", function () {
+              dismissBoot(true);
+            });
           if (compact && boot) {
             if (reduce) {
-              dismissBoot();
+              dismissBoot(false);
             } else {
               boot.addEventListener("click", function () {
-                dismissBoot();
+                dismissBoot(true);
               });
             }
           }

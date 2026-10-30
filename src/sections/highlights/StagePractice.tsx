@@ -1,11 +1,11 @@
 import { profile } from "../../data/cv";
-import Reveal from "../ui/Reveal";
+import Reveal from "../../components/ui/Reveal";
 
 export default function StagePractice() {
   return (
     <section
       id="highlights"
-      className="py-12 lg:py-8"
+      className="py-10 lg:py-28"
       aria-labelledby="practice-heading"
     >
       <div className="stage-shell">
@@ -16,7 +16,7 @@ export default function StagePractice() {
           </h2>
         </Reveal>
 
-        <Reveal className="mt-4 max-md:mt-8 sm:mt-6 lg:mt-5">
+        <Reveal className="mt-4 sm:mt-6 lg:mt-10">
           <ul className="grid gap-8 sm:grid-cols-3 sm:gap-6 lg:gap-8">
             {profile.achievements.map((item) => (
               <li key={item.value}>

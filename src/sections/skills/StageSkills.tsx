@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
-import FlexCarousel from "../ui/FlexCarousel";
-import Reveal from "../ui/Reveal";
+import FlexCarousel from "../../components/ui/FlexCarousel";
+import Reveal from "../../components/ui/Reveal";
 import { techStack } from "../../data/cv";
 
 function SkillGrid() {
@@ -61,7 +61,7 @@ export default function StageSkills() {
     return (
       <section
         id="skills"
-        className="stage-shell overflow-x-clip py-12 lg:py-8"
+        className="stage-shell overflow-x-clip py-10 lg:py-28"
         aria-labelledby="skills-heading"
       >
         {heading}
@@ -73,7 +73,7 @@ export default function StageSkills() {
   return (
     <section
       id="skills"
-      className="stage-shell overflow-x-clip py-12 lg:py-8"
+      className="stage-shell overflow-x-clip py-10 lg:py-28"
       aria-labelledby="skills-heading"
     >
       {heading}
