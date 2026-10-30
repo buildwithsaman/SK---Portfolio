@@ -74,8 +74,7 @@ After a content change, run `npm run build` so `dist/sitemap.xml` matches.
 
 Tokens live in `src/index.css`:
 
-- `--black` `#02010a`, `--paper` near-black `#010005`
-- `--prussian-blue` panels `#04052e`
+- `--paper` near-black `#010005`
 - `--deep-twilight` edges `#140152`
 - `--navy` / `--navy-electric` glow and spotlight `#22007c` / `#0d00a4`
 - `--ink` / `--muted` text
@@ -101,7 +100,7 @@ src/sections/chat/         Ask me overlay
 src/components/ui/         reusable motion pieces (GooeyNav, FlowingMenu, FlexCarousel, Magnetic, Reveal)
 ```
 
-1. Intro splash (`src/sections/layout/StageIntro.tsx` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips on desktop. Tap the cover to skip below `lg`. On a touch `lg` device, a Continue control skips. Skip always opens the Hero at the top of the page, even if the URL still has another section hash. Reduced-motion skips immediately.
+1. Intro splash (`src/sections/layout/StageIntro.tsx` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips on desktop. Tap the cover to skip below `lg`. On a touch `lg` device, a Continue control skips. The first load always opens the Hero at the top, even if the URL still has another section hash. Esc, tap, and Continue skip to the same place. Reduced-motion skips immediately.
 2. Nav (`src/sections/layout/StageChrome.tsx`: `GooeyNav` tab bar at the top from `lg`, along the bottom below `lg`)
 3. Hero (`src/sections/hero`: `StageIdentity` → `StageHero`. From `xl` (1280px) the Hero is a two-column composition: intro and CTAs on the left (~54%), looping character on a violet glow stage on the right (~46%). Width follows `--stage-max` so the Hero and later sections keep expanding on 1536px, 1800px, 2400px, and 3000px screens. Suggestion chips under the character open the same Ask me panel (`openSiteChat` in `src/lib/siteChat.ts`) as the corner control. From `lg` to `xl` the previous two-column layout stays. Below `lg` the Hero is copy only. Reduced-motion users get the poster and a static role.)
 4. What I Do (`src/sections/highlights` → `profile.achievements`)
@@ -166,6 +165,8 @@ Workflow: `.github/workflows/deploy.yml`
 3. `dist/` goes to Pages
 
 In the repo: **Settings → Pages → GitHub Actions**. `vite.config.ts` uses `base: "./"` so the build works on a custom domain and on a project Pages URL.
+
+The page asks browsers not to keep a stale copy: `index.html` sends no-cache / no-store, the boot script drops Cache Storage and service workers, and a back-forward restore reloads so you land on Home. Dev and `npm run preview` send the same no-store headers for HTML, JS, and CSS. Leave the Memoji clips cacheable so they do not re-download every visit. GitHub Pages may still CDN-cache HTML for a few minutes after a deploy.
 
 ## Scripts worth knowing
 

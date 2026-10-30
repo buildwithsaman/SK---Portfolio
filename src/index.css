@@ -5,8 +5,6 @@
 /* SK Stage Theater — cinematic dark identity */
 :root {
   color-scheme: dark;
-  --black: 2 1 10;
-  --prussian-blue: 4 5 46;
   --deep-twilight: 20 1 82;
   --navy: 34 0 124;
   --navy-electric: 13 0 164;
@@ -17,7 +15,6 @@
   --accent: 148 140 214;
   --accent2: 168 162 255;
   --accent3: 124 108 196;
-  --stage-glow: 13 0 164;
   --ease-stage: cubic-bezier(0.22, 1, 0.36, 1);
   --stage-max: 92rem;
   --stage-gutter: 1.25rem;

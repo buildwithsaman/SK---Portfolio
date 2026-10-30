@@ -1,75 +1,3 @@
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.mobile-stage {
-  --vv-height: 100dvh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: var(--vv-height, 100dvh);
-  min-height: 100dvh;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      ellipse 70% 42% at 50% -8%,
-      rgb(var(--navy-electric) / 0.2),
-      transparent 56%
-    ),
-    radial-gradient(
-      ellipse 36% 28% at 100% 88%,
-      rgb(var(--navy) / 0.14),
-      transparent 50%
-    ),
-    rgb(var(--paper));
-  color: rgb(var(--ink));
-}
-
-.mobile-top {
-  flex: none;
-  padding: max(0.85rem, env(safe-area-inset-top)) 1.25rem 0.7rem;
-  border-bottom: 1px solid rgb(var(--accent2) / 0.08);
-}
-
-.mobile-brand {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.mobile-brand span:first-child {
-  color: rgb(var(--accent2));
-}
-
-.mobile-status {
-  margin: 0.28rem 0 0;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgb(var(--muted));
-}
-
-.mobile-main {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 0.5rem 1.25rem 0.75rem;
-}
-
 .mobile-welcome {
   display: flex;
   min-height: 100%;
@@ -80,30 +8,12 @@
   padding: 0.5rem 0 1rem;
 }
 
-.mobile-welcome h1 {
-  margin: 1rem 0 0;
-  font-size: clamp(1.7rem, 7vw, 2.1rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  background-image: linear-gradient(100deg, #fafafc 20%, #a8a2ff 92%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
 .mobile-lead {
   margin: 0.7rem 0 0;
   max-width: 22rem;
   color: rgb(var(--muted));
   font-size: 0.95rem;
   line-height: 1.5;
-}
-
-.mobile-ask-label {
-  margin: 1.1rem 0 0;
-  color: rgb(var(--accent2));
-  font-size: 0.92rem;
-  font-weight: 500;
 }
 
 .mobile-cv {

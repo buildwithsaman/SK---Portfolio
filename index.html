@@ -6,6 +6,39 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script>
+      try {
+        if ("scrollRestoration" in history)
+          history.scrollRestoration = "manual";
+        if (location.hash) {
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+        window.scrollTo(0, 0);
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            regs.forEach(function (reg) {
+              reg.unregister();
+            });
+          });
+        }
+        if (window.caches) {
+          caches.keys().then(function (keys) {
+            keys.forEach(function (key) {
+              caches.delete(key);
+            });
+          });
+        }
+        window.addEventListener("pageshow", function (event) {
+          if (event.persisted) location.reload();
+        });
+      } catch (e) {}
+    </script>
 
     <!-- Primary SEO -->
     <title>Saman Khan | Software Engineer in Dubai</title>
@@ -525,7 +558,15 @@
           if ("scrollRestoration" in history) {
             history.scrollRestoration = "manual";
           }
+          if (location.hash) {
+            history.replaceState(null, "", location.pathname + location.search);
+          }
           window.scrollTo(0, 0);
+          window.addEventListener("load", function () {
+            if (boot && boot.getAttribute("data-done") !== "true") {
+              window.scrollTo(0, 0);
+            }
+          });
           function dismissBoot(atHero) {
             document.documentElement.setAttribute("data-skip-intro", "true");
             if (boot) boot.setAttribute("data-done", "true");

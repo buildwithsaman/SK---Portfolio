@@ -14,6 +14,58 @@ const projectRoot = fileURLToPath(new URL(".", import.meta.url));
  * and the project Pages URL if the CNAME is missing. Absolute `base: "/"`
  * is not required because canonical/OG/JSON-LD already use profile.siteUrl.
  */
+const noStore = "no-store, no-cache, must-revalidate";
+
+function shouldStore(url = "") {
+  return /\.(mp4|webm|mov|webp|png|jpe?g|gif|ico|woff2?)$/i.test(
+    url.split("?")[0],
+  );
+}
+
+function noStorePlugin() {
+  const apply = (
+    req: { url?: string },
+    res: {
+      setHeader: (
+        name: string,
+        value: number | string | readonly string[],
+      ) => unknown;
+    },
+    next: () => void,
+  ) => {
+    if (!shouldStore(req.url)) {
+      const original = res.setHeader.bind(res);
+      res.setHeader = ((
+        name: string,
+        value: number | string | readonly string[],
+      ) => {
+        if (String(name).toLowerCase() === "cache-control") {
+          return original("Cache-Control", noStore);
+        }
+        return original(name, value);
+      }) as typeof res.setHeader;
+      original("Cache-Control", noStore);
+      original("Pragma", "no-cache");
+      original("Expires", "0");
+    }
+    next();
+  };
+
+  return {
+    name: "no-store-page",
+    configureServer(server: {
+      middlewares: { use: (handler: typeof apply) => void };
+    }) {
+      server.middlewares.use(apply);
+    },
+    configurePreviewServer(server: {
+      middlewares: { use: (handler: typeof apply) => void };
+    }) {
+      server.middlewares.use(apply);
+    },
+  };
+}
+
 function seoStaticShellPlugin() {
   return {
     name: "seo-static-shell",
@@ -32,7 +84,7 @@ function seoStaticShellPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react(), seoStaticShellPlugin()],
+  plugins: [react(), seoStaticShellPlugin(), noStorePlugin()],
   resolve: {
     alias: {
       "@": resolve(projectRoot, "src"),

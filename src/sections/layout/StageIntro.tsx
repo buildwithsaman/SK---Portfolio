@@ -38,24 +38,6 @@ function landAtHero() {
   window.setTimeout(pinToTop, 200);
 }
 
-function applyLandingHash() {
-  if (skipWantsHero()) {
-    landAtHero();
-    return;
-  }
-  const id = window.location.hash.replace(/^#/, "");
-  if (!id || id === "home" || id === "about") {
-    pinToTop();
-    return;
-  }
-  requestAnimationFrame(() => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "auto",
-      block: "start",
-    });
-  });
-}
-
 function revealStage(skipped = false) {
   window.dispatchEvent(
     new CustomEvent("stage-intro-done", {
@@ -105,30 +87,26 @@ function setPageInert(active: boolean) {
   }
 }
 
-function dismissBoot(atHero = false) {
+function dismissBoot() {
   const boot = document.getElementById("stage-boot");
   boot?.setAttribute("data-done", "true");
   document.body.style.overflow = "";
   setPageInert(false);
-  if (atHero || skipWantsHero()) {
-    landAtHero();
-    return;
-  }
-  applyLandingHash();
+  landAtHero();
 }
 
 function finishIntro(immediate = false) {
+  landAtHero();
   const boot = document.getElementById("stage-boot");
-  const atHero = immediate || skipWantsHero();
-  if (atHero || !boot) {
-    dismissBoot(atHero);
-    revealStage(atHero);
+  if (immediate || !boot) {
+    dismissBoot();
+    revealStage(true);
     requestAnimationFrame(pinToTop);
     return;
   }
-  revealStage(false);
+  revealStage(true);
   boot.classList.add("is-exiting");
-  window.setTimeout(() => dismissBoot(false), INTRO_FADE_MS);
+  window.setTimeout(() => dismissBoot(), INTRO_FADE_MS);
 }
 
 type IntroPhase = "load" | "welcome" | "exiting" | "done";
@@ -153,8 +131,8 @@ export default function StageIntro() {
 
     const boot = document.getElementById("stage-boot");
     if (!boot) {
-      dismissBoot(false);
-      revealStage(false);
+      dismissBoot();
+      revealStage(true);
       return;
     }
 
@@ -164,9 +142,8 @@ export default function StageIntro() {
       shouldSkipIntro(reduceMotion) ||
       boot.getAttribute("data-done") === "true"
     ) {
-      const atHero = skipWantsHero();
-      dismissBoot(atHero);
-      revealStage(atHero);
+      dismissBoot();
+      revealStage(true);
       return;
     }
 
@@ -199,7 +176,7 @@ export default function StageIntro() {
     const skip = () => {
       markSkipToHero();
       if (finished) {
-        dismissBoot(true);
+        dismissBoot();
         return;
       }
       complete(true);

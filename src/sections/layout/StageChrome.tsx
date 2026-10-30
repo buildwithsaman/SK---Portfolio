@@ -84,6 +84,7 @@ export default function StageChrome() {
   const preferSmooth = Boolean(!reduceMotion && hoverNav);
   const lockRef = useRef<string | null>(null);
   const lockTimer = useRef(0);
+  const landedRef = useRef(false);
 
   const releaseLock = useCallback(() => {
     window.clearTimeout(lockTimer.current);
@@ -153,15 +154,13 @@ export default function StageChrome() {
       });
     };
 
-    const runLanding = (event?: Event) => {
-      const skipped =
-        document.documentElement.getAttribute("data-intro-at-hero") ===
-          "true" ||
-        (event instanceof CustomEvent && Boolean(event.detail?.skipped));
+    const runLanding = () => {
+      if (landedRef.current) return;
+      landedRef.current = true;
       applyHash("auto", {
         lock: false,
         homeIfEmpty: true,
-        forceHome: skipped,
+        forceHome: true,
       });
     };
     if (introAlreadyComplete(reduceMotion)) {
