@@ -50,7 +50,7 @@ export default function MobileMemoji({
 
   const box =
     size === "avatar"
-      ? "h-9 w-9"
+      ? "h-10 w-10"
       : "h-[8.75rem] w-[8.75rem] sm:h-[10.5rem] sm:w-[10.5rem]";
 
   return (

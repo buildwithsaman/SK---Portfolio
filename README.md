@@ -35,7 +35,7 @@ Do this in order. Leave the components alone until the site says your name.
 
 ### 1. Identity and copy
 
-Edit **`src/data/cv.ts`**. That file drives the cinematic UI and the SEO shell. Mobile question replies live in `src/lib/assistant.ts`. Keep those answers aligned with the CV, and do not invent facts for unmatched questions.
+Edit **`src/data/cv.ts`**. That file drives the cinematic UI and the SEO shell. Mobile question replies live in `src/lib/assistant.ts` as the `TOPICS` list (`id`, `question`, `answer`, `aliases`, `keywords`). Keep those answers aligned with the CV, public-safe, and do not invent facts for unmatched questions. Do not expose Udrive source, screenshots, live dashboards, customer data, endpoints, or internal architecture. Sample demos are a conversation, not an existing deliverable. Public GitHub is for work you can share; company projects stay private.
 
 Replace:
 
@@ -89,7 +89,7 @@ Tailwind maps those names in `tailwind.config.js`.
 
 **Desktop (`lg` and up)**
 
-1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`.
+1. Intro splash (`StageIntro` + `#stage-boot` in `index.html`). The boot cover is inline in `index.html` so it paints before CSS; keep its colors on the same dark navy / periwinkle tokens as `src/index.css`. Timing lives in `src/lib/introTiming.ts`. Esc skips. On a touch `lg` device, a Continue control skips. Reduced-motion skips immediately.
 2. Nav (`StageChrome`: `GooeyNav` tab bar at the top from `lg`)
 3. Hero (`StageIdentity` → `StageHero` + character in the right column. Reduced-motion users get the poster and a static role.)
 4. What I Do (`StagePractice` → `profile.achievements`)
@@ -100,7 +100,11 @@ Tailwind maps those names in `tailwind.config.js`.
 
 **Mobile (below `lg`)**
 
-The cinematic intro is skipped. Keep `#stage-boot` as a blank paper cover below `lg` until React mounts, otherwise the crawlable SEO shell in `#root` flashes the full résumé. `MobilePortfolio` then shows the Memoji, a greeting, suggestion chips, and a prompt. Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one shows that exact stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`.
+Phones never see the crawlable SEO résumé; `#seo-static-shell` is `display: none` in `index.html`. They open the same dark loading marquee as desktop (`#stage-boot`) for `MOBILE_LOAD_MS` (2s) in `src/lib/introTiming.ts`, then fade into the Memoji chat. Keep `index.html` and that constant in sync. Tap the cover to skip. Reduced-motion skips immediately. Do not dismiss the boot the instant React mounts, or the résumé dump flashes and the character page is skipped.
+
+`MobilePortfolio` then shows the looping Memoji, a greeting, suggestion chips (`WELCOME_CHIPS` in `src/lib/assistant.ts`), and a glass prompt. The hero Memoji uses an ellipse veil so the studio fades into the paper. Do not clip it to a circle or add a halo plate. Chat avatars stay circular. The prompt is a pill; do not draw a rectangular focus ring on the textarea when someone taps to type.
+
+Answers come from stored replies in `src/lib/assistant.ts`, not a live model. Typing two or more characters suggests up to six matching questions. Selecting one, or sending an exact question or alias, shows that stored answer. A question that is not in the store gets a contact fallback instead of a generated fact. Keep CV, GitHub, LinkedIn, and email wired to `src/data/cv.ts`. Download CV uses `public/Saman_Khan_CV.pdf`.
 
 `components/stage/` is page layout. `components/ui/` is reusable motion pieces. Swap a section by changing that one stage file and the data it reads.
 
@@ -116,7 +120,7 @@ public/character/memoji.mp4         # silent H.264 High (Chrome, Firefox, Androi
 public/character/memoji-hevc.mp4    # silent HEVC hvc1 in MP4 (Safari / iOS, GPU decode)
 ```
 
-Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Put HEVC in an `.mp4` with `hvc1`, not a `.mov`. GitHub Pages serves `.mov` as `video/quicktime`, and iOS Safari often will not play that in a `<video>` tag. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome. Mark the clip `autoPlay muted playsInline` and do not `visibility: hidden` it while it starts, or iOS will keep the poster.
+Strip audio before you copy a new clip in. Encode opaque 8-bit 4:2:0 H.264 plus HEVC so the browser can hardware-decode on the GPU. Flatten the studio onto the page paper (`#010005`) in the file. Put HEVC in an `.mp4` with `hvc1`, not a `.mov`. GitHub Pages serves `.mov` as `video/quicktime`, and iOS Safari often will not play that in a `<video>` tag. Do not ship VP9-with-alpha. Do not put `mix-blend-mode` or filters on the `<video>`, and do not restart the clip from `ended` while `loop` is set — that hitch is what makes the Memoji feel lagged. A radial mask on the wrapper fades the studio; keep it off the video element itself. Reduced-motion users see the poster only. Desktop (`lg`) plays the loop in the Hero column. Below `lg`, the same poster plus H.264/HEVC clip sits in the conversational welcome, with the same ellipse fade and no circular plate. Mark the clip `autoPlay muted playsInline` and do not `visibility: hidden` it while it starts, or iOS will keep the poster.
 
 ## Optional React Bits Pro
 
@@ -138,7 +142,7 @@ The cinematic pieces in `src/components/ui/` are local ports. Name the originals
 - [GooeyNav](https://reactbits.dev/components/gooey-nav), [FlowingMenu](https://reactbits.dev/components/flowing-menu), and [FlexCarousel](https://reactbits.dev/components/flex-carousel) from [React Bits](https://reactbits.dev) by [David Haz](https://github.com/DavidHDev) ([DavidHDev/react-bits](https://github.com/DavidHDev/react-bits))
 - [OGL](https://github.com/oframe/ogl) by [Nathan Gordon](https://github.com/gordonnl) (`@gordonnl`, [oframe/ogl](https://github.com/oframe/ogl)), the WebGL layer inside FlexCarousel
 - [Hugeicons](https://hugeicons.com) (`@hugeicons`, [hugeicons/hugeicons](https://github.com/hugeicons/hugeicons)) for the tab bar and Work icons
-- [Framer Motion](https://motion.dev) by [Matt Perry](https://github.com/mattgperry) (`@mattgperry`, [motiondivision/motion](https://github.com/motiondivision/motion)) for Hero, Career, Skills, and cursor motion
+- [Framer Motion](https://motion.dev) by [Matt Perry](https://github.com/mattgperry) (`@mattgperry`, [motiondivision/motion](https://github.com/motiondivision/motion)) for Hero, Career, Skills, and pointer motion
 - [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) by Florian Karsten and [JetBrains Mono](https://www.jetbrains.com/lp/mono/) by [JetBrains](https://github.com/JetBrains/JetBrainsMono)
 
 **Stack**
@@ -172,6 +176,7 @@ In the repo: **Settings → Pages → GitHub Actions**. `vite.config.ts` uses `b
 ## Conventions
 
 - Page copy: `src/data/cv.ts`. Mobile Q&A replies: `src/lib/assistant.ts`
-- Do not invent CV facts
+- Keep mobile answers public-safe. Company source, screenshots, live dashboards, customer data, and internal architecture stay private. A sample demo is a conversation, not a file in the repo.
+- Do not invent CV facts. Unmatched questions fall back to email.
 - Do not use `--` in on-site copy
 - Do not commit `.env.local` or secrets

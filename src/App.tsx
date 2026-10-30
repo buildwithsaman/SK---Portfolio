@@ -1,4 +1,4 @@
-import { useEffect, type MouseEvent } from "react";
+import { type MouseEvent } from "react";
 import MobilePortfolio from "./components/mobile/MobilePortfolio";
 import StageCareer from "./components/stage/StageCareer";
 import StageChrome from "./components/stage/StageChrome";
@@ -49,12 +49,6 @@ function DesktopPortfolio() {
 
 export default function App() {
   const desktop = useMediaQuery("(min-width: 1024px)");
-
-  useEffect(() => {
-    if (desktop) return;
-    document.documentElement.setAttribute("data-skip-intro", "true");
-    document.getElementById("stage-boot")?.setAttribute("data-done", "true");
-  }, [desktop]);
 
   if (!desktop) return <MobilePortfolio />;
   return <DesktopPortfolio />;

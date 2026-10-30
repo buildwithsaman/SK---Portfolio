@@ -1,6 +1,7 @@
 import {
   useEffect,
   useId,
+  useRef,
   useState,
   type FormEvent,
   type KeyboardEvent,
@@ -20,6 +21,7 @@ export default function PromptBar({
   disabled?: boolean;
 }) {
   const listId = useId();
+  const fieldRef = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
@@ -32,17 +34,26 @@ export default function PromptBar({
     setActive(0);
   }, [trimmed]);
 
+  const fit = (node: HTMLTextAreaElement) => {
+    node.style.height = "auto";
+    node.style.height = `${Math.min(node.scrollHeight, 104)}px`;
+  };
+
   const send = () => {
     if (!canSend) return;
     onSubmit(trimmed);
     setValue("");
     setOpen(false);
+    const field = fieldRef.current;
+    if (field) field.style.height = "";
   };
 
   const pick = (item: AssistantSuggestion) => {
     onSelect(item);
     setValue("");
     setOpen(false);
+    const field = fieldRef.current;
+    if (field) field.style.height = "";
   };
 
   const onForm = (event: FormEvent) => {
@@ -117,12 +128,14 @@ export default function PromptBar({
       </label>
       <textarea
         id="mobile-ask"
+        ref={fieldRef}
         rows={1}
         value={value}
         disabled={disabled}
         onChange={(event) => {
           setValue(event.target.value);
           setOpen(event.target.value.trim().length >= 2);
+          fit(event.target);
         }}
         onFocus={() => trimmed.length >= 2 && setOpen(true)}
         onBlur={() => window.setTimeout(() => setOpen(false), 120)}

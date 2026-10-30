@@ -27,7 +27,11 @@ export default function ChatThread({ messages }: { messages: ChatLine[] }) {
           key={line.id}
           className={`mobile-msg mobile-msg--${line.role}`}
         >
-          {line.role === "saman" ? <MobileMemoji size="avatar" /> : null}
+          {line.role === "saman" ? (
+            <div className="mobile-msg__face">
+              <MobileMemoji size="avatar" />
+            </div>
+          ) : null}
           <div className="mobile-msg__body">
             {line.text.split(/\n\n/).map((paragraph, index) => (
               <p key={`${line.id}-${index}`}>{paragraph}</p>

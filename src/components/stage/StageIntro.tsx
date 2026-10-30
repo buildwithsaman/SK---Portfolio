@@ -150,6 +150,7 @@ export default function StageIntro() {
       window.cancelAnimationFrame(raf);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onPointer, true);
+      window.removeEventListener("pointerup", onPointer, true);
       finishIntro(immediate);
     };
 
@@ -167,11 +168,12 @@ export default function StageIntro() {
     const onPointer = (event: Event) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
-      if (target.closest(".skip-link")) skip();
+      if (target.closest(".skip-link") || target.closest("#boot-skip")) skip();
     };
 
     window.addEventListener("keydown", onKey);
     window.addEventListener("click", onPointer, true);
+    window.addEventListener("pointerup", onPointer, true);
 
     const tick = (now: number) => {
       if (cancelled) return;
@@ -197,6 +199,7 @@ export default function StageIntro() {
       window.cancelAnimationFrame(raf);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("click", onPointer, true);
+      window.removeEventListener("pointerup", onPointer, true);
       if (!finished) {
         document.body.style.overflow = "";
         setPageInert(false);

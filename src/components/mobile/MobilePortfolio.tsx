@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { profile } from "../../data/cv";
+import { MOBILE_LOAD_MS, dismissStageBoot } from "../../lib/introTiming";
 import {
   MORE_CHIPS,
   WELCOME_CHIPS,
@@ -23,11 +24,29 @@ export default function MobilePortfolio() {
   const cv = cvAction();
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-skip-intro", "true");
-    const boot = document.getElementById("stage-boot");
-    if (boot) boot.setAttribute("data-done", "true");
     document.body.style.overflow = "hidden";
+    const boot = document.getElementById("stage-boot");
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!boot || boot.getAttribute("data-done") === "true" || reduce) {
+      dismissStageBoot(true);
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+
+    const skip = () => dismissStageBoot(true);
+    boot.addEventListener("click", skip);
+    const fadeAt = window.setTimeout(
+      () => dismissStageBoot(false),
+      MOBILE_LOAD_MS,
+    );
+
     return () => {
+      window.clearTimeout(fadeAt);
+      boot.removeEventListener("click", skip);
       document.body.style.overflow = "";
     };
   }, []);

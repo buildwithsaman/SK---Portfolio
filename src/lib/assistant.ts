@@ -49,7 +49,7 @@ const TOPICS: Topic[] = [
     category: "Introduction",
     question: "Tell me about yourself",
     answer:
-      "I’m a frontend-focused Software Engineer based in Dubai with over two years of experience building production web applications. At Udrive, I work across internal operations, analytics, subscriptions, and customer-facing experiences using React, TypeScript, and Next.js. I also have practical backend experience with Python and Kafka-based automation.",
+      "I'm a Dubai-based Software Engineer focused on frontend development, with over two years of professional experience. I work mainly with React, Next.js, and TypeScript, building everything from operational tools to customer-facing experiences. I've also worked with Python and backend integrations. What I enjoy most is making complex software feel straightforward for the people using it.",
     aliases: [
       "Introduce yourself",
       "Who are you?",
@@ -62,7 +62,7 @@ const TOPICS: Topic[] = [
     category: "Introduction",
     question: "Why should we hire you?",
     answer:
-      "I combine hands-on ownership of complex frontend platforms with an understanding of business outcomes. At Udrive, I’ve built operational and analytics tools and contributed to work that reduced analytics infrastructure costs by approximately 70% and improved debt recovery by 30%. I focus on reliable, maintainable software that solves real problems.",
+      "I bring practical experience building and owning production frontend applications, especially with React, Next.js, and TypeScript. I enjoy untangling complex workflows and turning them into software that's clear, dependable, and easy to use. I've also contributed to projects with measurable business results. I'd be glad to talk through how that experience could help your team.",
     aliases: [
       "Why hire Saman?",
       "What makes you a good candidate?",
@@ -96,7 +96,7 @@ const TOPICS: Topic[] = [
     category: "Introduction",
     question: "What are your strengths?",
     answer:
-      "My strongest areas are frontend architecture, reusable React components, responsive design, complex operational interfaces, and API integration. I also bring experience improving performance and maintaining production applications.",
+      "I'd say my strengths are taking ownership, building maintainable React interfaces, and paying attention to the details that make an application genuinely useful. I'm comfortable with data-heavy screens, responsive design, and API integration, and I enjoy working through challenging problems with a practical mindset.",
     aliases: ["What are you best at?", "Your top skills?"],
     keywords: ["strength", "specialty"],
   },
@@ -105,7 +105,7 @@ const TOPICS: Topic[] = [
     category: "Introduction",
     question: "What is your greatest achievement?",
     answer:
-      "Two outcomes I’m proud of are contributing to an analytics migration that reduced infrastructure costs by approximately 70% and delivering invoice automation that improved debt recovery by 30%. They show how engineering work can create measurable business value.",
+      "I'm proudest of projects where the engineering work made a measurable difference. I contributed to an analytics migration associated with roughly 70% lower infrastructure costs, and I delivered invoice automation that improved debt recovery by 30%. It's rewarding when the impact of a solution goes beyond the code itself.",
     aliases: ["What are you most proud of?", "Biggest accomplishment?"],
     keywords: ["achievement", "impact"],
   },
@@ -177,7 +177,7 @@ const TOPICS: Topic[] = [
     category: "Introduction",
     question: "What makes you different from other frontend developers?",
     answer:
-      "My experience combines frontend ownership with business-critical workflows such as mobility operations, subscription administration, analytics, verification, and automation. I’ve worked on systems where usability, reliability, and measurable outcomes matter together.",
+      "Alongside building interfaces, I've worked closely with the business workflows those interfaces support: operations, subscriptions, analytics, and automation. That experience has taught me to think about reliability, clarity, and outcomes, not just how a screen looks. I enjoy being someone a team can rely on to take a feature from requirement to working software.",
     aliases: ["What sets you apart?", "Why are you unique?"],
     keywords: ["differentiator", "hire"],
   },
@@ -222,7 +222,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "What do you own at Udrive?",
     answer:
-      "I’m the primary frontend owner for major parts of Udrive’s React-based internal operations platform and built most of the React frontend for its monthly subscription administration system. I also work on the new customer-facing Next.js website.",
+      "I'm the primary frontend owner for major areas of Udrive's internal operations platform, and I built most of the frontend for its subscription administration system. These are proprietary business tools, so I can discuss my role and technical approach but can't share the actual interfaces or code publicly. If useful, I'm happy to discuss a representative demo.",
     aliases: ["What are your responsibilities?", "What do you lead?"],
     keywords: ["ownership", "udrive"],
   },
@@ -240,7 +240,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about the Operations platform.",
     answer:
-      "It’s a React and Material UI platform supporting customers, verifications, reservations, invoices, vehicles, damage reports, credits, fines, claims, analytics, and administration. I’ve developed and maintained features across these operational areas.",
+      "I've worked on a React and Material UI operations platform covering areas such as customers, reservations, vehicles, reporting, and administration. Much of my work involves making complex workflows consistent and easy for teams to use. Since it's an internal system, I can't show the actual dashboard, but I'd be happy to discuss a sample implementation.",
     aliases: ["What is Operations?", "Operations dashboard?"],
     keywords: ["operations", "dashboard"],
   },
@@ -258,7 +258,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about the analytics platform.",
     answer:
-      "I built or significantly enhanced six analytics areas: Trip Revenue, Cleaning, RTA Parking, Customer Stats, Metrics, and TARS. They use responsive tables and charts, shared filtering patterns, and CSV exports to support operational reporting.",
+      "I've built or significantly improved several reporting areas, including revenue, parking, customer statistics, and operational metrics. My focus has been on clear visualizations, useful filters, responsive tables, and export workflows. The live dashboards are private, but I can walk through the general design approach or prepare a sample with fictional data.",
     aliases: ["What analytics did you build?", "Analytics dashboard?"],
     keywords: ["analytics", "reports"],
   },
@@ -337,7 +337,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about Banner Studio.",
     answer:
-      "I built an in-app visual editor with draggable and resizable text, images, and shapes; templates; undo and redo; previews; and HTML/JSON import and export. It supports lightweight marketing content creation within the application.",
+      "I built a visual content editor with draggable and resizable elements, templates, undo and redo, previews, and import/export features. It's one of the projects I particularly enjoyed because it combines interaction design with careful state management. The original is internal, but I'd be happy to discuss a simplified demo.",
     aliases: ["What is Banner Studio?", "Marketing editor"],
     keywords: ["banner", "studio", "editor"],
   },
@@ -355,7 +355,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "How does driver tracking work?",
     answer:
-      "I built a near-real-time Mapbox driver map for mobility operations, using 10-second polling to refresh data. The surrounding tools support driver management, rides operations, and fleet workflows.",
+      "I worked on a Mapbox-based driver tracking interface that refreshed location information every 10 seconds, alongside related mobility tools. The production system is private, so I can explain the general frontend approach rather than share live tracking data or internal implementation details.",
     aliases: ["Driver map?", "Real-time vehicle tracking?", "Mapbox polling"],
     keywords: ["mapbox", "tracking", "drivers", "10 seconds"],
   },
@@ -391,7 +391,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about the subscription admin.",
     answer:
-      "I built most of the React frontend for Udrive’s monthly subscription administration platform, including sales, customers and KYC, fleet operations, subscriptions, invoices, product catalog, analytics, and role-based administration.",
+      "I built most of the React frontend for a subscription administration platform, including sales workflows, customer management, fleet operations, invoices, and reporting. It's a good example of the kind of interconnected, data-heavy application I enjoy working on. Because it's proprietary, I can describe my contribution or discuss a representative sample, rather than share the live product.",
     aliases: ["Monthly admin?", "Subscription dashboard"],
     keywords: ["subscription", "monthly"],
   },
@@ -400,7 +400,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about the CRM.",
     answer:
-      "I developed frontend workflows for lead management, sales stages, assignments, search, filters, archiving, and outreach as part of the subscription administration platform.",
+      "I developed frontend workflows for managing leads, sales stages, assignments, and follow-ups. I focused on making it easier to understand where each opportunity stands and what action comes next. The actual CRM is private, but I can describe the experience or show a separate illustrative demo if arranged.",
     aliases: ["Customer relationship management?", "Sales CRM"],
     keywords: ["crm", "sales"],
   },
@@ -454,7 +454,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about the new Udrive website.",
     answer:
-      "I’ve been building Udrive’s customer-facing website from Figma using Next.js App Router, TypeScript, and CSS Modules. The work includes roughly 20 routes, English/Arabic support, responsive components, and performance-focused asset delivery. That website is currently in development.",
+      "I've worked on Udrive's customer-facing website using Next.js, TypeScript, and CSS Modules, translating Figma designs into responsive English and Arabic experiences. My work includes reusable components and performance-conscious asset loading. I'm happy to discuss the publicly visible website and my engineering approach, while keeping internal project details private.",
     aliases: ["Website redesign?", "Customer website?", "Next.js website"],
     keywords: ["website", "nextjs"],
   },
@@ -494,7 +494,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "Tell me about KYC automation.",
     answer:
-      "I contributed to a production Python/FastStream Kafka pipeline using Taareef AI OCR, face/liveness/audio checks, AWS S3 documents, PostgreSQL updates, and automated approval or rejection workflows.",
+      "I've contributed to Python-based verification automation involving document checks, event-driven processing, and eligibility decisions. It gave me useful experience beyond frontend development. Because identity verification is sensitive, I can discuss the technologies and my responsibilities at a high level, but not private rules, customer data, or internal system details.",
     aliases: ["Identity verification?", "KYC pipeline"],
     keywords: ["kyc", "verification"],
   },
@@ -516,7 +516,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "How does liveness verification fit into KYC?",
     answer:
-      "The production verification pipeline incorporates face, liveness, and audio checks alongside document OCR and eligibility validation. I contributed to validation and decisioning logic; the CV does not specify the underlying biometric models.",
+      "The production verification pipeline incorporates face, liveness, and audio checks alongside document OCR and eligibility validation. I contributed to validation and decisioning logic; I'd be happy to discuss the details directly.",
     aliases: ["Face match?", "Biometric verification"],
     keywords: ["liveness", "face", "audio"],
   },
@@ -552,7 +552,7 @@ const TOPICS: Topic[] = [
     category: "Udrive",
     question: "What is your experience with Kafka monitoring?",
     answer:
-      "I contributed to Kafka-based monitoring and operational visibility as part of platform automation and observability work. My CV does not specify the monitoring stack or alert rules.",
+      "I've contributed to Kafka-related monitoring and operational visibility. I can discuss the general experience, though I keep the specifics of internal monitoring systems private.",
     aliases: ["Kafka observability?", "Operational monitoring"],
     keywords: ["kafka", "monitoring"],
   },
@@ -570,7 +570,7 @@ const TOPICS: Topic[] = [
     category: "Impact",
     question: "How did you reduce analytics costs by 70%?",
     answer:
-      "I contributed to moving analytics to a self-hosted Apache Superset environment with secure data pipelines and authentication. The migration reduced infrastructure costs by approximately 70%. My CV does not provide a detailed cost breakdown.",
+      "I contributed to moving analytics onto a self-hosted Apache Superset setup, which was associated with approximately 70% lower infrastructure costs. My involvement included areas such as secure data pipelines and authentication. I can explain my contribution at a high level, though the internal infrastructure and cost details aren't public.",
     aliases: ["70% cost reduction?", "Analytics savings"],
     keywords: ["70%", "cost", "superset"],
   },
@@ -579,7 +579,7 @@ const TOPICS: Topic[] = [
     category: "Impact",
     question: "How did you improve debt recovery by 30%?",
     answer:
-      "I delivered invoice automation using serverless functions. It reduced manual operational overhead and contributed to a 30% improvement in debt recovery.",
+      "I delivered serverless invoice automation that reduced manual effort and contributed to a 30% improvement in debt recovery. I enjoy this kind of work because even a focused technical improvement can have a meaningful operational impact. The internal business process itself isn't something I can share publicly.",
     aliases: ["30% debt recovery?", "Invoice results"],
     keywords: ["30%", "debt", "invoice"],
   },
@@ -597,7 +597,7 @@ const TOPICS: Topic[] = [
     category: "Impact",
     question: "How many users use your software?",
     answer:
-      "My CV documents production platforms but does not include verified user counts. I’d rather share an accurate figure directly than estimate one here.",
+      "These are production systems, but I don't publish internal usage figures. If you're interested in scale, I'd be happy to discuss the types of engineering challenges I've handled without sharing confidential metrics.",
     aliases: ["How many active users?", "Application usage numbers"],
     keywords: ["users", "scale", "traffic"],
   },
@@ -606,7 +606,7 @@ const TOPICS: Topic[] = [
     category: "Impact",
     question: "How much revenue did your work generate?",
     answer:
-      "My CV does not state a revenue figure. The documented outcomes are approximately 70% lower analytics infrastructure costs and 30% improved debt recovery.",
+      "I don't share internal revenue figures. The outcomes I can discuss are the approximately 70% reduction in analytics infrastructure costs and the 30% improvement in debt recovery from invoice automation.",
     aliases: ["Revenue generated?", "ROI in dollars"],
     keywords: ["revenue", "roi"],
   },
@@ -651,7 +651,7 @@ const TOPICS: Topic[] = [
     category: "Internships",
     question: "What are CARPRO and INTELLiVIEW?",
     answer:
-      "During my Arata internship, I supported CARPRO rental and leasing data operations and INTELLiVIEW business intelligence dashboards and data-quality workflows. My CV does not describe their full internal architectures.",
+      "During my Arata internship, I supported CARPRO rental and leasing data operations and INTELLiVIEW business intelligence dashboards and data-quality workflows. I'd be happy to discuss the details directly.",
     aliases: ["CARPRO?", "INTELLiVIEW?"],
     keywords: ["carpro", "intelliview"],
   },
@@ -839,7 +839,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Node.js?",
     answer:
-      "Node.js and Express are listed in my backend and integration skill set. My CV does not describe a specific Node.js project.",
+      "Node.js and Express are listed in my backend and integration skill set. I'd be happy to discuss the details directly.",
     aliases: ["Do you know Node.js?", "Have you used Node.js?"],
     keywords: ["node.js"],
   },
@@ -848,7 +848,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Express?",
     answer:
-      "Express is listed in my backend skill set, although my CV does not identify a dedicated Express project.",
+      "Express is listed in my backend skill set, although I'd be happy to discuss the details directly.",
     aliases: ["Do you know Express?", "Have you used Express?"],
     keywords: ["express"],
   },
@@ -884,7 +884,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with AWS Route 53?",
     answer:
-      "Route 53 is listed among my cloud tools; my CV does not detail a specific Route 53 implementation.",
+      "Route 53 is listed among my cloud tools; I don’t publicly detail a specific Route 53 implementation.",
     aliases: ["Do you know AWS Route 53?", "Have you used AWS Route 53?"],
     keywords: ["aws route 53"],
   },
@@ -893,7 +893,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with AWS CloudWatch?",
     answer:
-      "CloudWatch is included in my cloud and DevOps skills; the CV does not specify individual dashboards or alarms.",
+      "CloudWatch is included in my cloud and DevOps skills; I'd be happy to discuss the details directly.",
     aliases: ["Do you know AWS CloudWatch?", "Have you used AWS CloudWatch?"],
     keywords: ["aws cloudwatch"],
   },
@@ -902,7 +902,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Cloudflare?",
     answer:
-      "Cloudflare is listed in my cloud and deployment skills; my CV does not specify a particular Cloudflare implementation.",
+      "Cloudflare is listed in my cloud and deployment skills; I'd be happy to discuss the details directly.",
     aliases: ["Do you know Cloudflare?", "Have you used Cloudflare?"],
     keywords: ["cloudflare"],
   },
@@ -911,7 +911,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with GitHub Actions?",
     answer:
-      "GitHub Actions is included in my DevOps skill set, but my CV does not document a specific pipeline.",
+      "GitHub Actions is included in my DevOps skill set, but I'd be happy to discuss the details directly.",
     aliases: ["Do you know GitHub Actions?", "Have you used GitHub Actions?"],
     keywords: ["github actions"],
   },
@@ -938,7 +938,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Redux?",
     answer:
-      "Redux is part of my frontend skill set; my CV does not describe a specific Redux architecture.",
+      "Redux is part of my frontend skill set; I'd be happy to discuss the details directly.",
     aliases: ["Do you know Redux?", "Have you used Redux?"],
     keywords: ["redux"],
   },
@@ -983,7 +983,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with asyncpg?",
     answer:
-      "asyncpg is included in my backend integration skill set; the CV does not specify a dedicated project using it.",
+      "asyncpg is included in my backend integration skill set; I'd be happy to discuss the details directly.",
     aliases: ["Do you know asyncpg?", "Have you used asyncpg?"],
     keywords: ["asyncpg"],
   },
@@ -1001,7 +1001,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Apache Airflow?",
     answer:
-      "Apache Airflow is listed in my data and monitoring skill set; my CV does not describe a specific DAG or deployment.",
+      "Apache Airflow is listed in my data and monitoring skill set; I'd be happy to discuss the details directly.",
     aliases: ["Do you know Apache Airflow?", "Have you used Apache Airflow?"],
     keywords: ["apache airflow"],
   },
@@ -1010,7 +1010,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with MS SQL Server?",
     answer:
-      "MS SQL Server is listed in my data skill set; the CV does not document a specific project using it.",
+      "MS SQL Server is listed in my data skill set; I'd be happy to discuss the details directly.",
     aliases: ["Do you know MS SQL Server?", "Have you used MS SQL Server?"],
     keywords: ["ms sql server"],
   },
@@ -1019,7 +1019,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Firebase?",
     answer:
-      "Firebase is included in my data and monitoring skills; my CV does not describe a specific Firebase implementation.",
+      "Firebase is included in my data and monitoring skills; I'd be happy to discuss the details directly.",
     aliases: ["Do you know Firebase?", "Have you used Firebase?"],
     keywords: ["firebase"],
   },
@@ -1045,7 +1045,7 @@ const TOPICS: Topic[] = [
     category: "Stack",
     question: "What is your experience with Jira and Confluence?",
     answer:
-      "Jira and Confluence are included in my tooling experience, though my CV does not describe a specific team process.",
+      "Jira and Confluence are included in my tooling experience, though I'd be happy to discuss the details directly.",
     aliases: [
       "Do you know Jira and Confluence?",
       "Have you used Jira and Confluence?",
@@ -1159,7 +1159,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "How do you debug production issues?",
     answer:
-      "I have production experience maintaining operational applications and implementing clear loading and error feedback. My CV does not document a particular debugging incident, so I’d discuss a specific example directly rather than invent one.",
+      "I start by understanding the symptoms and impact, then narrow down the likely causes and verify changes carefully. My production experience includes handling API errors, loading states, and operational workflows where clear feedback matters. I'm happy to talk through an example without exposing internal details.",
     aliases: ["Production debugging?", "Troubleshooting"],
     keywords: ["debug", "incident"],
   },
@@ -1168,7 +1168,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "What testing frameworks do you use?",
     answer:
-      "My public CV does not list specific testing frameworks, so I wouldn’t claim experience with a particular one based on the CV alone. I’m happy to discuss my actual testing workflow directly.",
+      "I haven't listed a specific testing framework in my public CV, so I'd rather not overstate that experience. If testing practices are important for your role, feel free to ask me directly and I can describe the tools and workflows I've actually used.",
     aliases: ["Jest?", "Playwright?", "Unit tests"],
     keywords: ["testing", "qa"],
   },
@@ -1177,7 +1177,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "Have you worked with CI/CD?",
     answer:
-      "GitHub Actions and cloud deployment tooling are included in my skills. I’ve also handled frontend deployment on AWS EC2 with Nginx and HTTPS; my CV does not describe a particular CI/CD pipeline configuration.",
+      "GitHub Actions and cloud deployment tooling are included in my skills. I’ve also handled frontend deployment on AWS EC2 with Nginx and HTTPS; I'd be happy to discuss the details directly.",
     aliases: ["Continuous deployment?", "Build pipeline"],
     keywords: ["cicd", "deploy"],
   },
@@ -1195,7 +1195,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "What is your most technically challenging project?",
     answer:
-      "My CV shows several complex projects, including large operations platforms, Banner Studio, and KYC automation. It does not identify one as my single hardest project, so I’d prefer to discuss that comparison directly.",
+      "I've worked on several challenging areas, from data-heavy operations platforms to an interactive editor and verification automation. Each presented different engineering problems. If there's a particular kind of challenge you're interested in, I'd be happy to go deeper into a relevant example.",
     aliases: ["Hardest project?", "Most complex challenge"],
     keywords: ["challenge", "hardest"],
   },
@@ -1204,7 +1204,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "How do you handle technical debt?",
     answer:
-      "I’ve worked on maintainability through reusable components and a CRA/CRACO-to-Vite migration. My CV does not describe a formal technical-debt process, so I wouldn’t invent one.",
+      "I’ve worked on maintainability through reusable components and a CRA/CRACO-to-Vite migration. I'd be happy to discuss the details directly.",
     aliases: ["Refactoring strategy?", "Code quality"],
     keywords: ["technical debt", "refactor"],
   },
@@ -1213,7 +1213,7 @@ const TOPICS: Topic[] = [
     category: "Engineering",
     question: "How do you manage state in React?",
     answer:
-      "Redux is listed in my skills, and I’ve built stateful interfaces including Kanban workflows and Banner Studio. My CV does not specify the state-management design of each application.",
+      "Redux is listed in my skills, and I’ve built stateful interfaces including Kanban workflows and Banner Studio. I'd be happy to discuss the details directly.",
     aliases: ["React state management?", "Redux architecture"],
     keywords: ["state", "redux"],
   },
@@ -1267,7 +1267,7 @@ const TOPICS: Topic[] = [
     category: "Education",
     question: "What did you learn about networking and IoT?",
     answer:
-      "My professional development includes Introduction to Networks and IoT Fundamentals through Cisco Networking Academy in 2023. The CV does not list specific course projects.",
+      "My professional development includes Introduction to Networks and IoT Fundamentals through Cisco Networking Academy in 2023. I'd be happy to discuss the details directly.",
     aliases: ["Cisco certification?", "IoT course"],
     keywords: ["cisco", "iot", "networking"],
   },
@@ -1336,7 +1336,7 @@ const TOPICS: Topic[] = [
     id: "q141",
     category: "Contact",
     question: "What is your phone number?",
-    answer: "My phone number listed on my CV is +971 506019290.",
+    answer: "My phone number listed on my CV is +971 50 601 9290.",
     aliases: ["Mobile number?", "Call you"],
     keywords: ["phone", "mobile"],
   },
@@ -1345,7 +1345,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Where can I find your LinkedIn?",
     answer:
-      "My LinkedIn is https://www.linkedin.com/in/saman-shakil-khan-62728b208/. You can also use the LinkedIn link in the portfolio contact section.",
+      "Use the LinkedIn link in my portfolio’s navigation or contact section. My CV references LinkedIn but does not include a visible profile URL in its extracted text.",
     aliases: ["LinkedIn profile?", "Connect on LinkedIn"],
     keywords: ["linkedin", "social"],
   },
@@ -1354,7 +1354,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Where can I find your GitHub?",
     answer:
-      "My GitHub is https://github.com/buildwithsaman. You can also use the GitHub link in the portfolio contact section.",
+      "Use the GitHub link in my portfolio’s navigation or contact section. My CV references GitHub but does not include a visible profile URL in its extracted text.",
     aliases: ["GitHub profile?", "See your repositories"],
     keywords: ["github", "code"],
   },
@@ -1363,7 +1363,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Can I download your CV?",
     answer:
-      "Yes. Use the Download CV button on my portfolio to get Saman_Khan_CV.pdf, the same file as the desktop site.",
+      "Yes. Use the Download CV button on my portfolio to get the latest published resume.",
     aliases: ["Download resume?", "Get your PDF CV"],
     keywords: ["cv", "download", "resume"],
   },
@@ -1372,7 +1372,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Are you open to opportunities?",
     answer:
-      "I’m a Dubai-based Software Engineer open to engineering opportunities, technical collaborations, and conversations about building production software. Roles involving React, Next.js, and frontend-focused platforms are a strong fit. Email is the best next step.",
+      "I’m happy to discuss relevant engineering opportunities, particularly roles involving React, Next.js, complex web applications, and frontend-focused software engineering. Please contact me for current availability.",
     aliases: ["Are you hiring?", "Looking for work?", "Open to work"],
     keywords: ["opportunities", "jobs"],
   },
@@ -1408,7 +1408,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "What is your preferred work arrangement?",
     answer:
-      "My public CV does not specify a preference for remote, hybrid, or onsite work. Please contact me to discuss the role and arrangement.",
+      "I don’t publicly specify a preference for remote, hybrid, or onsite work. Please contact me to discuss the role and arrangement.",
     aliases: ["Remote or onsite?", "Hybrid work"],
     keywords: ["remote", "hybrid", "onsite"],
   },
@@ -1417,7 +1417,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Why are you leaving your current job?",
     answer:
-      "My CV does not state a reason for considering a change. I’d prefer to discuss my motivations and fit for a particular opportunity directly.",
+      "I'd prefer to discuss career motivations in the context of a specific opportunity. Feel free to get in touch, and I'd be happy to have that conversation.",
     aliases: ["Why change jobs?", "Why leave Udrive"],
     keywords: ["leaving", "job change"],
   },
@@ -1426,7 +1426,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "What are your long-term career goals?",
     answer:
-      "My CV establishes a strong focus on frontend engineering and production systems, but does not state a specific long-term career plan. I’d be glad to discuss my goals in the context of a role.",
+      "I enjoy building dependable software and continuing to grow as an engineer, especially around frontend architecture and production systems. For a more detailed conversation about where I want to grow next, feel free to reach out.",
     aliases: ["Where do you see yourself in five years?", "Career goals"],
     keywords: ["goals", "future"],
   },
@@ -1435,7 +1435,7 @@ const TOPICS: Topic[] = [
     category: "Contact",
     question: "Can you share Udrive source code?",
     answer:
-      "I can discuss the projects and responsibilities described in my CV, but I don’t share proprietary company source code or confidential implementation details.",
+      "I can't share Udrive's source code because it belongs to the company. You're welcome to explore my public GitHub projects, though. If you'd like to understand a particular feature, please contact me and I can discuss creating an independent sample using fictional data.",
     aliases: ["Show private code?", "Company repository"],
     keywords: ["source", "confidential"],
   },
@@ -1444,7 +1444,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "Who built this portfolio?",
     answer:
-      "I built this portfolio. I’m Saman Khan, a Software Engineer based in Dubai.",
+      "This is the portfolio of Saman Khan, a Software Engineer based in Dubai. For implementation details about the portfolio itself, please refer to the published project information.",
     aliases: ["Who made this site?", "Whose portfolio is this?"],
     keywords: ["portfolio", "owner"],
   },
@@ -1453,7 +1453,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "What should I explore first?",
     answer:
-      "A good starting point is my Udrive experience and project work, especially the operations platform, analytics modules, subscription administration, and customer-facing website.",
+      "I'd start with the Work section to get a feel for the problems I've worked on, then check out my technical skills and experience. If a project catches your eye, ask me about it here. For anything proprietary, I can describe my approach without sharing internal material.",
     aliases: ["Where should I start?", "Best project to see"],
     keywords: ["explore", "projects"],
   },
@@ -1462,7 +1462,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "Can I ask about a specific project?",
     answer:
-      "Absolutely. You can ask about Operations, Analytics, Banner Studio, driver tracking, subscription admin, CRM, the Next.js website, KYC, or automation.",
+      "Of course! Ask about the operations platform, analytics, CRM, Banner Studio, the website, or automation. I can explain my role and the technologies involved, and if you'd like to see something visual from an internal project, feel free to contact me about a separate sample demo.",
     aliases: ["What can I ask?", "Project questions"],
     keywords: ["questions", "projects"],
   },
@@ -1471,7 +1471,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "How does this portfolio chatbot work?",
     answer:
-      "This is a local Q&A over 159 questions from my CV, not a live model. As you type, it suggests matching questions. Selecting one shows the stored answer. If a question is not in that set, I will say so and share my email instead of inventing a fact.",
+      "This chat uses a locally stored set of questions and answers about my experience. Start typing and you'll see matching suggestions. Pick one to get a quick answer. For anything more specific, you're welcome to contact me directly.",
     aliases: ["Is this AI?", "How does autocomplete work?"],
     keywords: ["chatbot", "assistant", "autocomplete"],
   },
@@ -1480,7 +1480,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "What technologies power this portfolio?",
     answer:
-      "This site is a Vite, React 19, TypeScript, Tailwind, and Framer Motion static portfolio. Below laptop width it becomes a conversational Q&A over my CV. Desktop is the cinematic page with intro, career, work, skills, and contact.",
+      "My CV documents my professional technology stack but does not specify the implementation of this portfolio website. The portfolio project itself should be the source for that answer.",
     aliases: ["Portfolio tech stack?", "How was this site built?"],
     keywords: ["portfolio", "stack"],
   },
@@ -1489,7 +1489,7 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "Can I see your projects?",
     answer:
-      "Yes. On desktop, the Work section covers five Udrive domains. On mobile, ask about Operations, CRM, the website, KYC, or automation. Public code is on GitHub at https://github.com/buildwithsaman.",
+      "Absolutely. The Work section highlights the kinds of systems I've built, and my GitHub has public projects you can explore. Udrive's internal tools aren't publicly accessible, but I'm happy to discuss my contributions or arrange an independent illustrative demo if that would be useful.",
     aliases: ["Show projects", "View work"],
     keywords: ["work", "projects"],
   },
@@ -1498,9 +1498,172 @@ const TOPICS: Topic[] = [
     category: "Portfolio",
     question: "Can I hire you for a project?",
     answer:
-      "Please get in touch at samankhanhq@gmail.com with the project scope and requirements. I can discuss whether it is a suitable fit.",
+      "I'd be happy to hear what you have in mind. Send me a brief description of the project at samankhanhq@gmail.com, and we can see whether it's a good fit.",
     aliases: ["Freelance?", "Contract work?", "Work together"],
     keywords: ["hire", "freelance"],
+  },
+  {
+    id: "q160",
+    category: "Privacy & Demos",
+    question: "Can you show me the Udrive dashboard?",
+    answer:
+      "Udrive's dashboards are internal, so I can't share live screens or screenshots publicly. I can explain the type of work I did, and if a visual example would help, please contact me about a separate sample interface built with fictional data.",
+    aliases: [
+      "Show me the operations dashboard",
+      "Can I see the admin dashboard?",
+    ],
+    keywords: ["udrive", "dashboard", "screenshot", "demo"],
+  },
+  {
+    id: "q161",
+    category: "Privacy & Demos",
+    question: "Can you give me a demo of your Udrive work?",
+    answer:
+      "I'd be happy to discuss that. I can't demonstrate Udrive's private production systems, but I can explore creating an independent sample that illustrates the kind of interface or interaction I built. Email me at samankhanhq@gmail.com and let me know what you'd like to see.",
+    aliases: [
+      "Can I book a demo?",
+      "Show me a sample",
+      "Can you create a sample?",
+    ],
+    keywords: ["demo", "sample", "udrive", "portfolio"],
+  },
+  {
+    id: "q162",
+    category: "Privacy & Demos",
+    question: "Can you share screenshots of your internal projects?",
+    answer:
+      "I don't publish screenshots of internal Udrive applications. If you'd like a visual reference, please get in touch and we can discuss a separate, fictional-data sample that doesn't expose company information.",
+    aliases: ["Do you have screenshots?", "Show UI images"],
+    keywords: ["screenshots", "images", "private", "ui"],
+  },
+  {
+    id: "q163",
+    category: "Privacy & Demos",
+    question: "Can you share Udrive API endpoints or architecture?",
+    answer:
+      "I can explain the technologies and general engineering patterns I've worked with, but I don't share internal API endpoints, infrastructure diagrams, credentials, or proprietary architecture. If you're evaluating my skills, I'm happy to discuss a generic design or independent example.",
+    aliases: [
+      "Show the API",
+      "Can I see your architecture diagram?",
+      "How is Udrive built internally?",
+    ],
+    keywords: ["api", "architecture", "security", "confidential"],
+  },
+  {
+    id: "q164",
+    category: "Privacy & Demos",
+    question: "Can you share customer or operational data?",
+    answer:
+      "No, I don't share private customer, vehicle, financial, or operational data. Any example I prepare would use fictional or appropriately sanitized information, independent of Udrive's production systems.",
+    aliases: ["Show real data", "Can I see customer records?"],
+    keywords: ["data", "privacy", "customer", "confidential"],
+  },
+  {
+    id: "q165",
+    category: "Privacy & Demos",
+    question: "Can you build a sample version of a feature?",
+    answer:
+      "Potentially, yes. If there's a feature you'd like to understand, contact me with what you're interested in. We can discuss a small, independent demonstration with fictional data, without reusing confidential code or designs.",
+    aliases: ["Can you recreate a feature?", "Can you make a prototype?"],
+    keywords: ["sample", "prototype", "demo", "feature"],
+  },
+  {
+    id: "q166",
+    category: "Privacy & Demos",
+    question:
+      "Can you walk me through your contribution without showing the product?",
+    answer:
+      "Absolutely. I can talk through the problem, my responsibilities, the tools I used, and the general trade-offs I considered. That usually gives a much better picture of my engineering approach than a screenshot alone.",
+    aliases: ["Explain your contribution", "Walk me through a private project"],
+    keywords: ["contribution", "ownership", "walkthrough"],
+  },
+  {
+    id: "q167",
+    category: "Privacy & Demos",
+    question: "Are your GitHub repositories the same as your Udrive projects?",
+    answer:
+      "No. My public GitHub contains work I can share openly. Udrive's internal projects are proprietary and aren't published there. If you'd like to understand that work, the portfolio descriptions are a starting point and I'm happy to discuss an independent demo.",
+    aliases: ["Is Udrive code on GitHub?", "Where is the Udrive repo?"],
+    keywords: ["github", "repository", "private", "udrive"],
+  },
+  {
+    id: "q168",
+    category: "Introduction",
+    question: "Tell me about your professional experience.",
+    answer:
+      "My professional software engineering career began at Udrive in August 2024. Since then, I've worked on production applications covering internal operations, analytics, subscription management, CRM, and customer-facing web development.\n\nBefore Udrive, I completed two internships that gave me practical exposure to Python, React Native, and backend development. Those experiences helped build my foundation, while Udrive is where I've developed most of my production engineering experience.",
+    aliases: [
+      "Tell me about your experience",
+      "Professional experience?",
+      "Describe your career so far",
+    ],
+    keywords: ["professional", "experience", "career"],
+  },
+  {
+    id: "q169",
+    category: "Portfolio",
+    question: "Can I see your previous projects?",
+    answer:
+      "Most of my professional work has been developed at Udrive, where the applications and source code are proprietary.\n\nI also worked on projects during my internships, although I no longer have access to their original source code. If there's something specific you'd like to see, I'd be happy to discuss creating a representative demo using sample data.",
+    aliases: ["Previous projects?", "Show previous work"],
+    keywords: ["previous", "projects", "portfolio"],
+  },
+  {
+    id: "q170",
+    category: "Privacy & Demos",
+    question: "Can I see your Udrive projects?",
+    answer:
+      "Most of my work at Udrive involves internal business applications, so I can't share the original systems, screenshots, or source code publicly.\n\nHowever, I'd be happy to discuss my contributions, the technologies involved, and the engineering challenges I've worked on. If you're interested in seeing something practical, feel free to contact me about a representative demonstration.",
+    aliases: ["Show Udrive projects?", "Udrive portfolio?"],
+    keywords: ["udrive", "projects", "private"],
+  },
+  {
+    id: "q171",
+    category: "Internships",
+    question: "Do you have professional experience before Udrive?",
+    answer:
+      "Before joining Udrive, I completed internships at Dubai Technologies and Arata International, part of Bahwan International Group.\n\nDuring those internships, I worked with Python desktop applications, React Native, and .NET REST APIs. Udrive is my first full-time software engineering role, where I've gained my primary production experience.",
+    aliases: ["Experience before Udrive?", "Did you work before Udrive?"],
+    keywords: ["before", "udrive", "internships"],
+  },
+  {
+    id: "q172",
+    category: "Internships",
+    question: "Can I see your internship projects?",
+    answer:
+      "I don't currently have access to the original source code from my internship projects. However, I can explain what I developed, the technologies I used, and the problems those applications were designed to solve.\n\nIf you'd prefer something visual, feel free to reach out. I'd be happy to discuss creating a simplified demonstration of similar functionality.",
+    aliases: ["Internship projects?", "Show internship work"],
+    keywords: ["internship", "projects", "source"],
+  },
+  {
+    id: "q173",
+    category: "Introduction",
+    question: "What is your most significant professional experience?",
+    answer:
+      "My work at Udrive represents my most substantial professional experience. I've taken responsibility for complex React applications, contributed to production automation, developed analytics and operational tools, and worked on customer-facing applications.\n\nIt's also where I've had the opportunity to connect engineering decisions with measurable business outcomes.",
+    aliases: [
+      "Most significant experience?",
+      "Biggest professional experience",
+    ],
+    keywords: ["significant", "experience", "udrive"],
+  },
+  {
+    id: "q174",
+    category: "Portfolio",
+    question: "Can you demonstrate your development skills?",
+    answer:
+      "Absolutely! My GitHub and portfolio are good starting points for exploring my public work.\n\nFor applications developed at Udrive or during my internships, the original code isn't available for public viewing. However, I'm happy to discuss my approach or create an independent sample that demonstrates relevant functionality.",
+    aliases: ["Demonstrate your skills?", "Show your skills"],
+    keywords: ["demonstrate", "skills", "github"],
+  },
+  {
+    id: "q175",
+    category: "Privacy & Demos",
+    question: "Why aren't all your projects on GitHub?",
+    answer:
+      "Much of my professional work has been developed for companies, so the original source code isn't something I can publish.\n\nMy portfolio focuses on explaining my responsibilities, technical experience, and contributions. If you're interested in a particular feature or technology, I'd be happy to discuss it or explore creating a representative demo.",
+    aliases: ["Why isn't everything on GitHub?", "Why not on GitHub?"],
+    keywords: ["github", "projects", "private"],
   },
 ];
 
@@ -1542,7 +1705,7 @@ function actionsFor(item: Topic): AssistantAction[] | undefined {
   if (item.id === "q142") {
     return [{ label: "LinkedIn", href: profile.linkedin }];
   }
-  if (item.id === "q143") {
+  if (item.id === "q143" || item.id === "q167") {
     return [{ label: "GitHub", href: profile.github }];
   }
   if (
@@ -1551,7 +1714,23 @@ function actionsFor(item: Topic): AssistantAction[] | undefined {
     item.id === "q146" ||
     item.id === "q147" ||
     item.id === "q148" ||
-    item.id === "q159"
+    item.id === "q149" ||
+    item.id === "q150" ||
+    item.id === "q151" ||
+    item.id === "q152" ||
+    item.id === "q159" ||
+    item.id === "q160" ||
+    item.id === "q161" ||
+    item.id === "q162" ||
+    item.id === "q163" ||
+    item.id === "q164" ||
+    item.id === "q165" ||
+    item.id === "q166" ||
+    item.id === "q169" ||
+    item.id === "q170" ||
+    item.id === "q172" ||
+    item.id === "q174" ||
+    item.id === "q175"
   ) {
     return contactActions();
   }
